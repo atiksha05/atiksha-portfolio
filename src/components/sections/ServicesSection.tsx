@@ -53,7 +53,7 @@ function QuotePlaceholderCard({
   return (
     <article
       className={cn(
-        "group flex h-full flex-col rounded-2xl border p-6 transition-all duration-500 sm:p-7",
+        "group flex h-full flex-col rounded-2xl border p-5 transition-all duration-500 sm:p-6 md:p-7",
         accent
           ? "border-pink-400/30 bg-gradient-to-br from-pink-500/20 via-fuchsia-500/10 to-purple-500/10 shadow-[0_0_40px_rgba(244,114,182,0.12)]"
           : "border-pink-400/15 bg-pink-500/[0.03] hover:border-pink-400/35 hover:bg-pink-500/[0.05] hover:shadow-[0_0_32px_rgba(244,114,182,0.18)]",
@@ -85,13 +85,13 @@ function MetricPlaceholderCard({
   return (
     <article
       className={cn(
-        "group flex h-full flex-col justify-center rounded-2xl border p-6 transition-all duration-500 sm:p-7",
+        "group flex h-full flex-col justify-center rounded-2xl border p-5 transition-all duration-500 sm:p-6 md:p-7",
         accent
           ? "border-pink-400/30 bg-gradient-to-br from-pink-500/20 via-fuchsia-500/10 to-purple-500/10 shadow-[0_0_40px_rgba(244,114,182,0.12)]"
           : "border-pink-400/15 bg-pink-500/[0.03] hover:border-pink-400/35 hover:bg-pink-500/[0.05] hover:shadow-[0_0_32px_rgba(244,114,182,0.18)]",
       )}
     >
-      <p className="font-serif-display text-5xl text-pink-100 sm:text-6xl">{value}</p>
+      <p className="font-serif-display text-4xl text-pink-100 sm:text-5xl md:text-6xl">{value}</p>
       <p className="mt-3 text-sm text-pink-200/50">{label}</p>
     </article>
   );
@@ -99,15 +99,15 @@ function MetricPlaceholderCard({
 
 export function ServicesSection() {
   return (
-    <section className="relative overflow-hidden border-t border-pink-500/[0.08] bg-black py-10 md:py-14 lg:py-20">
+    <section className="relative overflow-hidden border-t border-pink-500/[0.08] bg-black section-padding">
       <div
         className="pointer-events-none absolute right-0 top-1/3 h-64 w-64 rounded-full bg-pink-500/[0.06] blur-[100px]"
         aria-hidden
       />
 
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
+      <div className="section-container relative">
         <div className="max-w-2xl">
-          <h2 className="font-serif-display text-3xl uppercase tracking-wide text-white sm:text-4xl lg:text-5xl">
+          <h2 className="font-serif-display text-2xl uppercase tracking-wide text-white sm:text-3xl md:text-4xl lg:text-5xl">
             What People Say About Me
           </h2>
           <p className="mt-4 text-sm leading-relaxed text-pink-100/55 sm:text-base">

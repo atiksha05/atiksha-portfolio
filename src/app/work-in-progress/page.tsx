@@ -20,13 +20,13 @@ export default function WorkInProgressPage() {
       <Navbar />
       <WipBackground />
 
-      <main className="relative mx-auto max-w-7xl px-6 pb-24 pt-28 lg:px-10 lg:pt-32">
+      <main className="section-container relative pb-20 pt-24 sm:pb-24 sm:pt-28 md:pt-32">
         <div className="max-w-3xl">
           <span className="inline-flex items-center gap-2 rounded-full border border-pink-400/35 bg-pink-500/10 px-4 py-1.5 text-xs text-pink-200 backdrop-blur-sm">
             <Sparkles className="h-3.5 w-3.5 text-pink-300" />
             Building now
           </span>
-          <h1 className="font-serif-display mt-6 text-4xl text-white sm:text-5xl md:text-6xl">
+          <h1 className="font-serif-display mt-6 text-3xl text-white sm:text-4xl md:text-5xl lg:text-6xl">
             Recent Work in Progress
           </h1>
           <p className="mt-5 text-base leading-relaxed text-pink-100/55 sm:text-lg">

@@ -7,7 +7,7 @@ export default function StoryPage() {
   const chapters = [myStory.past, myStory.present, myStory.future];
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-black">
+    <div className="relative min-h-screen overflow-x-hidden bg-black">
       <div
         className="pointer-events-none absolute right-0 top-0 h-96 w-96 rounded-full bg-pink-500/10 blur-[120px]"
         aria-hidden
@@ -17,7 +17,8 @@ export default function StoryPage() {
         aria-hidden
       />
 
-      <div className="relative mx-auto max-w-3xl px-6 py-12 sm:py-16 lg:px-10">
+      <div className="section-container relative py-12 sm:py-16 md:py-20">
+        <div className="mx-auto max-w-3xl">
         <Link
           href="/#about"
           className="inline-flex items-center gap-2 text-sm text-pink-300/70 transition-colors hover:text-pink-200"
@@ -32,7 +33,7 @@ export default function StoryPage() {
           </span>
         </div>
 
-        <h1 className="mt-8 font-serif-display text-4xl text-white sm:text-5xl md:text-6xl">
+        <h1 className="mt-8 font-serif-display text-3xl text-white sm:text-4xl md:text-5xl lg:text-6xl">
           {myStory.title}
         </h1>
         <p className="mt-6 text-lg leading-relaxed text-pink-100/55">
@@ -43,7 +44,7 @@ export default function StoryPage() {
           {chapters.map((chapter, i) => (
             <article
               key={chapter.heading}
-              className="rounded-2xl border border-pink-400/15 bg-pink-500/[0.03] p-8 sm:p-10"
+              className="rounded-2xl border border-pink-400/15 bg-pink-500/[0.03] p-6 sm:p-8 md:p-10"
             >
               <p className="text-xs font-bold uppercase tracking-[0.35em] text-pink-400/60">
                 {String(i + 1).padStart(2, "0")}
@@ -68,6 +69,7 @@ export default function StoryPage() {
               sizes="224px"
             />
           </div>
+        </div>
         </div>
       </div>
     </div>

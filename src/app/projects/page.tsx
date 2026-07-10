@@ -3,13 +3,14 @@ import Link from "next/link";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { ProjectMasonryCard } from "@/components/projects/ProjectMasonryCard";
+import { ProjectsHero } from "@/components/projects/ProjectsHero";
 import { allProjects } from "@/data/projects";
 import { site } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "All Projects — Atiksha Antil",
+  title: "My Work — Atiksha Antil",
   description:
-    "Selected software engineering projects by Atiksha Antil — full-stack, systems, and C++ work on GitHub.",
+    "A collection of products, experiments, and ideas from Atiksha Antil — software engineering and product management.",
 };
 
 export default function ProjectsPage() {
@@ -17,22 +18,10 @@ export default function ProjectsPage() {
     <div className="relative min-h-screen bg-black">
       <Navbar />
 
-      <main className="relative mx-auto max-w-7xl px-6 pb-24 pt-28 lg:px-10 lg:pt-32">
-        <div className="max-w-2xl">
-          <p className="text-xs uppercase tracking-[0.2em] text-white/40">
-            Portfolio
-          </p>
-          <h1 className="font-serif-display mt-4 text-4xl text-white sm:text-5xl md:text-6xl">
-            All Projects
-          </h1>
-          <p className="mt-5 text-base leading-relaxed text-white/50 sm:text-lg">
-            A curated collection of software engineering work — from full-stack
-            platforms to systems and data structures. Click any card to view the
-            repo on GitHub.
-          </p>
-        </div>
+      <main className="section-container relative pb-20 pt-[120px] sm:pb-24">
+        <ProjectsHero />
 
-        <div className="mt-14 columns-1 gap-6 sm:mt-16 md:columns-2 lg:columns-3">
+        <div className="mt-16 columns-1 gap-6 md:columns-2 lg:columns-3">
           {allProjects.map((project) => (
             <ProjectMasonryCard key={project.id} project={project} />
           ))}

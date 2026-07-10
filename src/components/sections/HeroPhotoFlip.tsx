@@ -10,7 +10,7 @@ type HeroPhotoFlipProps = {
 };
 
 const photoClass =
-  "object-cover max-h-[calc(100svh-15.5rem)] h-[clamp(212px,36vh,364px)] w-[clamp(159px,27vw,273px)] sm:max-h-[calc(100svh-15rem)] sm:h-[clamp(250px,40vh,403px)] sm:w-[clamp(187px,30vw,302px)] lg:max-h-[calc(100svh-14.5rem)] lg:h-[clamp(400px,59vh,620px)] lg:w-[clamp(300px,44.25vh,465px)]";
+  "object-cover max-w-full h-[clamp(190px,34vh,340px)] w-[clamp(142px,26vw,255px)] sm:max-h-[calc(100svh-15rem)] sm:h-[clamp(230px,38vh,380px)] sm:w-[clamp(172px,28vw,285px)] lg:max-h-[calc(100svh-14.5rem)] lg:h-[clamp(400px,59vh,620px)] lg:w-[clamp(300px,44.25vh,465px)]";
 
 const frameClass =
   "overflow-hidden rounded-[1.5rem] border-[5px] border-pink-400 shadow-[0_0_0_4px_rgba(244,114,182,0.3),0_0_40px_rgba(244,114,182,0.2)] sm:rounded-[2rem]";

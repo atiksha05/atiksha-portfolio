@@ -132,10 +132,23 @@ export const projectMarquee = [
 ];
 
 export const about = {
-  title: "Meet Atiksha",
-  bio: "I'm Atiksha, a Computer Science student at San Francisco State University based in San Francisco. I specialize in shipping full-stack software and leading technical programs — blending engineering depth with product thinking to deliver systems that teams and users can rely on.",
+  title: "The Person Behind the Product",
+  intro: [
+    "I'm Atiksha, a Computer Science student at San Francisco State University, software engineer, and aspiring product manager. I love building products that combine technology, creativity, and empathy — from AI tools to campus platforms and productivity systems.",
+    "I'm especially interested in creating experiences that help people learn, grow, and feel more organized in their everyday lives.",
+  ],
   portrait: "/images/atiksha-about.png",
   avatar3d: "/images/atiksha-avatar-3d-cutout.png",
+  skillPills: [
+    "React",
+    "Next.js",
+    "TypeScript",
+    "AI",
+    "Product Management",
+    "Leadership",
+    "Full Stack",
+    "UX Thinking",
+  ],
 };
 
 export const myStory = {
