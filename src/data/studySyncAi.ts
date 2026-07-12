@@ -201,6 +201,6 @@ export const studySyncAi = {
       "Become the default operating system for student builders — from first internship to first offer, with AI that grows alongside every milestone.",
   },
 
-  isPrivate: true,
-  githubUrl: undefined as string | undefined,
+  isPrivate: false,
+  githubUrl: "https://github.com/atiksha05/StudySync-AI",
 };

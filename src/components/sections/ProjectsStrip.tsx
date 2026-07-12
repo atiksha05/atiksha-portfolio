@@ -34,10 +34,12 @@ function RecentWorkCard({
   onDeactivate: () => void;
 }) {
   const isPublic = Boolean(project.githubUrl) && !project.isPrivate;
+  const href = project.href ?? (isPublic ? project.githubUrl : undefined);
+  const isExternal = Boolean(href?.startsWith("http"));
 
   const cardClass = cn(
     cardBaseClass,
-    isPublic ? "cursor-pointer" : "cursor-default",
+    href ? "cursor-pointer" : "cursor-default",
     isActive
       ? "-translate-y-2 border-pink-400/45 shadow-[0_0_32px_rgba(244,114,182,0.22),0_16px_48px_rgba(0,0,0,0.45)]"
       : "border-pink-400/12 shadow-[0_12px_40px_rgba(0,0,0,0.35)]",
@@ -115,18 +117,31 @@ function RecentWorkCard({
     },
   };
 
-  if (isPublic) {
+  if (href) {
+    if (isExternal) {
+      return (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={cardClass}
+          aria-label={`Open ${project.title}`}
+          {...interactionProps}
+        >
+          {cardContent}
+        </a>
+      );
+    }
+
     return (
-      <a
-        href={project.githubUrl}
-        target="_blank"
-        rel="noopener noreferrer"
+      <Link
+        href={href}
         className={cardClass}
         aria-label={`Open ${project.title}`}
         {...interactionProps}
       >
         {cardContent}
-      </a>
+      </Link>
     );
   }
 

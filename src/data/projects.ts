@@ -8,6 +8,8 @@ export type Project = {
   description: string;
   image: string;
   category: ProjectCategory;
+  /** Internal page — takes priority over githubUrl for card clicks */
+  href?: string;
   githubUrl?: string;
   isPrivate?: boolean;
   tags?: string[];
@@ -26,7 +28,8 @@ export const allProjects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=900&q=80",
     category: "AI",
-    isPrivate: true,
+    href: "/projects/studysync-ai",
+    githubUrl: `${GITHUB}/StudySync-AI`,
     tags: ["Python", "OpenAI", "React", "FastAPI"],
     height: "lg",
   },

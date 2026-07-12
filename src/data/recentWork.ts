@@ -12,6 +12,8 @@ export type RecentWorkProject = {
   impact: string;
   techStack: string[];
   image: string;
+  /** Internal page — takes priority over githubUrl for card clicks */
+  href?: string;
   githubUrl?: string;
   isPrivate?: boolean;
 };
@@ -28,7 +30,8 @@ export const recentWorkProjects: RecentWorkProject[] = [
     techStack: ["Python", "OpenAI", "React", "FastAPI"],
     image:
       "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=900&q=80",
-    isPrivate: true,
+    href: "/projects/studysync-ai",
+    githubUrl: `${GITHUB}/StudySync-AI`,
   },
   {
     id: "atiksha-portfolio",

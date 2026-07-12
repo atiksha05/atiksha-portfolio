@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Cormorant_Garamond } from "next/font/google";
 import { ArrowUpRight, Lock } from "lucide-react";
 import type { Project } from "@/data/projects";
@@ -27,13 +28,14 @@ const categoryPillStyles: Record<ProjectCategory, string> = {
 
 function ProjectCardContent({ project }: { project: Project }) {
   const isPublic = Boolean(project.githubUrl) && !project.isPrivate;
+  const hasLink = Boolean(project.href) || isPublic;
 
   return (
     <article
       className={cn(
         "overflow-hidden rounded-2xl border border-pink-400/20 bg-gradient-to-br from-black via-pink-500/[0.05] to-purple-500/[0.05] transition-all duration-300",
         "group-hover:-translate-y-1 group-hover:border-pink-400/60 group-hover:shadow-[0_0_32px_rgba(236,72,153,0.2),0_20px_50px_rgba(0,0,0,0.4)]",
-        isPublic && "group-hover:scale-[1.02]",
+        hasLink && "group-hover:scale-[1.02]",
       )}
     >
       <div
@@ -91,7 +93,12 @@ function ProjectCardContent({ project }: { project: Project }) {
           </div>
         )}
 
-        {isPublic ? (
+        {project.href ? (
+          <span className="inline-flex items-center gap-1.5 text-sm text-pink-200/40 transition-all duration-300 group-hover:text-pink-200/90">
+            Explore case study
+            <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </span>
+        ) : isPublic ? (
           <span className="inline-flex items-center gap-1.5 text-sm text-pink-200/40 transition-all duration-300 group-hover:text-pink-200/90">
             View on GitHub
             <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -109,18 +116,32 @@ function ProjectCardContent({ project }: { project: Project }) {
 
 export function ProjectMasonryCard({ project }: { project: Project }) {
   const isPublic = Boolean(project.githubUrl) && !project.isPrivate;
+  const href = project.href ?? (isPublic ? project.githubUrl : undefined);
+  const isExternal = Boolean(href?.startsWith("http"));
 
-  if (isPublic) {
+  if (href) {
+    if (isExternal) {
+      return (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group mb-6 block break-inside-avoid cursor-pointer"
+          aria-label={`${project.title} on GitHub`}
+        >
+          <ProjectCardContent project={project} />
+        </a>
+      );
+    }
+
     return (
-      <a
-        href={project.githubUrl}
-        target="_blank"
-        rel="noopener noreferrer"
+      <Link
+        href={href}
         className="group mb-6 block break-inside-avoid cursor-pointer"
-        aria-label={`${project.title} on GitHub`}
+        aria-label={`${project.title} case study`}
       >
         <ProjectCardContent project={project} />
-      </a>
+      </Link>
     );
   }
 

@@ -36,10 +36,10 @@ export default function ProjectsPage() {
             Back Home
           </Link>
           <Link
-            href="/work-in-progress"
+            href="/#currently-building"
             className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-pink-400/25 bg-pink-500/[0.06] px-8 py-3.5 text-sm font-medium text-pink-100/90 transition-all hover:border-pink-400/45 hover:bg-pink-500/10 sm:w-auto"
           >
-            Work in Progress
+            Currently Building
           </Link>
           <a
             href={site.github}
