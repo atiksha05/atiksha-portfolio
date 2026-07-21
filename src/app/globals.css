@@ -7,7 +7,7 @@
   --card: #111111;
   --border: rgba(255, 255, 255, 0.12);
   --glow: rgba(255, 255, 255, 0.08);
-  --navbar-height: 64px;
+  --navbar-height: 76px;
 }
 
 @theme inline {
@@ -37,7 +37,7 @@ body {
   min-width: 0;
 }
 
-/* Shared section container — consistent max-width + horizontal padding */
+/* Shared section container â€” consistent max-width + horizontal padding */
 .section-container {
   @apply mx-auto w-full max-w-7xl px-5 sm:px-8 md:px-10 lg:px-10;
 }
@@ -247,9 +247,9 @@ a:hover .project-page-title {
 .testimonials-card {
   position: relative;
   width: 100%;
-  height: min(58vh, 540px);
-  min-height: 420px;
-  max-height: 540px;
+  height: min(68vh, 650px);
+  min-height: 540px;
+  max-height: 650px;
   overflow: hidden;
   border-radius: 28px;
   box-sizing: border-box;
@@ -257,21 +257,69 @@ a:hover .project-page-title {
 
 .testimonials-header {
   position: relative;
-  z-index: 5;
-  width: min(100%, 720px);
+  z-index: 10;
+  width: min(100% - 40px, 760px);
   margin-inline: auto;
-  padding: clamp(20px, 3.5vh, 40px) 24px 0;
+  padding-top: clamp(28px, 4vh, 46px);
   text-align: center;
+  pointer-events: none;
 }
 
+.testimonials-header h2 {
+  margin: 0;
+  line-height: 0.98;
+}
+
+.testimonials-header p {
+  max-width: 720px;
+  margin: 20px auto 0;
+  line-height: 1.5;
+}
+
+.testimonials-header::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: 0;
+  width: min(110%, 880px);
+  height: 150%;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse,
+    rgba(2, 2, 2, 0.94) 0%,
+    rgba(2, 2, 2, 0.72) 52%,
+    transparent 78%
+  );
+  pointer-events: none;
+}
+
+.testimonials-network,
 .testimonial-network {
   position: absolute;
-  inset: 28% 4% 10%;
+  left: 3%;
+  right: 3%;
+  top: 34%;
+  bottom: 5%;
+  overflow: hidden;
+}
+
+.testimonial-connections {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   overflow: visible;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .testimonial-node,
-.add-review-button {
+.add-review-button,
+.add-review-node {
+  position: absolute;
+  z-index: 3;
+  transform: translate(-50%, -50%);
   transition:
     transform 450ms cubic-bezier(0.22, 1, 0.36, 1),
     opacity 350ms ease,
@@ -283,12 +331,18 @@ a:hover .project-page-title {
 
 .testimonial-node:hover,
 .add-review-button:hover {
-  transform: scale(1.06);
+  transform: translate(-50%, -50%) scale(1.06);
 }
 
 .testimonial-node-orb {
   width: clamp(60px, 5vw, 78px);
   aspect-ratio: 1;
+}
+
+@media (max-width: 1200px) {
+  .testimonial-node-orb {
+    width: clamp(54px, 5vw, 70px);
+  }
 }
 
 @media (max-width: 1024px) {
@@ -297,8 +351,13 @@ a:hover .project-page-title {
   }
 
   .testimonials-card {
-    height: min(60vh, 500px);
-    min-height: 400px;
+    height: min(64vh, 560px);
+    min-height: 480px;
+  }
+
+  .testimonials-network,
+  .testimonial-network {
+    top: 36%;
   }
 }
 
@@ -319,12 +378,27 @@ a:hover .project-page-title {
     overflow: visible;
   }
 
+  .testimonials-header {
+    width: min(100% - 24px, 680px);
+    padding-top: 24px;
+    pointer-events: auto;
+  }
+
+  .testimonials-header::after {
+    display: none;
+  }
+
+  .testimonials-network,
   .testimonial-network {
     position: relative;
-    inset: auto;
+    left: auto;
+    right: auto;
+    top: auto;
+    bottom: auto;
     display: grid;
     gap: 16px;
     padding: 24px 16px 28px;
+    overflow: visible;
   }
 }
 
@@ -338,7 +412,7 @@ a:hover .project-page-title {
   }
 }
 
-/* —— Contact section viewport fit —— */
+/* â€”â€” Contact section viewport fit â€”â€” */
 .contact-section {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -356,6 +430,38 @@ a:hover .project-page-title {
   min-height: 0;
   height: 100%;
   overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(84, 24, 67, 0.22),
+      transparent 60%
+    ),
+    #050405;
+}
+
+.contact-media {
+  z-index: 0;
+}
+
+.contact-image {
+  z-index: 0;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.contact-video {
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 0.45s ease;
+}
+
+.contact-image-overlay {
+  z-index: 2;
+  pointer-events: none;
 }
 
 .contact-image-panel video,
@@ -449,6 +555,28 @@ a:hover .project-page-title {
   flex-shrink: 0;
 }
 
+.contact-quote,
+.contact-quote-sub,
+.contact-content,
+.contact-form-card,
+.contact-footer {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-section *,
+  .contact-quote,
+  .contact-quote-sub,
+  .contact-content,
+  .contact-form-card,
+  .contact-footer {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 @media (max-height: 820px) and (min-width: 769px) {
   .contact-content-panel {
     padding-top: 12px;
@@ -525,5 +653,4 @@ a:hover .project-page-title {
     max-height: none;
   }
 }
-
 

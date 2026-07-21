@@ -36,11 +36,11 @@ export const LIVE_REVIEW_SLOTS: Array<{
   { desktop: { x: 24, y: 42 }, tablet: { x: 24, y: 44 }, glow: "pink", size: "md" },
   { desktop: { x: 56, y: 44 }, tablet: { x: 58, y: 46 }, glow: "purple", size: "md" },
   { desktop: { x: 40, y: 74 }, tablet: { x: 40, y: 74 }, glow: "white", size: "sm" },
-  { desktop: { x: 70, y: 40 }, tablet: { x: 72, y: 42 }, glow: "pink", size: "md" },
-  { desktop: { x: 12, y: 64 }, tablet: { x: 14, y: 64 }, glow: "purple", size: "sm" },
-  { desktop: { x: 88, y: 48 }, tablet: { x: 86, y: 50 }, glow: "pink", size: "md" },
-  { desktop: { x: 30, y: 18 }, tablet: { x: 30, y: 18 }, glow: "white", size: "sm" },
-  { desktop: { x: 66, y: 18 }, tablet: { x: 66, y: 20 }, glow: "purple", size: "md" },
+  { desktop: { x: 70, y: 42 }, tablet: { x: 72, y: 44 }, glow: "pink", size: "md" },
+  { desktop: { x: 14, y: 64 }, tablet: { x: 16, y: 64 }, glow: "purple", size: "sm" },
+  { desktop: { x: 86, y: 48 }, tablet: { x: 84, y: 50 }, glow: "pink", size: "md" },
+  { desktop: { x: 30, y: 22 }, tablet: { x: 30, y: 24 }, glow: "white", size: "sm" },
+  { desktop: { x: 66, y: 22 }, tablet: { x: 66, y: 24 }, glow: "purple", size: "md" },
 ];
 
 export function initialsFromName(name: string): string {

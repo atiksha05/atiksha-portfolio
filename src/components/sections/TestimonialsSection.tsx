@@ -2,15 +2,18 @@
 
 import Image from "next/image";
 import { Cormorant_Garamond } from "next/font/google";
-import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useMemo, useState } from "react";
+import { motion } from "framer-motion";
+import { useMemo, useState } from "react";
 import {
+  featuredInterest,
   featuredQuote,
-  featuredSlideshowImages,
-  lifeOutsideInterests,
+  lifeOutsideCopy,
+  sideInterests,
+  type ImageFit,
   type LifeOutsideInterest,
 } from "@/data/lifeOutsideWork";
 import { cn } from "@/lib/utils";
+import "./life-outside-work.css";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -102,92 +105,79 @@ function FloatingParticles() {
   );
 }
 
-function ImageWithFallback({
+function InterestImage({
   src,
   alt,
-  className,
+  fit,
+  objectPosition,
   sizes,
+  priority,
 }: {
   src: string;
   alt: string;
-  className?: string;
+  fit: ImageFit;
+  objectPosition: string;
   sizes: string;
+  priority?: boolean;
 }) {
   const [failed, setFailed] = useState(false);
 
   if (failed) {
     return (
-      <div
-        className={cn(
-          "absolute inset-0 bg-gradient-to-br from-pink-500/25 via-fuchsia-500/10 to-purple-900/20",
-          className,
-        )}
-        aria-hidden
-      />
+      <div className="interest-image-wrap" aria-hidden>
+        <div className="absolute inset-0 bg-gradient-to-br from-pink-500/25 via-fuchsia-500/10 to-purple-900/20" />
+      </div>
     );
   }
 
   return (
-    <Image
-      src={src}
-      alt={alt}
-      fill
-      className={className}
-      sizes={sizes}
-      onError={() => setFailed(true)}
-    />
+    <div className="interest-image-wrap">
+      {fit === "contain" ? (
+        <div
+          className="interest-image-blur"
+          style={{ backgroundImage: `url(${src})` }}
+          aria-hidden
+        />
+      ) : null}
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes={sizes}
+        priority={priority}
+        className={cn(
+          "interest-image",
+          fit === "contain" ? "interest-image-contain" : "interest-image-cover",
+        )}
+        style={{
+          objectFit: fit,
+          objectPosition,
+        }}
+        onError={() => setFailed(true)}
+      />
+    </div>
   );
 }
 
-function FeaturedSlideshow({ revealIndex }: { revealIndex: number }) {
-  const [index, setIndex] = useState(0);
-  const [imgFailed, setImgFailed] = useState(false);
-
-  useEffect(() => {
-    const timer = window.setInterval(() => {
-      setIndex((i) => (i + 1) % featuredSlideshowImages.length);
-      setImgFailed(false);
-    }, 3000);
-    return () => window.clearInterval(timer);
-  }, []);
-
-  const currentSrc = featuredSlideshowImages[index];
-
+function FeaturedPaintingCard({ revealIndex }: { revealIndex: number }) {
   return (
-    <motion.div
-      className="group relative z-10 min-h-[240px] overflow-hidden rounded-2xl border border-pink-400/15 transition-all duration-500 hover:-translate-y-1 hover:scale-[1.01] hover:border-pink-400/40 hover:shadow-[0_0_48px_rgba(244,114,182,0.2)] sm:min-h-[260px] md:min-h-0 md:h-full lg:min-h-[360px]"
+    <motion.article
+      className="featured-interest-card group"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-60px" }}
       variants={revealItem(revealIndex)}
     >
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentSrc}
-          className="absolute inset-0"
-          initial={{ opacity: 0, scale: 1.08 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 1.05 }}
-          transition={{ duration: 0.9, ease }}
-        >
-          {imgFailed ? (
-            <div className="absolute inset-0 bg-gradient-to-br from-pink-500/30 via-fuchsia-500/15 to-black" />
-          ) : (
-            <Image
-              src={currentSrc}
-              alt=""
-              fill
-              className="object-cover transition-transform duration-[3000ms] ease-out group-hover:scale-105"
-              sizes="(max-width: 768px) 100vw, 50vw"
-              onError={() => setImgFailed(true)}
-            />
-          )}
-        </motion.div>
-      </AnimatePresence>
+      <InterestImage
+        src={featuredInterest.image}
+        alt={featuredInterest.alt}
+        fit={featuredInterest.fit}
+        objectPosition={featuredInterest.objectPosition}
+        sizes="(max-width: 768px) 100vw, 50vw"
+        priority
+      />
 
-      <div className="absolute inset-0 z-[1] bg-gradient-to-t from-black via-black/55 to-black/20" />
-
-      <div className="absolute inset-0 z-[2] flex flex-col justify-end p-5 sm:p-6">
+      <div className="interest-card-content">
         <p className="text-[0.65rem] font-medium uppercase tracking-[0.2em] text-pink-300/60 sm:text-xs">
           {featuredQuote.label}
         </p>
@@ -199,8 +189,11 @@ function FeaturedSlideshow({ revealIndex }: { revealIndex: number }) {
         >
           &ldquo;{featuredQuote.text}&rdquo;
         </blockquote>
+        <p className="mt-3 text-xs uppercase tracking-[0.16em] text-pink-300/70">
+          {featuredInterest.title}
+        </p>
       </div>
-    </motion.div>
+    </motion.article>
   );
 }
 
@@ -215,24 +208,21 @@ function InterestCard({
 
   return (
     <motion.article
-      className={cn(
-        "group relative z-10 min-h-[132px] overflow-hidden rounded-2xl border border-pink-400/15 transition-all duration-500 sm:min-h-[140px]",
-        "hover:-translate-y-1 hover:scale-[1.02] hover:border-pink-400/40 hover:shadow-[0_0_36px_rgba(244,114,182,0.2)]",
-      )}
+      className="personal-interest-card group"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-40px" }}
       variants={revealItem(revealIndex)}
     >
-      <ImageWithFallback
+      <InterestImage
         src={interest.image}
-        alt=""
-        className="object-cover transition-transform duration-500 group-hover:scale-105"
+        alt={interest.alt}
+        fit={interest.fit}
+        objectPosition={interest.objectPosition}
         sizes="(max-width: 768px) 50vw, 25vw"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-black/25" />
 
-      <div className="relative z-10 flex h-full min-h-[132px] flex-col justify-end p-3.5 sm:min-h-[140px] sm:p-4">
+      <div className="interest-card-content">
         <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-pink-400/25 bg-black/30 text-pink-300/80 backdrop-blur-sm transition-colors duration-300 group-hover:border-pink-400/45 group-hover:text-pink-200">
           <Icon className="h-3.5 w-3.5" strokeWidth={1.75} aria-hidden />
         </div>
@@ -271,7 +261,7 @@ export function TestimonialsSection() {
           variants={revealItem(0)}
         >
           <span className="text-xs font-medium uppercase tracking-[0.28em] text-pink-400/70">
-            Life Outside Work
+            {lifeOutsideCopy.eyebrow}
           </span>
           <h2
             className={cn(
@@ -279,19 +269,18 @@ export function TestimonialsSection() {
               "mt-3 text-[34px] font-medium leading-[1.05] text-white md:text-[44px] lg:text-[64px]",
             )}
           >
-            The parts of me that keep me creative
+            {lifeOutsideCopy.title}
           </h2>
           <p className="mt-4 max-w-xl text-sm leading-relaxed text-pink-100/55 sm:text-base">
-            Outside of software and product work, I find inspiration through
-            movement, art, stories, and the city around me.
+            {lifeOutsideCopy.subtitle}
           </p>
         </motion.header>
 
-        <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5 lg:items-stretch">
-          <FeaturedSlideshow revealIndex={1} />
+        <div className="personal-interests-grid mt-10">
+          <FeaturedPaintingCard revealIndex={1} />
 
-          <div className="grid grid-cols-2 gap-3 sm:gap-3.5">
-            {lifeOutsideInterests.map((interest, i) => (
+          <div className="personal-interests-list">
+            {sideInterests.map((interest, i) => (
               <InterestCard
                 key={interest.id}
                 interest={interest}

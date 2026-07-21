@@ -1,7 +1,15 @@
 "use client";
 
-import { FormEvent, useState, type ComponentType } from "react";
-import { motion } from "framer-motion";
+import {
+  FormEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type ComponentType,
+  type RefObject,
+} from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   ArrowUpRight,
   FileText,
@@ -38,12 +46,18 @@ function LinkedInIcon({ className }: { className?: string }) {
   );
 }
 
+const EASE = [0.22, 1, 0.36, 1] as const;
+
 const fadeUp = {
-  hidden: { opacity: 0, y: 16 },
+  hidden: { opacity: 0, y: 14 },
   visible: (delay = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: "easeOut" as const, delay },
+    transition: {
+      duration: 0.55,
+      delay: Math.min(delay, 0.15),
+      ease: EASE,
+    },
   }),
 };
 
@@ -73,8 +87,84 @@ const contactLinks: {
   },
 ];
 
+function useContactVisible(sectionRef: RefObject<HTMLElement | null>) {
+  const reducedMotion = useReducedMotion() ?? false;
+  const [isVisible, setIsVisible] = useState(() => {
+    if (typeof window === "undefined") return true;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return true;
+    }
+    return window.location.hash === "#contact";
+  });
+  const hasAnimated = useRef(isVisible);
+
+  const reveal = useCallback(() => {
+    hasAnimated.current = true;
+    setIsVisible(true);
+  }, []);
+
+  useEffect(() => {
+    if (reducedMotion || isVisible) {
+      hasAnimated.current = true;
+      setIsVisible(true);
+      return;
+    }
+
+    if (window.location.hash === "#contact") {
+      reveal();
+    }
+
+    const onHashChange = () => {
+      if (window.location.hash === "#contact") {
+        reveal();
+      }
+    };
+
+    // Tab wake: restore decorative reveal only — never reloads media.
+    const onVisibility = () => {
+      if (document.visibilityState === "visible") {
+        reveal();
+      }
+    };
+
+    window.addEventListener("hashchange", onHashChange);
+    document.addEventListener("visibilitychange", onVisibility);
+
+    const node = sectionRef.current;
+    let observer: IntersectionObserver | null = null;
+
+    if (node) {
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            reveal();
+            observer?.disconnect();
+          }
+        },
+        {
+          threshold: 0.01,
+          rootMargin: "100px 0px",
+        },
+      );
+      observer.observe(node);
+    }
+
+    return () => {
+      window.removeEventListener("hashchange", onHashChange);
+      document.removeEventListener("visibilitychange", onVisibility);
+      observer?.disconnect();
+    };
+  }, [isVisible, reducedMotion, reveal, sectionRef]);
+
+  return isVisible;
+}
+
 export function FooterCTA() {
   const [submitted, setSubmitted] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const isVisible = useContactVisible(sectionRef);
+  const reducedMotion = useReducedMotion() ?? false;
+  const animateState = isVisible || reducedMotion ? "visible" : "hidden";
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -93,6 +183,7 @@ export function FooterCTA() {
 
   return (
     <footer
+      ref={sectionRef}
       id="contact"
       className="contact-section relative border-t border-pink-500/[0.08] bg-black scroll-mt-[var(--navbar-height,64px)]"
     >
@@ -100,21 +191,19 @@ export function FooterCTA() {
         <ContactCinematicVideo />
         <div className="relative z-10 flex h-full flex-col justify-end p-5 sm:p-7 lg:p-8">
           <motion.p
-            className="font-serif-display max-w-md text-xl leading-snug text-white/90 sm:text-2xl lg:text-3xl"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+            className="contact-quote font-serif-display max-w-md text-xl leading-snug text-white/90 sm:text-2xl lg:text-3xl"
+            initial={false}
+            animate={animateState}
             custom={0}
             variants={fadeUp}
           >
             Every great product starts with a conversation.
           </motion.p>
           <motion.p
-            className="mt-2 max-w-sm text-sm text-pink-100/50"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            custom={0.08}
+            className="contact-quote-sub mt-2 max-w-sm text-sm text-pink-100/50"
+            initial={false}
+            animate={animateState}
+            custom={0.07}
             variants={fadeUp}
           >
             San Francisco · Open to meaningful collaborations
@@ -129,10 +218,9 @@ export function FooterCTA() {
         />
 
         <motion.div
-          className="relative min-h-0"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-40px" }}
+          className="contact-content relative min-h-0"
+          initial={false}
+          animate={animateState}
           custom={0}
           variants={fadeUp}
         >
@@ -179,9 +267,8 @@ export function FooterCTA() {
           <motion.form
             onSubmit={handleSubmit}
             className="contact-form-card rounded-[26px] border border-pink-400/20 bg-pink-500/[0.04] shadow-[0_8px_40px_rgba(0,0,0,0.35),0_0_60px_rgba(244,114,182,0.06)] backdrop-blur-xl"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+            initial={false}
+            animate={animateState}
             custom={0.1}
             variants={fadeUp}
           >
@@ -240,9 +327,8 @@ export function FooterCTA() {
 
         <motion.div
           className="contact-footer relative mt-4 border-t border-pink-400/10 pt-3"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
+          initial={false}
+          animate={animateState}
           custom={0.14}
           variants={fadeUp}
         >

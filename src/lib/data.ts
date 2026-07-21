@@ -4,6 +4,12 @@ export const backgroundVideo = {
   revealRadius: 220,
 };
 
+/** Stable Contact left-panel still (absolute public path). */
+export const contactImage = {
+  src: "/images/contact/golden-gate-contact.jpg",
+  fallbackSrc: "/images/contact/golden-gate-contact.jpg",
+} as const;
+
 export const site = {
   name: "Atiksha Antil",
   email: "atikshasunilantil@gmail.com",
@@ -14,10 +20,19 @@ export const site = {
 };
 
 export const navLinks = [
-  { label: "About Me", href: "#about" },
-  { label: "Projects", href: "#projects" },
-  { label: "Experience", href: "#experience" },
-];
+  { label: "About", href: "/#about", sectionId: "about" },
+  { label: "Projects", href: "/#projects", sectionId: "projects" },
+  { label: "Journey", href: "/#experience", sectionId: "experience" },
+  { label: "Beyond Resume", href: "/my-story", sectionId: null },
+  { label: "Contact", href: "/#contact", sectionId: "contact" },
+] as const;
+
+export type NavLink = (typeof navLinks)[number];
+
+export const availabilityBadge = {
+  full: "Open to Work",
+  short: "Open to Work",
+};
 
 export const hero = {
   name: "Atiksha Antil",
@@ -134,8 +149,8 @@ export const projectMarquee = [
 export const about = {
   title: "The Person Behind the Product",
   intro: [
-    "I'm Atiksha, a Computer Science student at San Francisco State University, software engineer, and aspiring product manager. I love building products that combine technology, creativity, and empathy — from AI tools to campus platforms and productivity systems.",
-    "I'm especially interested in creating experiences that help people learn, grow, and feel more organized in their everyday lives.",
+    "I'm Atiksha—a Computer Science student at San Francisco State University, software engineer, aspiring product manager, and community leader.",
+    "I enjoy thinking like a product manager and building like a software engineer—turning ideas into organized plans, meaningful digital experiences, and systems that help people collaborate and solve real problems.",
   ],
   portrait: "/images/atiksha-about.png",
   avatar3d: "/images/atiksha-avatar-3d-cutout.png",
@@ -197,14 +212,9 @@ export const experience = [
     period: "Jan 2025 – Present",
   },
   {
-    role: "Outreach Officer",
+    role: "Outreach Chair",
     company: "ACM · SFSU",
-    period: "May 2025 – Present",
-  },
-  {
-    role: "Teacher Fellow",
-    company: "CSME · SFSU",
-    period: "Aug 2024 – May 2025",
+    period: "Present",
   },
 ];
 
@@ -308,34 +318,40 @@ export const stats = [
 
 export const faqs = [
   {
-    question: "What roles are you looking for?",
+    id: 1,
+    question: "What kind of roles are you looking for?",
     answer:
-      "Software engineering and product-focused roles — internships and new grad opportunities in the San Francisco Bay Area. I'm open to hybrid SWE/PM tracks where I can contribute on both technical and strategic levels.",
+      "I’m pursuing Product Management, Associate Product Manager, and Software Engineering opportunities where I can combine technical execution with product thinking. I enjoy translating user problems into clear product direction and collaborating with engineers to build meaningful experiences.",
   },
   {
-    question: "What's your tech stack?",
+    id: 2,
+    question: "Why Product Management?",
     answer:
-      "Java, Python, JavaScript, React, Next.js, Spring Boot, PostgreSQL, MongoDB, AWS, Docker, REST/GraphQL APIs, and tools like JIRA, Trello, and Tableau for program delivery.",
+      "Building software taught me how products are created, while leading teams taught me how people experience them. Product Management is where those two perspectives meet. I enjoy understanding users, defining priorities, navigating tradeoffs, and helping ideas move from ambiguity to execution.",
   },
   {
-    question: "SWE or PM — which do you prefer?",
+    id: 3,
+    question: "What makes you different from other early-career PM candidates?",
     answer:
-      "Both. I love writing code and shipping systems, and I'm equally energized by requirements gathering, roadmaps, and cross-functional leadership. My ideal role lets me do both.",
+      "I bring a combination of technical depth, product thinking, and hands-on leadership. Through software projects, university operations, ACM, ISA, SF Hacks, and student mentorship, I have learned how to organize ambiguous work, align people, communicate across different audiences, and take ownership of outcomes.",
   },
   {
-    question: "When do you graduate?",
+    id: 4,
+    question: "How technical are you?",
     answer:
-      "May 2027 with a B.S. in Computer Science from San Francisco State University.",
+      "I’m a Computer Science student with experience building full-stack applications, backend systems, APIs, databases, cloud deployments, and AI-powered tools. I can understand engineering tradeoffs, communicate effectively with technical teams, and contribute directly when a prototype or technical investigation is needed.",
   },
   {
-    question: "Are you based in San Francisco?",
+    id: 5,
+    question: "How do you approach users and product problems?",
     answer:
-      "Yes — I'm based in San Francisco and studying at SFSU. I'm looking for opportunities in the Bay Area.",
+      "I start by listening and understanding the real problem before proposing a solution. I look for patterns in feedback, clarify the desired outcome, identify constraints, and prioritize the smallest useful step. Then I test, learn, and improve rather than assuming the first idea is correct.",
   },
   {
-    question: "How do I reach you?",
+    id: 6,
+    question: "What are you looking for in your next opportunity?",
     answer:
-      "Email me at atikshasunilantil@gmail.com, connect on LinkedIn, or check out my projects on GitHub. Resume available on request.",
+      "I’m looking for a team where I can learn quickly, take meaningful ownership, and contribute to products that solve real user problems. I’m especially excited by environments where product, design, and engineering collaborate closely and where curiosity, empathy, and execution are valued.",
   },
 ];
 

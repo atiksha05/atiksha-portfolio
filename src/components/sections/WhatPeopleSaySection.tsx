@@ -165,6 +165,50 @@ function BackgroundStars({
   );
 }
 
+function nodeRadiusPx(
+  size: ConstellationReview["size"],
+  width: number,
+): number {
+  const base = Math.min(39, Math.max(27, width * 0.028));
+  if (size === "lg") return base * 1.08;
+  if (size === "sm") return base * 0.9;
+  return base;
+}
+
+function shortenedCurve(
+  x1: number,
+  y1: number,
+  x2: number,
+  y2: number,
+  r1: number,
+  r2: number,
+) {
+  const dx = x2 - x1;
+  const dy = y2 - y1;
+  const distance = Math.hypot(dx, dy);
+  if (distance < 1) {
+    return { d: `M ${x1} ${y1}`, mid: { x: x1, y: y1 } };
+  }
+
+  const ux = dx / distance;
+  const uy = dy / distance;
+  const startX = x1 + ux * r1;
+  const startY = y1 + uy * r1;
+  const endX = x2 - ux * r2;
+  const endY = y2 - uy * r2;
+
+  const midX = (startX + endX) / 2;
+  const midY = (startY + endY) / 2;
+  const curve = Math.min(18, distance * 0.08);
+  const controlX = midX - uy * curve;
+  const controlY = midY + ux * curve;
+
+  return {
+    d: `M ${startX} ${startY} Q ${controlX} ${controlY} ${endX} ${endY}`,
+    mid: { x: midX, y: midY },
+  };
+}
+
 function ConnectionLines({
   reviews,
   connections,
@@ -180,49 +224,83 @@ function ConnectionLines({
   activeId: string | null;
   reducedMotion: boolean;
 }) {
+  const svgRef = useRef<SVGSVGElement>(null);
+  const [size, setSize] = useState({ w: 0, h: 0 });
+
+  useEffect(() => {
+    const parent = svgRef.current?.parentElement;
+    if (!parent) return;
+
+    const update = () => {
+      const rect = parent.getBoundingClientRect();
+      setSize({ w: rect.width, h: rect.height });
+    };
+
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(parent);
+    return () => ro.disconnect();
+  }, []);
+
   const byId = useMemo(
     () => Object.fromEntries(reviews.map((r) => [r.id, r])),
     [reviews],
   );
 
   const visible =
-    bp === "tablet" ? connections.slice(0, Math.min(8, connections.length)) : connections;
+    bp === "tablet"
+      ? connections.slice(0, Math.min(8, connections.length))
+      : connections;
 
   return (
     <svg
-      className="pointer-events-none absolute inset-0 h-full w-full"
+      ref={svgRef}
+      className="testimonial-connections"
+      viewBox={size.w > 0 ? `0 0 ${size.w} ${size.h}` : undefined}
+      preserveAspectRatio="none"
       aria-hidden
     >
-      {visible.map(([a, b]) => {
-        const ra = byId[a];
-        const rb = byId[b];
-        if (!ra || !rb) return null;
-        const pa = getPos(ra, bp);
-        const pb = getPos(rb, bp);
-        const related =
-          hoveredId === a ||
-          hoveredId === b ||
-          activeId === a ||
-          activeId === b;
+      {size.w > 0 &&
+        visible.map(([a, b]) => {
+          const ra = byId[a];
+          const rb = byId[b];
+          if (!ra || !rb) return null;
+          const pa = getPos(ra, bp);
+          const pb = getPos(rb, bp);
+          const x1 = (pa.x / 100) * size.w;
+          const y1 = (pa.y / 100) * size.h;
+          const x2 = (pb.x / 100) * size.w;
+          const y2 = (pb.y / 100) * size.h;
+          const { d } = shortenedCurve(
+            x1,
+            y1,
+            x2,
+            y2,
+            nodeRadiusPx(ra.size, size.w),
+            nodeRadiusPx(rb.size, size.w),
+          );
+          const related =
+            hoveredId === a ||
+            hoveredId === b ||
+            activeId === a ||
+            activeId === b;
 
-        return (
-          <motion.line
-            key={`${a}-${b}`}
-            x1={`${pa.x}%`}
-            y1={`${pa.y}%`}
-            x2={`${pb.x}%`}
-            y2={`${pb.y}%`}
-            stroke="url(#constellation-line)"
-            strokeWidth={related ? 1.35 : 0.75}
-            strokeLinecap="round"
-            initial={false}
-            animate={{ opacity: related ? 0.65 : 0.22 }}
-            transition={
-              reducedMotion ? { duration: 0.01 } : { duration: 0.4, ease }
-            }
-          />
-        );
-      })}
+          return (
+            <motion.path
+              key={`${a}-${b}`}
+              d={d}
+              fill="none"
+              stroke="url(#constellation-line)"
+              strokeWidth={related ? 1.35 : 0.75}
+              strokeLinecap="round"
+              initial={false}
+              animate={{ opacity: related ? 0.65 : 0.22 }}
+              transition={
+                reducedMotion ? { duration: 0.01 } : { duration: 0.4, ease }
+              }
+            />
+          );
+        })}
       <defs>
         <linearGradient
           id="constellation-line"
@@ -834,7 +912,7 @@ function MobileReviewStack({
   const reducedMotion = useReducedMotion() ?? false;
 
   return (
-    <div className="testimonial-network">
+    <div className="testimonials-network">
       {reviews.map((review, index) => {
         const isOpen = openId === review.id;
         return (
@@ -966,7 +1044,7 @@ function DesktopNetwork({
     <>
       <div
         ref={canvasRef}
-        className="testimonial-network"
+        className="testimonials-network"
         onPointerMove={handlePointerMove}
       >
         <BackgroundStars count={bp === "tablet" ? 24 : 36} paused={pauseDecor} />
@@ -1108,7 +1186,7 @@ export function WhatPeopleSaySection() {
             <h2
               className={cn(
                 cormorant.className,
-                "text-[28px] font-medium uppercase leading-[1.08] tracking-wide text-white sm:text-[34px] md:text-[40px] lg:text-[48px]",
+                "text-[28px] font-medium uppercase tracking-wide text-white sm:text-[34px] md:text-[40px] lg:text-[48px]",
               )}
             >
               {constellationSection.title}
@@ -1116,7 +1194,7 @@ export function WhatPeopleSaySection() {
             <p
               className={cn(
                 inter.className,
-                "mx-auto mt-2 max-w-xl text-sm leading-relaxed text-pink-100/55 sm:mt-3 sm:text-base",
+                "text-sm text-pink-100/55 sm:text-base",
               )}
             >
               {constellationSection.subtitle}

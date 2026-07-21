@@ -4,7 +4,10 @@ import { Marquee } from "@/components/ui/Marquee";
 
 export function Hero() {
   return (
-    <section className="relative flex min-h-[100svh] flex-col overflow-x-hidden bg-black lg:max-h-[100svh]">
+    <section
+      id="home"
+      className="relative flex min-h-[100svh] flex-col overflow-x-hidden bg-black lg:max-h-[100svh]"
+    >
       <div
         className="pointer-events-none absolute inset-x-0 bottom-0 h-72"
         aria-hidden
@@ -14,7 +17,7 @@ export function Hero() {
         <div className="absolute bottom-10 right-[8%] h-36 w-72 max-w-[80vw] rounded-full bg-pink-400/10 blur-[85px]" />
       </div>
 
-      <div className="relative z-10 flex min-h-0 flex-1 flex-col pt-16">
+      <div className="relative z-10 flex min-h-0 flex-1 flex-col pt-[var(--navbar-height,76px)]">
         <div className="section-container flex w-full flex-1 min-h-0 flex-col items-center justify-center gap-3 py-4 pb-8 sm:gap-5 sm:py-6 sm:pb-10 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-center lg:gap-8 lg:py-3 lg:pb-12">
           {/* Left — name + Product Manager */}
           <div className="flex w-full shrink-0 flex-col items-center lg:items-end lg:justify-center lg:text-right">

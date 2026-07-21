@@ -1,88 +1,90 @@
 import {
   BookOpen,
-  Camera,
-  Globe,
-  MapPin,
   Music2,
   Palette,
+  Sparkles,
   type LucideIcon,
 } from "lucide-react";
+
+export type ImageFit = "cover" | "contain";
 
 export type LifeOutsideInterest = {
   id: string;
   title: string;
   description: string;
   icon: LucideIcon;
-  /** Replace with your image path when ready */
   image: string;
+  alt: string;
+  objectPosition: string;
+  fit: ImageFit;
 };
 
-export const lifeOutsideInterests: LifeOutsideInterest[] = [
+/**
+ * Four personal interests.
+ * Featured card uses Painting; the other three render in the right-hand grid.
+ */
+export const personalInterests: LifeOutsideInterest[] = [
   {
-    id: "photography",
-    title: "Photography",
-    description: "Framing moments and noticing small details.",
-    icon: Camera,
-    image:
-      "https://images.unsplash.com/photo-1452587925148-ce544e77e70e?w=800&q=80",
+    id: "reading",
+    title: "Reading",
+    description:
+      "Stories, ideas, and perspectives that help me see the world differently.",
+    icon: BookOpen,
+    image: "/images/personal/city-portrait.jpg",
+    alt: "Atiksha on a San Francisco sidewalk in a trench coat",
+    objectPosition: "center 18%",
+    fit: "cover",
+  },
+  {
+    id: "music",
+    title: "Exploring New Music",
+    description:
+      "Discovering new sounds, artists, and moods that inspire creativity.",
+    icon: Music2,
+    image: "/images/personal/night-moon.png",
+    alt: "A glowing moon over a quiet night street, capturing a creative mood",
+    objectPosition: "center 42%",
+    fit: "cover",
   },
   {
     id: "painting",
     title: "Painting",
     description: "Color, texture, and quiet creative focus.",
     icon: Palette,
-    image:
-      "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&q=80",
+    image: "/images/personal/creative-desk.png",
+    alt: "Atiksha focused on a detailed creative project at her desk",
+    objectPosition: "center 28%",
+    fit: "cover",
   },
   {
     id: "dancing",
     title: "Dancing",
-    description: "Movement, rhythm, and expression off the screen.",
-    icon: Music2,
-    image:
-      "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=800&q=80",
-  },
-  {
-    id: "reading",
-    title: "Reading",
-    description: "Stories, ideas, and perspectives that widen my lens.",
-    icon: BookOpen,
-    image:
-      "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800&q=80",
-  },
-  {
-    id: "exploring-sf",
-    title: "Exploring San Francisco",
-    description: "Neighborhood walks, views, and city energy.",
-    icon: MapPin,
-    image:
-      "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=800&q=80",
-  },
-  {
-    id: "travel-culture",
-    title: "Travel & Culture",
-    description: "New places, people, and ways of seeing the world.",
-    icon: Globe,
-    image:
-      "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80",
+    description: "Movement, rhythm, and expression beyond the screen.",
+    icon: Sparkles,
+    image: "/images/personal/plaza-night.jpg",
+    alt: "Atiksha walking through a plaza lined with string lights at night",
+    objectPosition: "center 18%",
+    fit: "cover",
   },
 ];
 
-/** Featured slideshow order: Painting → Photography → … → Travel & Culture */
-const slideshowOrder = [
-  "painting",
-  "photography",
-  "dancing",
-  "reading",
-  "exploring-sf",
-  "travel-culture",
-] as const;
+export const featuredInterestId = "painting" as const;
 
-export const featuredSlideshowImages = slideshowOrder.map(
-  (id) => lifeOutsideInterests.find((item) => item.id === id)!.image,
+export const featuredInterest =
+  personalInterests.find((item) => item.id === featuredInterestId)!;
+
+export const sideInterests = personalInterests.filter(
+  (item) => item.id !== featuredInterestId,
 );
 
 export const featuredQuote = {
   label: "Featured",
   text: "Creativity makes me a better builder.",
+};
+
+export const lifeOutsideCopy = {
+  eyebrow: "Outside the Resume",
+  title: "Life Beyond the Work",
+  subtitle:
+    "Outside of software and product work, I find inspiration through stories, music, movement, and art.",
 };

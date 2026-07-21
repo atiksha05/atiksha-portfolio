@@ -22,7 +22,7 @@ export const constellationSection = {
     "Here's what colleagues, mentors, and teammates have shared about working with me.",
 };
 
-/** Nodes stay inside the network area with edge padding (~8–12%). */
+/** Nodes stay inside `.testimonials-network` (below the header safe zone). */
 export const constellationReviews: ConstellationReview[] = [
   {
     id: "mentor",
@@ -30,8 +30,8 @@ export const constellationReviews: ConstellationReview[] = [
     role: "Mentor",
     initials: "MN",
     quote: "Review coming soon.",
-    desktop: { x: 16, y: 22 },
-    tablet: { x: 18, y: 24 },
+    desktop: { x: 17, y: 26 },
+    tablet: { x: 18, y: 28 },
     glow: "pink",
     size: "md",
   },
@@ -41,7 +41,7 @@ export const constellationReviews: ConstellationReview[] = [
     role: "Product Lead",
     initials: "TN",
     quote: "Review coming soon.",
-    desktop: { x: 34, y: 58 },
+    desktop: { x: 35, y: 57 },
     tablet: { x: 32, y: 55 },
     glow: "purple",
     size: "lg",
@@ -52,7 +52,7 @@ export const constellationReviews: ConstellationReview[] = [
     role: "Engineering Manager",
     initials: "CN",
     quote: "Review coming soon.",
-    desktop: { x: 48, y: 28 },
+    desktop: { x: 49, y: 28 },
     tablet: { x: 50, y: 30 },
     glow: "white",
     size: "md",
@@ -64,7 +64,7 @@ export const constellationReviews: ConstellationReview[] = [
     initials: "TN",
     quote: "Review coming soon.",
     desktop: { x: 62, y: 62 },
-    tablet: { x: 68, y: 58 },
+    tablet: { x: 66, y: 58 },
     glow: "pink",
     size: "md",
   },
@@ -74,8 +74,8 @@ export const constellationReviews: ConstellationReview[] = [
     role: "Community Lead",
     initials: "CL",
     quote: "Review coming soon.",
-    desktop: { x: 78, y: 26 },
-    tablet: { x: 80, y: 28 },
+    desktop: { x: 77, y: 28 },
+    tablet: { x: 80, y: 30 },
     glow: "purple",
     size: "sm",
   },
@@ -108,6 +108,6 @@ export const constellationConnections: [string, string][] = [
 export const leaveReviewOrb = {
   id: "leave-review",
   label: "Leave a Review",
-  desktop: { x: 50, y: 72 },
-  tablet: { x: 50, y: 74 },
+  desktop: { x: 51, y: 76 },
+  tablet: { x: 50, y: 78 },
 };

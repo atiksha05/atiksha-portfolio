@@ -156,7 +156,8 @@ function FaqImage({ reducedMotion }: { reducedMotion: boolean }) {
               "mt-1 text-xs leading-relaxed text-pink-100/55",
             )}
           >
-            Find quick answers about my background, goals, and how I build.
+            Explore how I combine software engineering, product thinking, and
+            leadership to solve meaningful problems.
           </p>
         </div>
       </div>
@@ -222,7 +223,7 @@ function FaqItem({
         <span
           className={cn(
             inter.className,
-            "min-w-0 flex-1 text-sm font-medium leading-snug text-pink-50/90 sm:text-[0.9375rem]",
+            "faq-question min-w-0 flex-1 text-sm font-semibold leading-snug text-[#f6edf2] sm:text-[0.9375rem] lg:text-[clamp(1rem,1.08vw,1.16rem)]",
           )}
         >
           {question}
@@ -285,7 +286,7 @@ function FaqItem({
             <p
               className={cn(
                 inter.className,
-                "px-4 pb-4 pl-[3.25rem] text-sm leading-relaxed text-pink-100/55 sm:px-5 sm:pb-5 sm:pl-[3.75rem]",
+                "faq-answer max-w-[760px] px-4 pb-4 pl-[3.25rem] text-[clamp(0.92rem,1vw,1.05rem)] leading-[1.58] text-[rgba(235,218,228,0.72)] sm:px-5 sm:pb-5 sm:pl-[3.75rem]",
               )}
             >
               {answer}
@@ -337,10 +338,10 @@ export function FAQSection() {
             <h2
               className={cn(
                 cormorant.className,
-                "mt-3 text-5xl font-medium leading-[0.95] text-white md:text-6xl lg:text-7xl",
+                "mt-3 text-[clamp(2.4rem,5.2vw,4.25rem)] font-medium leading-[0.98] text-white",
               )}
             >
-              Answers
+              Quick Answers for Recruiters
             </h2>
             <p
               className={cn(
@@ -348,8 +349,8 @@ export function FAQSection() {
                 "mt-4 max-w-md text-sm leading-relaxed text-neutral-400 sm:text-base",
               )}
             >
-              Common questions about my background, skills, and what I&apos;m
-              looking for.
+              A quick look at how I think, what I bring, and the opportunities
+              I&apos;m excited to pursue.
             </p>
 
             <FaqImage reducedMotion={reducedMotion} />
@@ -366,7 +367,7 @@ export function FAQSection() {
             <div className="space-y-2.5 sm:space-y-3">
               {faqs.map((faq, index) => (
                 <FaqItem
-                  key={faq.question}
+                  key={faq.id}
                   question={faq.question}
                   answer={faq.answer}
                   index={index}
