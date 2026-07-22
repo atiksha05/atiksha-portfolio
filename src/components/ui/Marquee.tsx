@@ -33,7 +33,7 @@ function SkillItem({ skill }: { skill: MarqueeSkill }) {
   const Icon = iconMap[skill.icon];
 
   return (
-    <span className="flex shrink-0 items-center gap-2.5">
+    <span className="skill-item flex shrink-0 items-center gap-2.5">
       <Icon
         className="h-[14px] w-[14px] text-pink-400/50"
         strokeWidth={1.5}
@@ -66,7 +66,7 @@ export function Marquee({
         aria-hidden
       />
 
-      <div className="animate-marquee flex w-max items-center gap-16 whitespace-nowrap sm:gap-20 lg:gap-24">
+      <div className="skills-track animate-marquee flex w-max items-center gap-16 whitespace-nowrap sm:gap-20 lg:gap-24">
         {doubled.map((skill, i) => (
           <SkillItem key={`${skill.label}-${i}`} skill={skill} />
         ))}

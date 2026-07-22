@@ -18,7 +18,7 @@
   justify-content: center;
   overflow: hidden;
   box-sizing: border-box;
-  scroll-margin-top: 0;
+  scroll-margin-top: calc(var(--navbar-height, 76px) + 16px);
   border-top: 1px solid rgba(236, 72, 153, 0.08);
 }
 
@@ -26,7 +26,7 @@
   width: min(calc(100% - 48px), 1400px);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(400px, 0.9fr) minmax(0, 1.2fr);
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.2fr);
   gap: clamp(34px, 3.5vw, 58px);
   align-items: center;
 }
@@ -676,7 +676,7 @@
   }
 
   .person-main {
-    grid-template-columns: minmax(360px, 0.9fr) minmax(0, 1.1fr);
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   }
 
   .person-footer {
@@ -699,7 +699,7 @@
     min-height: auto;
     overflow: visible;
     padding: calc(var(--navbar-height, 76px) + 24px) 0 48px;
-    scroll-margin-top: 0;
+    scroll-margin-top: calc(var(--navbar-height, 68px) + 16px);
   }
 
   .person-main {
@@ -737,6 +737,8 @@
   .person-label {
     padding: 7px 10px;
     font-size: 0.72rem;
+    white-space: normal;
+    max-width: 42%;
   }
 
   .person-label::after {

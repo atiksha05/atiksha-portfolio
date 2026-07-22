@@ -208,7 +208,7 @@ function FaqItem({
         type="button"
         onClick={onToggle}
         aria-expanded={isOpen}
-        className="flex w-full cursor-pointer items-center gap-3 px-4 py-3.5 text-left sm:gap-4 sm:px-5 sm:py-4"
+        className="flex w-full min-h-11 cursor-pointer items-center gap-3 px-4 py-3.5 text-left sm:gap-4 sm:px-5 sm:py-4"
       >
         <span
           className={cn(
@@ -231,7 +231,7 @@ function FaqItem({
 
         <span
           className={cn(
-            "relative flex h-7 w-7 shrink-0 items-center justify-center rounded-full border transition-colors duration-300",
+            "relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full border transition-colors duration-300",
             isOpen
               ? "border-pink-400/45 bg-pink-500/15 text-pink-100"
               : "border-pink-400/20 text-pink-300/55",
@@ -305,7 +305,7 @@ export function FAQSection() {
   return (
     <section
       id="faq"
-      className="relative overflow-x-hidden border-t border-pink-500/[0.08] bg-black scroll-mt-32 pt-10 pb-12 md:pt-12 md:pb-12"
+      className="relative overflow-x-hidden border-t border-pink-500/[0.08] bg-black scroll-mt-[calc(var(--navbar-height,76px)+16px)] pt-10 pb-12 md:pt-12 md:pb-12"
     >
       {/* Soft background motion */}
       <div

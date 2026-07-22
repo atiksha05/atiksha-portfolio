@@ -171,7 +171,7 @@ export function ProjectsStrip() {
   return (
     <section
       id="projects"
-      className="relative scroll-mt-32 overflow-hidden bg-black pb-6 pt-6 md:scroll-mt-36 sm:pb-8 sm:pt-8"
+      className="relative scroll-mt-[calc(var(--navbar-height,76px)+16px)] overflow-hidden bg-black pb-6 pt-6 sm:pb-8 sm:pt-8"
     >
       <div className="section-container mb-6 sm:mb-8">
         <h2 className="text-center font-serif-display text-3xl text-white sm:text-4xl">

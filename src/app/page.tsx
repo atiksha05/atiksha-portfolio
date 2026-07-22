@@ -1,4 +1,3 @@
-import { CursorDot } from "@/components/effects/CursorDot";
 import { Navbar } from "@/components/layout/Navbar";
 import { AboutSection } from "@/components/sections/AboutSection";
 import { FAQSection } from "@/components/sections/FAQSection";

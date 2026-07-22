@@ -24,17 +24,40 @@
   box-sizing: border-box;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html {
+  width: 100%;
+  max-width: 100%;
   scroll-behavior: smooth;
   overflow-x: hidden;
 }
 
 body {
+  width: 100%;
+  max-width: 100%;
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
   overflow-x: hidden;
   min-width: 0;
+}
+
+img,
+video,
+canvas,
+svg {
+  max-width: 100%;
+}
+
+@media (max-width: 900px) {
+  :root {
+    --navbar-height: 68px;
+  }
 }
 
 .hero-role-description {
@@ -61,23 +84,29 @@ body {
   max-width: 340px;
 }
 
-@media (max-width: 1023px) {
-  .hero-role-product {
-    align-items: center;
-  }
+/* Shared section container — consistent max-width + horizontal padding */
+.section-container {
+  @apply mx-auto w-full max-w-7xl px-5 sm:px-8 md:px-10 lg:px-10;
+}
 
-  .hero-role-description {
-    width: min(100%, 280px);
-    max-width: 280px;
-    margin-top: 14px;
-    font-size: 0.95rem;
-    line-height: 1.4;
+.page-section {
+  width: min(calc(100% - 32px), 1400px);
+  margin-inline: auto;
+}
+
+@media (max-width: 640px) {
+  .page-section {
+    width: min(calc(100% - 24px), 560px);
   }
 }
 
-/* Shared section container â€” consistent max-width + horizontal padding */
-.section-container {
-  @apply mx-auto w-full max-w-7xl px-5 sm:px-8 md:px-10 lg:px-10;
+/* Section scroll offset under fixed navbar */
+main > section[id],
+.person-section,
+.testimonials-section,
+.contact-section,
+.life-beyond-section {
+  scroll-margin-top: calc(var(--navbar-height, 76px) + 16px);
 }
 
 /* Shared vertical section rhythm */
@@ -304,6 +333,18 @@ a:hover .project-page-title {
   }
 }
 
+@media (hover: none), (pointer: coarse) {
+  .site-cursor,
+  .custom-cursor {
+    display: none !important;
+  }
+
+  body.custom-cursor,
+  body.custom-cursor * {
+    cursor: auto !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .site-cursor,
   .site-cursor-dot {
@@ -472,15 +513,32 @@ a:hover .project-page-title {
 
   .testimonials-network,
   .testimonial-network {
-    position: relative;
+    position: static;
     left: auto;
     right: auto;
     top: auto;
     bottom: auto;
     display: grid;
-    gap: 16px;
+    grid-template-columns: 1fr;
+    gap: 14px;
     padding: 24px 16px 28px;
     overflow: visible;
+  }
+
+  .testimonial-connections {
+    display: none;
+  }
+
+  .testimonial-node,
+  .add-review-button,
+  .add-review-node {
+    position: static;
+    transform: none;
+  }
+
+  .testimonial-node:hover,
+  .add-review-button:hover {
+    transform: none;
   }
 }
 
@@ -659,7 +717,7 @@ a:hover .project-page-title {
   }
 }
 
-@media (max-height: 820px) and (min-width: 769px) {
+@media (max-height: 820px) and (min-width: 901px) {
   .contact-content-panel {
     padding-top: 12px;
     padding-bottom: 12px;
@@ -707,7 +765,7 @@ a:hover .project-page-title {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .contact-section {
     display: block;
     height: auto;
@@ -717,12 +775,12 @@ a:hover .project-page-title {
 
   .contact-image-panel {
     height: 42vh;
-    min-height: 300px;
+    min-height: 360px;
   }
 
   .contact-content-panel {
     height: auto;
-    padding: 36px 20px 48px;
+    padding: 28px 20px 48px;
     overflow: visible;
   }
 
@@ -733,6 +791,131 @@ a:hover .project-page-title {
   .contact-textarea {
     min-height: 140px;
     max-height: none;
+  }
+
+  .contact-heading {
+    font-size: clamp(2.3rem, 11vw, 3.5rem);
+  }
+}
+
+@media (max-width: 640px) {
+  .contact-image-panel {
+    min-height: 300px;
+  }
+}
+
+/* —— Hero mobile adaptations (desktop unchanged at lg+) —— */
+@media (max-width: 1023px) {
+  .hero-role-product,
+  .hero-role-engineering {
+    width: 100%;
+    max-width: 560px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero-role-description {
+    width: min(100%, 340px);
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .hero-ampersand {
+    position: static;
+    margin: -6px 0 2px;
+  }
+
+  .hero-image-frame {
+    width: min(72vw, 430px);
+  }
+
+  .hero-image-frame img {
+    width: 100% !important;
+    max-width: 100%;
+    height: auto !important;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: center 20%;
+  }
+}
+
+@media (max-width: 900px) {
+  .hero-layout {
+    gap: 28px;
+    min-height: auto;
+    padding-top: 32px;
+    padding-bottom: 24px;
+  }
+
+  .hero-ampersand {
+    font-size: 2.8rem;
+    margin: -10px 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-layout {
+    gap: 22px;
+    padding-top: 24px;
+  }
+
+  .hero-role h1 {
+    font-size: clamp(2.8rem, 13vw, 4.4rem);
+    line-height: 0.92;
+    text-align: center;
+  }
+
+  .hero-role-description {
+    max-width: 310px;
+    margin-top: 14px;
+    font-size: 0.95rem;
+    line-height: 1.45;
+  }
+
+  .hero-image-frame {
+    width: min(82vw, 330px);
+  }
+
+  .hero-wave-badge {
+    width: 66px;
+    height: 66px;
+    bottom: -6px;
+    left: -4px;
+  }
+
+  .hero-decoration-dot {
+    transform: scale(0.72);
+  }
+
+  .skills-ticker .skills-track {
+    gap: 24px;
+  }
+
+  .skills-ticker .skill-item {
+    font-size: 0.82rem;
+  }
+
+  .skills-ticker .skill-item .text-\[15px\] {
+    font-size: 0.82rem;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .story-card,
+  .project-card,
+  .beyond-card {
+    transform: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 

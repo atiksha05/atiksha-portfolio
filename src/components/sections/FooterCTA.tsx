@@ -244,7 +244,7 @@ export function FooterCTA() {
                 target={link.external ? "_blank" : undefined}
                 rel={link.external ? "noopener noreferrer" : undefined}
                 className={cn(
-                  "inline-flex items-center gap-2 rounded-full border border-pink-400/20 bg-pink-500/[0.05] px-3.5 py-1.5 text-sm text-pink-100/75 backdrop-blur-sm transition-all duration-300",
+                  "inline-flex min-h-11 items-center gap-2 rounded-full border border-pink-400/20 bg-pink-500/[0.05] px-3.5 py-2.5 text-sm text-pink-100/75 backdrop-blur-sm transition-all duration-300",
                   "hover:border-pink-400/40 hover:bg-pink-500/[0.08] hover:text-pink-50 hover:shadow-[0_0_24px_rgba(244,114,182,0.15)]",
                 )}
               >
@@ -257,7 +257,7 @@ export function FooterCTA() {
             ))}
             <a
               href={`mailto:${site.email}?subject=Resume%20Request`}
-              className="glow-button-pink inline-flex items-center gap-2 rounded-full border border-pink-400/35 bg-pink-500/10 px-3.5 py-1.5 text-sm text-pink-50 backdrop-blur-sm transition-all hover:bg-pink-500/15"
+              className="glow-button-pink inline-flex min-h-11 items-center gap-2 rounded-full border border-pink-400/35 bg-pink-500/10 px-3.5 py-2.5 text-sm text-pink-50 backdrop-blur-sm transition-all hover:bg-pink-500/15"
             >
               <FileText className="h-3.5 w-3.5" strokeWidth={1.75} />
               Resume
@@ -344,7 +344,7 @@ export function FooterCTA() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub"
-                className="flex h-8 w-8 items-center justify-center rounded-full border border-pink-400/20 bg-pink-500/[0.05] text-pink-200/60 transition-all hover:border-pink-400/40 hover:text-pink-100 hover:shadow-[0_0_20px_rgba(244,114,182,0.15)]"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-pink-400/20 bg-pink-500/[0.05] text-pink-200/60 transition-all hover:border-pink-400/40 hover:text-pink-100 hover:shadow-[0_0_20px_rgba(244,114,182,0.15)]"
               >
                 <GitHubIcon className="h-3.5 w-3.5" />
               </a>
@@ -353,14 +353,14 @@ export function FooterCTA() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
-                className="flex h-8 w-8 items-center justify-center rounded-full border border-pink-400/20 bg-pink-500/[0.05] text-pink-200/60 transition-all hover:border-pink-400/40 hover:text-pink-100 hover:shadow-[0_0_20px_rgba(244,114,182,0.15)]"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-pink-400/20 bg-pink-500/[0.05] text-pink-200/60 transition-all hover:border-pink-400/40 hover:text-pink-100 hover:shadow-[0_0_20px_rgba(244,114,182,0.15)]"
               >
                 <LinkedInIcon className="h-3.5 w-3.5" />
               </a>
               <a
                 href={`mailto:${site.email}`}
                 aria-label="Email"
-                className="flex h-8 w-8 items-center justify-center rounded-full border border-pink-400/20 bg-pink-500/[0.05] text-pink-200/60 transition-all hover:border-pink-400/40 hover:text-pink-100 hover:shadow-[0_0_20px_rgba(244,114,182,0.15)]"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-pink-400/20 bg-pink-500/[0.05] text-pink-200/60 transition-all hover:border-pink-400/40 hover:text-pink-100 hover:shadow-[0_0_20px_rgba(244,114,182,0.15)]"
               >
                 <Mail className="h-3.5 w-3.5" />
               </a>

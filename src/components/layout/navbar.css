@@ -247,7 +247,7 @@
 
 .nav-cta {
   position: relative;
-  min-height: 42px;
+  min-height: 44px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -300,8 +300,10 @@
 
 .nav-menu-toggle {
   display: flex;
-  height: 40px;
-  width: 40px;
+  height: 44px;
+  width: 44px;
+  min-height: 44px;
+  min-width: 44px;
   align-items: center;
   justify-content: center;
   border-radius: 999px;
@@ -343,7 +345,8 @@
 .nav-mobile-link {
   display: block;
   border-radius: 12px;
-  padding: 12px 14px;
+  padding: 14px 14px;
+  min-height: 44px;
   color: rgba(246, 216, 232, 0.82);
   font-size: 1rem;
   font-weight: 500;

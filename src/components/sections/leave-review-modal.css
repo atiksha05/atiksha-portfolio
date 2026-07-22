@@ -15,7 +15,7 @@
 
 .review-modal-card {
   position: relative;
-  width: min(100%, 620px);
+  width: min(calc(100% - 20px), 620px);
   max-height: calc(100vh - var(--navbar-height, 76px) - 40px);
   overflow-y: auto;
   overscroll-behavior: contain;
@@ -41,8 +41,8 @@
   position: absolute;
   top: 16px;
   right: 16px;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   display: grid;
   place-items: center;
   border-radius: 50%;

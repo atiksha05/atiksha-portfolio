@@ -153,7 +153,7 @@ export function ProcessSection() {
   return (
     <section
       id="process"
-      className="relative overflow-x-hidden border-t border-pink-500/[0.08] bg-black py-16 scroll-mt-32 md:py-20"
+      className="relative overflow-x-hidden border-t border-pink-500/[0.08] bg-black py-16 scroll-mt-[calc(var(--navbar-height,76px)+16px)] md:py-20"
     >
       <div
         className="pointer-events-none absolute left-1/2 top-1/3 h-72 w-72 -translate-x-1/2 rounded-full bg-pink-500/[0.07] blur-[110px]"

@@ -18,10 +18,10 @@ export function Hero() {
       </div>
 
       <div className="relative z-10 flex min-h-0 flex-1 flex-col pt-[var(--navbar-height,76px)]">
-        <div className="section-container flex w-full flex-1 min-h-0 flex-col items-center justify-center gap-3 py-4 pb-8 sm:gap-5 sm:py-6 sm:pb-10 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-center lg:gap-8 lg:py-3 lg:pb-12">
+        <div className="hero-layout section-container flex w-full flex-1 min-h-0 flex-col items-center justify-center gap-3 py-4 pb-8 sm:gap-5 sm:py-6 sm:pb-10 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-center lg:gap-8 lg:py-3 lg:pb-12">
           {/* Left — name + Product Manager */}
           <div className="hero-role hero-role-product w-full shrink-0 lg:ml-auto lg:w-fit lg:justify-center">
-            <p className="mb-2 text-[0.65rem] font-medium uppercase tracking-[0.28em] text-white/70 sm:mb-3 sm:text-xs sm:tracking-[0.35em] md:text-sm">
+            <p className="hero-name-label mb-2 text-[0.65rem] font-medium uppercase tracking-[0.28em] text-white/70 sm:mb-3 sm:text-xs sm:tracking-[0.35em] md:text-sm">
               {hero.name}
             </p>
             {hero.titleLeft.map((word) => (
@@ -32,14 +32,12 @@ export function Hero() {
                 {word}
               </h1>
             ))}
-            <p className="hero-role-description">
-              {hero.pmSubtitle}
-            </p>
+            <p className="hero-role-description">{hero.pmSubtitle}</p>
           </div>
 
           {/* Center — flip photo + waving hand */}
-          <div className="relative flex w-full max-w-full shrink-0 justify-center overflow-hidden px-1 sm:overflow-visible sm:px-0">
-            <div className="overflow-hidden rounded-[1.75rem] bg-white p-2.5 shadow-[0_24px_80px_rgba(0,0,0,0.5)] sm:overflow-visible sm:rounded-[2rem] sm:p-3 md:rounded-[2.5rem] md:p-3.5">
+          <div className="hero-image-wrap relative flex w-full max-w-full shrink-0 justify-center overflow-hidden px-1 sm:overflow-visible sm:px-0">
+            <div className="hero-image-frame overflow-hidden rounded-[1.75rem] bg-white p-2.5 shadow-[0_24px_80px_rgba(0,0,0,0.5)] sm:overflow-visible sm:rounded-[2rem] sm:p-3 md:rounded-[2.5rem] md:p-3.5">
               <HeroPhotoFlip
                 frontSrc={hero.image}
                 backSrc={hero.imageAlt}
@@ -47,7 +45,7 @@ export function Hero() {
               />
             </div>
 
-            <div className="animate-wave absolute -bottom-2 -left-2 z-20 flex h-14 w-14 items-center justify-center rounded-full bg-pink-300 shadow-lg sm:-bottom-3 sm:-left-3 sm:h-16 sm:w-16 md:-bottom-4 md:-left-4 md:h-20 md:w-20">
+            <div className="hero-wave-badge animate-wave absolute -bottom-2 -left-2 z-20 flex h-14 w-14 items-center justify-center rounded-full bg-pink-300 shadow-lg sm:-bottom-3 sm:-left-3 sm:h-16 sm:w-16 md:-bottom-4 md:-left-4 md:h-20 md:w-20">
               <span
                 className="text-2xl sm:text-3xl md:text-4xl"
                 role="img"
@@ -57,12 +55,15 @@ export function Hero() {
               </span>
             </div>
 
-            <span className="absolute -right-2 top-1/4 hidden h-4 w-4 rounded-full bg-pink-300/80 lg:block" />
+            <span
+              className="hero-decoration-dot absolute -right-2 top-1/4 hidden h-4 w-4 rounded-full bg-pink-300/80 lg:block"
+              aria-hidden
+            />
           </div>
 
           {/* Right — Software Engineer */}
           <div className="hero-role hero-role-engineering flex w-full shrink-0 flex-col items-center lg:items-start lg:justify-center lg:text-left">
-            <span className="mb-0.5 font-sans text-2xl font-black text-pink-300 sm:text-3xl md:text-4xl">
+            <span className="hero-ampersand mb-0.5 font-sans text-2xl font-black text-pink-300 sm:text-3xl md:text-4xl">
               &
             </span>
             {hero.titleRight.map((word) => (
@@ -73,14 +74,12 @@ export function Hero() {
                 {word}
               </h1>
             ))}
-            <p className="hero-role-description">
-              {hero.sweSubtitle}
-            </p>
+            <p className="hero-role-description">{hero.sweSubtitle}</p>
           </div>
         </div>
       </div>
 
-      <div className="relative z-10 w-full shrink-0 bg-black">
+      <div className="skills-ticker relative z-10 w-full shrink-0 overflow-hidden bg-black">
         <Marquee items={marqueeItems} />
       </div>
     </section>
