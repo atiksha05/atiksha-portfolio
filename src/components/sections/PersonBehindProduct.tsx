@@ -26,7 +26,7 @@ export function PersonBehindProduct() {
   return (
     <section
       id="about"
-      className="person-section relative scroll-mt-[var(--navbar-height,76px)]"
+      className="person-section relative"
     >
       <div className="person-main">
         <div className="person-visual">
@@ -83,10 +83,7 @@ export function PersonBehindProduct() {
             </p>
           </div>
 
-          <div
-            id="experience"
-            className="role-grid scroll-mt-[var(--navbar-height,76px)]"
-          >
+          <div className="role-grid">
             <article className="role-card">
               <div className="role-card-header">
                 <div className="role-icon" aria-hidden>

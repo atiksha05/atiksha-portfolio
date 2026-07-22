@@ -22,14 +22,24 @@ import {
 import { cn } from "@/lib/utils";
 import "./navbar.css";
 
-const SPY_SECTIONS = ["about", "projects", "experience", "contact"] as const;
+const SPY_SECTIONS = ["about", "projects", "contact"] as const;
 
 function getHeaderHeight() {
   const header = document.querySelector(".site-header");
   return header instanceof HTMLElement ? header.offsetHeight : 76;
 }
 
-function scrollToSection(sectionId: string, smooth: boolean) {
+function getScrollOffset(sectionId?: string) {
+  // Full-viewport sections already pad for the fixed navbar.
+  if (sectionId === "about" || sectionId === "home") return 0;
+  return Math.max(getHeaderHeight(), 120);
+}
+
+function scrollToSection(
+  sectionId: string,
+  smooth: boolean,
+  pathPrefix?: string,
+) {
   const section = document.getElementById(sectionId);
   if (!section) return;
 
@@ -37,13 +47,17 @@ function scrollToSection(sectionId: string, smooth: boolean) {
     "(prefers-reduced-motion: reduce)",
   ).matches;
   const top =
-    section.getBoundingClientRect().top + window.scrollY - getHeaderHeight();
+    section.getBoundingClientRect().top +
+    window.scrollY -
+    getScrollOffset(sectionId);
 
   window.scrollTo({
     top: Math.max(0, top),
     behavior: reduceMotion || !smooth ? "auto" : "smooth",
   });
-  window.history.replaceState(null, "", `#${sectionId}`);
+
+  const path = pathPrefix ?? window.location.pathname;
+  window.history.replaceState(null, "", `${path}#${sectionId}`);
 }
 
 export function Navbar() {
@@ -53,6 +67,7 @@ export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState<string | null>(null);
+  const [pageHash, setPageHash] = useState("");
   const menuId = useId();
   const toggleRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -62,7 +77,15 @@ export function Navbar() {
 
   useEffect(() => {
     setMenuOpen(false);
+    setPageHash(typeof window !== "undefined" ? window.location.hash : "");
   }, [pathname]);
+
+  useEffect(() => {
+    const syncHash = () => setPageHash(window.location.hash);
+    syncHash();
+    window.addEventListener("hashchange", syncHash);
+    return () => window.removeEventListener("hashchange", syncHash);
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
@@ -129,11 +152,17 @@ export function Navbar() {
 
   const isLinkActive = useCallback(
     (link: NavLink) => {
-      if (link.href === "/my-story") return isMyStory;
+      if (link.href.startsWith("/my-story#")) {
+        const targetHash = `#${link.href.split("#")[1]}`;
+        return isMyStory && pageHash === targetHash;
+      }
+      if (link.href === "/my-story") {
+        return isMyStory && pageHash !== "#leadership-journey";
+      }
       if (!isHome || !link.sectionId) return false;
       return activeSection === link.sectionId;
     },
-    [activeSection, isHome, isMyStory],
+    [activeSection, isHome, isMyStory, pageHash],
   );
 
   const handleNavClick = (
@@ -142,7 +171,33 @@ export function Navbar() {
   ) => {
     setMenuOpen(false);
 
-    if (link.href === "/my-story") return;
+    if (link.href.startsWith("/my-story")) {
+      const hash = link.href.includes("#")
+        ? link.href.split("#")[1]
+        : null;
+
+      if (isMyStory) {
+        event.preventDefault();
+        if (hash) {
+          scrollToSection(hash, true, "/my-story");
+          setPageHash(`#${hash}`);
+        } else {
+          const reduceMotion = window.matchMedia(
+            "(prefers-reduced-motion: reduce)",
+          ).matches;
+          window.scrollTo({
+            top: 0,
+            behavior: reduceMotion ? "auto" : "smooth",
+          });
+          window.history.replaceState(null, "", "/my-story");
+          setPageHash("");
+        }
+        return;
+      }
+
+      // Navigating from another route — let Next.js route, HashScroll finishes.
+      return;
+    }
 
     const sectionId = link.sectionId;
     if (!sectionId) return;

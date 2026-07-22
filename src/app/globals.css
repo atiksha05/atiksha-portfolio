@@ -223,10 +223,53 @@ a:hover .project-page-title {
   transform-origin: 70% 70%;
 }
 
+.site-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10050;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate3d(-100px, -100px, 0);
+  will-change: transform, opacity;
+  transition: opacity 120ms ease;
+}
+
+.site-cursor[data-active="true"] {
+  display: block;
+}
+
+.site-cursor-dot {
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  margin-top: -5px;
+  border-radius: 50%;
+  background: #f472b6;
+  box-shadow:
+    0 0 8px rgba(244, 114, 182, 0.8),
+    0 0 16px rgba(244, 114, 182, 0.4);
+  transform: scale(1);
+  transform-origin: center center;
+  will-change: transform;
+  transition: transform 160ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.site-cursor-dot.is-hover {
+  transform: scale(1.55);
+}
+
 @media (pointer: fine) {
   body.custom-cursor,
   body.custom-cursor * {
     cursor: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-cursor,
+  .site-cursor-dot {
+    transition: none !important;
   }
 }
 
@@ -250,7 +293,8 @@ a:hover .project-page-title {
   height: min(68vh, 650px);
   min-height: 540px;
   max-height: 650px;
-  overflow: hidden;
+  /* Allow review popovers to extend past the constellation area */
+  overflow: visible;
   border-radius: 28px;
   box-sizing: border-box;
 }
@@ -301,7 +345,7 @@ a:hover .project-page-title {
   right: 3%;
   top: 34%;
   bottom: 5%;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .testimonial-connections {

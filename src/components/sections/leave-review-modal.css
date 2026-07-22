@@ -1,0 +1,347 @@
+/* Leave a Review modal — compact viewport fit below navbar */
+
+.review-overlay {
+  position: fixed;
+  inset: var(--navbar-height, 76px) 0 0;
+  z-index: 900;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.review-modal-card {
+  position: relative;
+  width: min(100%, 620px);
+  max-height: calc(100vh - var(--navbar-height, 76px) - 40px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 22px 26px 24px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 112, 194, 0.4);
+  background: #0b070c;
+  box-shadow: 0 0 80px rgba(244, 114, 182, 0.28);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 102, 188, 0.38) transparent;
+}
+
+.review-modal-card::-webkit-scrollbar {
+  width: 6px;
+}
+
+.review-modal-card::-webkit-scrollbar-thumb {
+  background: rgba(255, 102, 188, 0.35);
+  border-radius: 999px;
+}
+
+.review-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  z-index: 5;
+  border: 1px solid rgba(255, 112, 194, 0.3);
+  color: #fce7f3;
+  background: transparent;
+  cursor: pointer;
+  transition:
+    border-color 280ms ease,
+    color 280ms ease;
+}
+
+.review-close:hover {
+  border-color: rgba(255, 112, 194, 0.55);
+  color: #ffffff;
+}
+
+.review-close:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.review-header {
+  margin-bottom: 18px;
+  padding-right: 40px;
+}
+
+.review-header-eyebrow {
+  margin: 0;
+  color: #f9a8d4;
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.review-header h2,
+.review-header h3 {
+  margin: 8px 0 0;
+  color: #ffffff;
+  font-size: clamp(1.85rem, 2.8vw, 2.55rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.review-header p {
+  margin: 10px 0 0;
+  color: rgba(252, 231, 243, 0.85);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-bottom: 2px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  color: rgba(252, 231, 243, 0.9);
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.review-form-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.review-input,
+.review-textarea {
+  width: 100%;
+  color: #f8eef4;
+  border: 1px solid rgba(255, 91, 180, 0.28);
+  border-radius: 15px;
+  background: rgba(7, 4, 7, 0.88);
+  outline: none;
+  font: inherit;
+  transition:
+    border-color 280ms ease,
+    box-shadow 280ms ease;
+}
+
+.review-input {
+  min-height: 46px;
+  padding: 11px 14px;
+}
+
+.review-textarea {
+  min-height: 104px;
+  max-height: 150px;
+  padding: 13px 14px;
+  resize: vertical;
+}
+
+.review-input::placeholder,
+.review-textarea::placeholder {
+  color: rgba(251, 207, 232, 0.4);
+}
+
+.review-input:focus,
+.review-textarea:focus {
+  border-color: rgba(255, 112, 194, 0.7);
+  box-shadow: 0 0 0 3px rgba(244, 114, 182, 0.12);
+}
+
+.review-input:disabled,
+.review-textarea:disabled {
+  opacity: 0.6;
+}
+
+.rating-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: rgba(252, 231, 243, 0.9);
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+.rating-stars {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.rating-star {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: transform 280ms ease;
+}
+
+.rating-star:hover:not(:disabled) {
+  transform: scale(1.1);
+}
+
+.rating-star:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.rating-star svg {
+  width: 22px;
+  height: 22px;
+}
+
+.form-error {
+  margin-top: 2px;
+  color: #ff8abf;
+  font-size: 0.72rem;
+  line-height: 1.3;
+}
+
+.review-submit {
+  width: 100%;
+  min-height: 48px;
+  margin-top: 4px;
+  padding: 11px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 112, 194, 0.5);
+  background: rgba(236, 72, 153, 0.15);
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.review-submit:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.review-success {
+  padding: 28px 8px;
+  text-align: center;
+}
+
+.review-success-title {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.review-success-copy {
+  margin: 8px 0 0;
+  color: rgba(252, 231, 243, 0.8);
+  font-size: 0.875rem;
+}
+
+@media (max-height: 820px) and (min-width: 769px) {
+  .review-overlay {
+    padding: 12px 18px;
+    align-items: start;
+  }
+
+  .review-modal-card {
+    margin-top: 12px;
+    width: min(100%, 590px);
+    max-height: calc(100vh - var(--navbar-height, 76px) - 24px);
+    padding: 18px 22px 20px;
+  }
+
+  .review-header {
+    margin-bottom: 14px;
+  }
+
+  .review-header h2,
+  .review-header h3 {
+    font-size: 2rem;
+  }
+
+  .review-header p {
+    margin-top: 7px;
+    font-size: 0.84rem;
+  }
+
+  .review-form {
+    gap: 11px;
+  }
+
+  .form-group {
+    gap: 5px;
+  }
+
+  .review-input {
+    min-height: 42px;
+    padding: 9px 12px;
+  }
+
+  .review-textarea {
+    min-height: 86px;
+    max-height: 120px;
+  }
+
+  .rating-star {
+    width: 28px;
+    height: 28px;
+  }
+
+  .rating-star svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .review-submit {
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 640px) {
+  .review-overlay {
+    padding: 10px;
+    align-items: start;
+  }
+
+  .review-modal-card {
+    width: 100%;
+    max-height: calc(100vh - var(--navbar-height, 68px) - 20px);
+    margin-top: 8px;
+    padding: 18px 16px 20px;
+    border-radius: 20px;
+  }
+
+  .review-form-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .review-header h2,
+  .review-header h3 {
+    font-size: 2rem;
+  }
+
+  .rating-stars {
+    gap: 9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .review-close,
+  .rating-star,
+  .review-input,
+  .review-textarea {
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,86 +1,58 @@
 import {
   BookOpen,
   Music2,
-  Palette,
+  Paintbrush,
   Sparkles,
   type LucideIcon,
 } from "lucide-react";
-
-export type ImageFit = "cover" | "contain";
 
 export type LifeOutsideInterest = {
   id: string;
   title: string;
   description: string;
+  quote: string;
   icon: LucideIcon;
-  image: string;
-  alt: string;
-  objectPosition: string;
-  fit: ImageFit;
+  accent: "pink" | "violet" | "fuchsia" | "rose";
 };
 
-/**
- * Four personal interests.
- * Featured card uses Painting; the other three render in the right-hand grid.
- */
 export const personalInterests: LifeOutsideInterest[] = [
   {
     id: "reading",
     title: "Reading",
     description:
-      "Stories, ideas, and perspectives that help me see the world differently.",
+      "I enjoy reading product management, psychology, leadership, and self-growth books. Learning how people think helps me build products with more empathy.",
+    quote: "Every book teaches me a different way to solve problems.",
     icon: BookOpen,
-    image: "/images/personal/city-portrait.jpg",
-    alt: "Atiksha on a San Francisco sidewalk in a trench coat",
-    objectPosition: "center 18%",
-    fit: "cover",
+    accent: "pink",
   },
   {
     id: "music",
-    title: "Exploring New Music",
+    title: "Discovering Music",
     description:
-      "Discovering new sounds, artists, and moods that inspire creativity.",
+      "I love exploring new artists, discovering underrated songs, and finding playlists that match every mood. Music helps me recharge and stay creative.",
+    quote: "Some ideas arrive because of the right song.",
     icon: Music2,
-    image: "/images/personal/night-moon.png",
-    alt: "A glowing moon over a quiet night street, capturing a creative mood",
-    objectPosition: "center 42%",
-    fit: "cover",
+    accent: "violet",
   },
   {
     id: "painting",
-    title: "Painting",
-    description: "Color, texture, and quiet creative focus.",
-    icon: Palette,
-    image: "/images/personal/creative-desk.png",
-    alt: "Atiksha focused on a detailed creative project at her desk",
-    objectPosition: "center 28%",
-    fit: "cover",
+    title: "Painting & Sketching",
+    description:
+      "Sketching and painting have been part of my life since childhood. It reminds me that creativity doesn't always need rules.",
+    quote: "Creativity grows when perfection disappears.",
+    icon: Paintbrush,
+    accent: "fuchsia",
   },
   {
     id: "dancing",
     title: "Dancing",
-    description: "Movement, rhythm, and expression beyond the screen.",
+    description:
+      "Dancing helps me disconnect from screens and reconnect with energy, confidence, and expression.",
+    quote: "Movement clears my mind better than words.",
     icon: Sparkles,
-    image: "/images/personal/plaza-night.jpg",
-    alt: "Atiksha walking through a plaza lined with string lights at night",
-    objectPosition: "center 18%",
-    fit: "cover",
+    accent: "rose",
   },
 ];
-
-export const featuredInterestId = "painting" as const;
-
-export const featuredInterest =
-  personalInterests.find((item) => item.id === featuredInterestId)!;
-
-export const sideInterests = personalInterests.filter(
-  (item) => item.id !== featuredInterestId,
-);
-
-export const featuredQuote = {
-  label: "Featured",
-  text: "Creativity makes me a better builder.",
-};
 
 export const lifeOutsideCopy = {
   eyebrow: "Outside the Resume",

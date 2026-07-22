@@ -1,182 +1,345 @@
-/* Life Beyond the Work — featured left + interest grid right */
+/* Life Beyond the Work — compact one-screen editorial cards */
+
+.life-beyond-section {
+  padding:
+    clamp(28px, 4.5vh, 48px)
+    0
+    clamp(28px, 4.5vh, 48px);
+}
+
+.life-beyond-header {
+  margin-bottom: clamp(14px, 2.2vh, 22px);
+}
+
+.life-beyond-title {
+  margin: 8px 0 0;
+  color: #ffffff;
+  font-size: clamp(1.9rem, 3.4vw, 3rem);
+  font-weight: 500;
+  line-height: 1.05;
+}
+
+.life-beyond-subtitle {
+  margin: 8px 0 0;
+  max-width: 36rem;
+  color: rgba(252, 231, 243, 0.55);
+  font-size: clamp(0.88rem, 1.05vw, 1rem);
+  line-height: 1.5;
+}
 
 .personal-interests-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-  gap: 18px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
   align-items: stretch;
 }
 
-.personal-interests-list {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
-}
-
-/* With 3 side cards, span the third across the bottom row */
-.personal-interests-list > :nth-child(3) {
-  grid-column: 1 / -1;
-}
-
-.featured-interest-card,
-.personal-interest-card {
+.life-interest-card {
+  --life-glow: rgba(244, 114, 182, 0.45);
   position: relative;
   z-index: 10;
+  isolation: isolate;
   overflow: hidden;
-  border: 1px solid rgba(244, 114, 182, 0.15);
-  background: #080508;
+  min-height: 0;
+  border-radius: 20px;
+  border: 1px solid rgba(244, 114, 182, 0.14);
+  background:
+    linear-gradient(
+      155deg,
+      rgba(255, 255, 255, 0.045) 0%,
+      rgba(255, 255, 255, 0.015) 42%,
+      rgba(0, 0, 0, 0.2) 100%
+    ),
+    rgba(10, 6, 12, 0.72);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 14px 32px rgba(0, 0, 0, 0.28);
+  transform-style: preserve-3d;
   transition:
-    transform 500ms ease,
-    border-color 500ms ease,
-    box-shadow 500ms ease;
+    transform 480ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 420ms ease,
+    box-shadow 480ms ease;
 }
 
-.featured-interest-card {
-  min-height: 400px;
-  max-height: 400px;
-  border-radius: 24px;
+.life-interest-card[data-accent="pink"] {
+  --life-glow: rgba(244, 114, 182, 0.5);
 }
 
-.personal-interest-card {
-  min-height: 188px;
-  max-height: 193px;
-  border-radius: 1rem;
+.life-interest-card[data-accent="violet"] {
+  --life-glow: rgba(167, 139, 250, 0.48);
 }
 
-.personal-interests-list > :nth-child(3).personal-interest-card {
-  min-height: 170px;
-  max-height: 180px;
+.life-interest-card[data-accent="fuchsia"] {
+  --life-glow: rgba(232, 121, 249, 0.48);
 }
 
-.featured-interest-card:hover,
-.personal-interest-card:hover {
-  border-color: rgba(244, 114, 182, 0.4);
+.life-interest-card[data-accent="rose"] {
+  --life-glow: rgba(251, 113, 133, 0.48);
 }
 
-.featured-interest-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 0 48px rgba(244, 114, 182, 0.2);
+.life-interest-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  border-color: color-mix(in srgb, var(--life-glow) 72%, white 8%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 0 0 1px color-mix(in srgb, var(--life-glow) 35%, transparent),
+    0 18px 40px rgba(0, 0, 0, 0.38),
+    0 0 34px color-mix(in srgb, var(--life-glow) 28%, transparent);
 }
 
-.personal-interest-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 0 36px rgba(244, 114, 182, 0.2);
-}
-
-.interest-image-wrap {
+.life-card-atmosphere {
   position: absolute;
   inset: 0;
+  z-index: 0;
+  pointer-events: none;
   overflow: hidden;
-  background: #080508;
 }
 
-.interest-image-blur {
+.life-card-orb {
   position: absolute;
-  inset: -24px;
-  background-position: center;
-  background-size: cover;
-  filter: blur(24px) brightness(0.55);
-  transform: scale(1.08);
-  opacity: 0.55;
+  border-radius: 50%;
+  filter: blur(28px);
+  opacity: 0.5;
 }
 
-.interest-image {
+.life-card-orb--a {
+  width: 140px;
+  height: 140px;
+  top: -48px;
+  right: -36px;
+  background: radial-gradient(circle, var(--life-glow), transparent 68%);
+}
+
+.life-card-orb--b {
+  width: 110px;
+  height: 110px;
+  bottom: -40px;
+  left: -30px;
+  background: radial-gradient(
+    circle,
+    rgba(168, 85, 247, 0.35),
+    transparent 70%
+  );
+}
+
+.life-card-ring {
+  position: absolute;
+  top: 14%;
+  right: 10%;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 24px rgba(244, 114, 182, 0.06);
+  opacity: 0.65;
+}
+
+.life-card-line {
+  position: absolute;
+  inset: 14% 8% auto auto;
+  width: 96px;
+  height: 96px;
+  border-radius: 24px;
+  border: 1px solid rgba(244, 114, 182, 0.1);
+  transform: rotate(18deg);
+  opacity: 0.5;
+}
+
+.life-card-speck {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(255, 182, 220, 0.7);
+  box-shadow: 0 0 10px rgba(244, 114, 182, 0.55);
+  animation: lifeSpeckFloat 7.5s ease-in-out infinite;
+}
+
+.life-card-speck:nth-child(5) {
+  top: 28%;
+  left: 18%;
+  animation-delay: 0.4s;
+}
+
+.life-card-speck:nth-child(6) {
+  top: 52%;
+  right: 22%;
+  width: 2px;
+  height: 2px;
+  animation-delay: 1.6s;
+}
+
+.life-card-speck:nth-child(7) {
+  bottom: 24%;
+  left: 42%;
+  animation-delay: 2.8s;
+}
+
+@keyframes lifeSpeckFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translateY(-8px);
+    opacity: 0.9;
+  }
+}
+
+.life-card-body {
   position: relative;
   z-index: 1;
-  width: 100%;
+  display: flex;
   height: 100%;
-  display: block;
-  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  min-height: 0;
+  flex-direction: column;
+  padding: 16px 18px 14px;
 }
 
-.interest-image-cover {
-  object-fit: cover;
+.life-card-icon {
+  display: inline-flex;
+  height: 36px;
+  width: 36px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  border: 1px solid rgba(244, 114, 182, 0.28);
+  color: #ff9fd0;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(244, 114, 182, 0.16),
+      rgba(168, 85, 247, 0.08)
+    );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 16px rgba(244, 114, 182, 0.12);
+  animation: lifeIconPulse 3.4s ease-in-out infinite;
 }
 
-.interest-image-contain {
-  object-fit: contain;
-  padding: 10px;
+.life-card-icon svg {
+  width: 16px;
+  height: 16px;
 }
 
-.personal-interest-card:hover .interest-image-cover,
-.featured-interest-card:hover .interest-image-cover {
-  transform: scale(1.015);
+.life-interest-card:hover .life-card-icon {
+  border-color: rgba(244, 114, 182, 0.5);
+  color: #fff0f7;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 22px color-mix(in srgb, var(--life-glow) 40%, transparent);
 }
 
-.personal-interest-card:hover .interest-image-contain,
-.featured-interest-card:hover .interest-image-contain {
-  transform: none;
+@keyframes lifeIconPulse {
+  0%,
+  100% {
+    transform: translateY(0);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      0 0 12px rgba(244, 114, 182, 0.1);
+  }
+  50% {
+    transform: translateY(-2px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      0 0 18px rgba(244, 114, 182, 0.22);
+  }
 }
 
-.featured-interest-card::after,
-.personal-interest-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  background: linear-gradient(
-    to top,
-    rgba(4, 2, 4, 0.88) 0%,
-    rgba(4, 2, 4, 0.38) 48%,
-    rgba(4, 2, 4, 0.08) 76%
-  );
-  pointer-events: none;
+.life-card-title {
+  margin: 10px 0 0;
+  color: #fff6fb;
+  font-size: clamp(1.15rem, 1.45vw, 1.4rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
 }
 
-.interest-card-content {
-  position: absolute;
-  z-index: 3;
-  left: 18px;
-  right: 18px;
-  bottom: 16px;
+.life-card-copy {
+  margin: 8px 0 0;
+  color: rgba(246, 220, 234, 0.62);
+  font-size: 0.84rem;
+  line-height: 1.5;
 }
 
-.featured-interest-card .interest-card-content {
-  left: 24px;
-  right: 24px;
-  bottom: 22px;
+.life-card-quote {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(244, 114, 182, 0.12);
+  color: rgba(255, 214, 236, 0.88);
+  font-size: 0.88rem;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+@media (min-width: 901px) and (max-height: 900px) {
+  .life-beyond-section {
+    padding: 22px 0 24px;
+  }
+
+  .life-beyond-header {
+    margin-bottom: 12px;
+  }
+
+  .life-beyond-title {
+    font-size: clamp(1.7rem, 2.8vw, 2.4rem);
+  }
+
+  .life-card-body {
+    padding: 14px 16px 12px;
+  }
+
+  .life-card-copy {
+    font-size: 0.8rem;
+    line-height: 1.45;
+  }
+
+  .life-card-quote {
+    margin-top: 10px;
+    padding-top: 8px;
+    font-size: 0.82rem;
+  }
 }
 
 @media (max-width: 900px) {
+  .life-beyond-section {
+    padding: 40px 0 48px;
+  }
+
   .personal-interests-grid {
     grid-template-columns: 1fr;
+    gap: 14px;
   }
 
-  .featured-interest-card {
-    min-height: 340px;
-    max-height: none;
-  }
-
-  .personal-interests-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .personal-interests-list > :nth-child(3) {
-    grid-column: 1 / -1;
-  }
-
-  .personal-interest-card,
-  .personal-interests-list > :nth-child(3).personal-interest-card {
-    min-height: 190px;
-    max-height: none;
+  .life-card-body {
+    padding: 18px 18px 16px;
   }
 }
 
 @media (max-width: 640px) {
-  .personal-interests-list {
-    grid-template-columns: 1fr;
+  .life-beyond-section {
+    padding: 36px 0 44px;
   }
 
-  .personal-interests-list > :nth-child(3) {
-    grid-column: auto;
+  .life-beyond-title {
+    font-size: 1.85rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .life-interest-card,
+  .life-card-icon,
+  .life-card-speck {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
   }
 
-  .personal-interest-card,
-  .personal-interests-list > :nth-child(3).personal-interest-card {
-    min-height: 230px;
-  }
-
-  .featured-interest-card {
-    min-height: 310px;
+  .life-interest-card:hover {
+    transform: none;
   }
 }

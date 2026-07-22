@@ -29,6 +29,7 @@ import {
 } from "@/data/constellationReviews";
 import { toConstellationReview, type StoredReview } from "@/lib/reviews/types";
 import { cn } from "@/lib/utils";
+import "./leave-review-modal.css";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -541,6 +542,8 @@ function TestimonialCard({
 }) {
   const pos = getPos(review, bp);
   const titleId = useId();
+  // Nodes near the top of the canvas: open the card below so it isn't clipped.
+  const openBelow = pos.y < 38;
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -557,15 +560,17 @@ function TestimonialCard({
       aria-labelledby={titleId}
       className={cn(
         "review-card absolute z-40 w-[min(90%,340px)] rounded-3xl border border-pink-400/30 bg-gradient-to-br from-zinc-950/95 via-black/95 to-purple-950/40 p-5 shadow-[0_0_48px_rgba(244,114,182,0.22)] backdrop-blur-xl",
-        "-translate-x-1/2 -translate-y-[108%]",
+        openBelow
+          ? "-translate-x-1/2 translate-y-[18%]"
+          : "-translate-x-1/2 -translate-y-[108%]",
       )}
       style={{
         left: `${Math.min(86, Math.max(14, pos.x))}%`,
-        top: `${Math.max(22, Math.min(70, pos.y))}%`,
+        top: `${Math.max(12, Math.min(78, pos.y))}%`,
       }}
-      initial={{ opacity: 0, scale: 0.94, y: 8 }}
+      initial={{ opacity: 0, scale: 0.94, y: openBelow ? -8 : 8 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.94, y: 8 }}
+      exit={{ opacity: 0, scale: 0.94, y: openBelow ? -8 : 8 }}
       transition={SMOOTH}
     >
       <button
@@ -647,17 +652,26 @@ function LeaveReviewModal({
   onSubmitted: (review: NetworkReview) => void;
 }) {
   const titleId = useId();
+  const firstFieldRef = useRef<HTMLInputElement>(null);
   const [rating, setRating] = useState(5);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    firstFieldRef.current?.focus();
+
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape" && !submitting) onClose();
     };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKey);
+    };
   }, [onClose, submitting]);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -708,7 +722,7 @@ function LeaveReviewModal({
 
   return (
     <motion.div
-      className="review-modal fixed inset-0 z-[80] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
+      className="review-overlay"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -721,7 +735,7 @@ function LeaveReviewModal({
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className="relative w-full max-w-lg rounded-3xl border border-pink-400/30 bg-gradient-to-br from-zinc-950 via-black to-purple-950/40 p-6 shadow-[0_0_60px_rgba(244,114,182,0.2)] sm:p-8"
+        className="review-modal-card"
         initial={{ opacity: 0, scale: 0.94, y: 8 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.94, y: 8 }}
@@ -734,7 +748,7 @@ function LeaveReviewModal({
             onClick={onClose}
             disabled={submitting}
             aria-label="Close leave a review form"
-            className="absolute right-4 top-4 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border border-pink-400/20 text-pink-200/70 transition-[border-color,color] duration-350 hover:border-pink-400/40 hover:text-pink-50 disabled:opacity-40"
+            className="review-close"
           >
             <X className="h-4 w-4" aria-hidden />
           </button>
@@ -744,30 +758,25 @@ function LeaveReviewModal({
           {success ? (
             <motion.div
               key="success"
-              className="py-10 text-center"
+              className="review-success"
               initial={{ opacity: 0, scale: 0.94 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
               transition={SMOOTH}
             >
               <motion.span
-                className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-full border border-pink-400/40 bg-pink-500/15 text-pink-200 shadow-[0_0_36px_rgba(244,114,182,0.35)]"
+                className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full border border-pink-400/40 bg-pink-500/15 text-pink-200 shadow-[0_0_36px_rgba(244,114,182,0.35)]"
                 initial={{ scale: 0.6, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={NEW_STAR}
                 aria-hidden
               >
-                <Star className="h-6 w-6 fill-pink-300 text-pink-300" />
+                <Star className="h-5 w-5 fill-pink-300 text-pink-300" />
               </motion.span>
-              <p
-                className={cn(
-                  cormorant.className,
-                  "text-2xl font-semibold text-white",
-                )}
-              >
+              <p className={cn(cormorant.className, "review-success-title")}>
                 Thank you for sharing your experience!
               </p>
-              <p className={cn(inter.className, "mt-2 text-sm text-pink-100/55")}>
+              <p className={cn(inter.className, "review-success-copy")}>
                 Your review is joining the constellation…
               </p>
             </motion.div>
@@ -777,59 +786,59 @@ function LeaveReviewModal({
               initial={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              <h3
-                id={titleId}
-                className={cn(
-                  cormorant.className,
-                  "pr-8 text-2xl font-semibold text-white sm:text-3xl",
-                )}
-              >
-                Leave a Review
-              </h3>
-              <p className={cn(inter.className, "mt-2 text-sm text-pink-100/50")}>
-                Share a note about working with Atiksha. It will appear in the
-                network right away.
-              </p>
+              <header className="review-header">
+                <p className={cn(inter.className, "review-header-eyebrow")}>
+                  Feedback
+                </p>
+                <h3 id={titleId} className={cormorant.className}>
+                  Leave a Review
+                </h3>
+                <p className={inter.className}>
+                  Share a note about working with Atiksha. It will appear in the
+                  network right away.
+                </p>
+              </header>
 
               <form
-                className={cn(inter.className, "mt-6 space-y-4")}
+                className={cn(inter.className, "review-form")}
                 onSubmit={handleSubmit}
               >
-                <label className="block text-xs text-pink-300/60">
+                <label className="form-group">
                   Name
                   <input
+                    ref={firstFieldRef}
                     required
                     name="name"
                     disabled={submitting}
-                    className="mt-1.5 w-full rounded-xl border border-pink-400/20 bg-black/50 px-3 py-2.5 text-sm text-pink-50 outline-none placeholder:text-pink-300/30 focus:border-pink-400/45 disabled:opacity-60"
+                    className="review-input"
                     placeholder="Your name"
                   />
                 </label>
 
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <label className="block text-xs text-pink-300/60">
+                <div className="review-form-row">
+                  <label className="form-group">
                     Position (optional)
                     <input
                       name="role"
                       disabled={submitting}
-                      className="mt-1.5 w-full rounded-xl border border-pink-400/20 bg-black/50 px-3 py-2.5 text-sm text-pink-50 outline-none placeholder:text-pink-300/30 focus:border-pink-400/45 disabled:opacity-60"
+                      className="review-input"
                       placeholder="Product Lead"
                     />
                   </label>
-                  <label className="block text-xs text-pink-300/60">
+                  <label className="form-group">
                     Company (optional)
                     <input
                       name="company"
                       disabled={submitting}
-                      className="mt-1.5 w-full rounded-xl border border-pink-400/20 bg-black/50 px-3 py-2.5 text-sm text-pink-50 outline-none placeholder:text-pink-300/30 focus:border-pink-400/45 disabled:opacity-60"
+                      className="review-input"
                       placeholder="Acme"
                     />
                   </label>
                 </div>
 
-                <fieldset className="block text-xs text-pink-300/60">
-                  <legend className="mb-1.5">Rating</legend>
-                  <div className="flex items-center gap-1.5">
+                <fieldset className="rating-group">
+                  <legend>Rating</legend>
+                  <div className="rating-stars">
                     {Array.from({ length: 5 }, (_, i) => {
                       const value = i + 1;
                       return (
@@ -840,14 +849,14 @@ function LeaveReviewModal({
                           aria-label={`${value} star${value === 1 ? "" : "s"}`}
                           aria-pressed={rating === value}
                           onClick={() => setRating(value)}
-                          className="cursor-pointer rounded-md p-1 transition-transform duration-300 hover:scale-110 disabled:opacity-60"
+                          className="rating-star"
                         >
                           <Star
                             className={cn(
-                              "h-6 w-6 transition-colors duration-300",
+                              "transition-colors duration-300",
                               value <= rating
                                 ? "fill-pink-400 text-pink-400"
-                                : "text-pink-400/25",
+                                : "text-pink-300/35",
                             )}
                           />
                         </button>
@@ -856,31 +865,31 @@ function LeaveReviewModal({
                   </div>
                 </fieldset>
 
-                <label className="block text-xs text-pink-300/60">
+                <label className="form-group">
                   Review
                   <textarea
                     required
                     name="quote"
-                    rows={4}
+                    rows={3}
                     disabled={submitting}
-                    className="mt-1.5 w-full resize-none rounded-xl border border-pink-400/20 bg-black/50 px-3 py-2.5 text-sm text-pink-50 outline-none placeholder:text-pink-300/30 focus:border-pink-400/45 disabled:opacity-60"
+                    className="review-textarea"
                     placeholder="Write your review…"
                   />
                 </label>
 
-                <label className="block text-xs text-pink-300/60">
+                <label className="form-group">
                   LinkedIn (optional)
                   <input
                     type="url"
                     name="linkedin"
                     disabled={submitting}
-                    className="mt-1.5 w-full rounded-xl border border-pink-400/20 bg-black/50 px-3 py-2.5 text-sm text-pink-50 outline-none placeholder:text-pink-300/30 focus:border-pink-400/45 disabled:opacity-60"
+                    className="review-input"
                     placeholder="https://linkedin.com/in/…"
                   />
                 </label>
 
                 {error && (
-                  <p className="text-xs text-rose-300/90" role="alert">
+                  <p className="form-error" role="alert">
                     {error}
                   </p>
                 )}
@@ -888,9 +897,9 @@ function LeaveReviewModal({
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="glow-button-pink mt-2 inline-flex w-full cursor-pointer items-center justify-center rounded-full border border-pink-400/35 px-5 py-2.5 text-sm text-pink-50 disabled:cursor-wait disabled:opacity-60"
+                  className="review-submit glow-button-pink"
                 >
-                  {submitting ? "Sharing…" : "Submit"}
+                  {submitting ? "Sharing…" : "Submit Review"}
                 </button>
               </form>
             </motion.div>
@@ -1159,8 +1168,9 @@ export function WhatPeopleSaySection() {
 
   const handleSubmitted = useCallback((review: NetworkReview) => {
     setReviews((prev) => {
-      if (prev.some((r) => r.id === review.id)) return prev;
-      return [...prev, review];
+      const byId = new Map(prev.map((r) => [r.id, r]));
+      byId.set(review.id, { ...review, isLive: true, isNew: true });
+      return Array.from(byId.values());
     });
   }, []);
 

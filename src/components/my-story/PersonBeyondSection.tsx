@@ -1,7 +1,6 @@
 "use client";
 
 import type { ReactNode } from "react";
-import Image from "next/image";
 import { Cormorant_Garamond } from "next/font/google";
 import { motion, useReducedMotion } from "framer-motion";
 import {
@@ -73,51 +72,33 @@ function RitualIcon({
   );
 }
 
-function ImageCard({
+function EditorialCard({
   className,
   category,
   title,
   children,
-  image,
-  alt,
-  objectPosition,
   delay,
 }: {
   className: string;
   category: string;
   title: string;
   children: ReactNode;
-  image: string;
-  alt: string;
-  objectPosition: string;
   delay: number;
 }) {
   const reduceMotion = useReducedMotion();
 
   return (
     <motion.article
-      className={cn("beyond-card beyond-image-card", className)}
+      className={cn("beyond-card beyond-editorial-card", className)}
       initial={reduceMotion ? false : "hidden"}
       whileInView={reduceMotion ? undefined : "visible"}
       viewport={{ once: true, amount: 0.15 }}
       custom={delay}
       variants={fadeUp}
     >
-      <div className="beyond-image-media">
-        <Image
-          src={image}
-          alt={alt}
-          fill
-          sizes="(max-width: 1000px) 100vw, 55vw"
-          style={{ objectFit: "cover", objectPosition }}
-        />
-      </div>
-      <div className="beyond-image-overlay" aria-hidden />
-      <div className="beyond-image-content">
-        <span className="beyond-category">{category}</span>
-        <h3 className={cormorant.className}>{title}</h3>
-        {children}
-      </div>
+      <span className="beyond-category">{category}</span>
+      <h3 className={cormorant.className}>{title}</h3>
+      {children}
     </motion.article>
   );
 }
@@ -217,13 +198,10 @@ export function PersonBeyondSection() {
         </motion.article>
 
         {/* Sketching */}
-        <ImageCard
+        <EditorialCard
           className="sketching-card"
           category={sketchingCard.category}
           title={sketchingCard.title}
-          image={sketchingCard.image}
-          alt={sketchingCard.alt}
-          objectPosition={sketchingCard.objectPosition}
           delay={0.25}
         >
           {sketchingCard.copy.map((paragraph) => (
@@ -237,16 +215,13 @@ export function PersonBeyondSection() {
             </span>
             <p>{sketchingCard.takeaway}</p>
           </div>
-        </ImageCard>
+        </EditorialCard>
 
         {/* Twin Peaks */}
-        <ImageCard
+        <EditorialCard
           className="twin-peaks-card"
           category={twinPeaksCard.category}
           title={twinPeaksCard.title}
-          image={twinPeaksCard.image}
-          alt={twinPeaksCard.alt}
-          objectPosition={twinPeaksCard.objectPosition}
           delay={0.35}
         >
           {twinPeaksCard.copy.map((paragraph) => (
@@ -262,16 +237,13 @@ export function PersonBeyondSection() {
             />
             {twinPeaksCard.location}
           </span>
-        </ImageCard>
+        </EditorialCard>
 
         {/* Alternate path */}
-        <ImageCard
+        <EditorialCard
           className="alternate-path-card"
           category={alternatePathCard.category}
           title={alternatePathCard.title}
-          image={alternatePathCard.image}
-          alt={alternatePathCard.alt}
-          objectPosition={alternatePathCard.objectPosition}
           delay={0.45}
         >
           {alternatePathCard.copy.map((paragraph) => (
@@ -282,7 +254,7 @@ export function PersonBeyondSection() {
           <div className="beyond-highlight">
             <p>{alternatePathCard.highlight}</p>
           </div>
-        </ImageCard>
+        </EditorialCard>
 
         {/* Rituals */}
         <motion.article

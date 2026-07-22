@@ -11,21 +11,18 @@ import { WhatPeopleSaySection } from "@/components/sections/WhatPeopleSaySection
 
 export default function Home() {
   return (
-    <>
-      <CursorDot />
-      <div className="relative z-10 overflow-x-hidden bg-black">
-        <Navbar />
-        <main>
-          <Hero />
-          <ProjectsStrip />
-          <AboutSection />
-          <TestimonialsSection />
-          <ProcessSection />
-          <WhatPeopleSaySection />
-          <FAQSection />
-          <FooterCTA />
-        </main>
-      </div>
-    </>
+    <div className="relative overflow-x-hidden bg-black">
+      <Navbar />
+      <main>
+        <Hero />
+        <ProjectsStrip />
+        <AboutSection />
+        <TestimonialsSection />
+        <ProcessSection />
+        <WhatPeopleSaySection />
+        <FAQSection />
+        <FooterCTA />
+      </main>
+    </div>
   );
 }

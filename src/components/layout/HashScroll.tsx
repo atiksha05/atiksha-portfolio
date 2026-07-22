@@ -8,31 +8,54 @@ function getHeaderHeight() {
   return header instanceof HTMLElement ? header.offsetHeight : 76;
 }
 
+function getScrollOffset(sectionId: string) {
+  if (sectionId === "about" || sectionId === "home") return 0;
+  return Math.max(getHeaderHeight(), 120);
+}
+
 export function HashScroll() {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (pathname !== "/") return;
-
     const hash = window.location.hash;
     if (!hash) return;
 
-    const id = hash.slice(1);
-    const target = document.getElementById(id);
-    if (!target) return;
+    // Guard against malformed hashes like #about#about
+    const id = hash.replace(/^#/, "").split("#")[0];
+    if (!id) return;
 
-    const reduceMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    const top =
-      target.getBoundingClientRect().top + window.scrollY - getHeaderHeight();
+    const scrollToTarget = () => {
+      const target = document.getElementById(id);
+      if (!target) return false;
 
-    // Contact uses instant scroll so content is usable immediately.
-    const behavior =
-      reduceMotion || id === "contact" ? "auto" : "smooth";
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+      const top =
+        target.getBoundingClientRect().top +
+        window.scrollY -
+        getScrollOffset(id);
+
+      const behavior =
+        reduceMotion || id === "contact" ? "auto" : "smooth";
+
+      window.scrollTo({ top: Math.max(0, top), behavior });
+
+      const cleanUrl = `${window.location.pathname}#${id}`;
+      if (window.location.hash !== `#${id}`) {
+        window.history.replaceState(null, "", cleanUrl);
+      }
+      return true;
+    };
 
     requestAnimationFrame(() => {
-      window.scrollTo({ top: Math.max(0, top), behavior });
+      if (scrollToTarget()) return;
+
+      if (pathname === "/my-story") {
+        window.setTimeout(() => {
+          scrollToTarget();
+        }, 80);
+      }
     });
   }, [pathname]);
 

@@ -2,9 +2,9 @@
 
 .person-section {
   position: relative;
-  min-height: calc(100vh - var(--navbar-height, 64px));
-  height: calc(100vh - var(--navbar-height, 64px));
-  padding: 14px 0 14px;
+  min-height: 100svh;
+  height: 100svh;
+  padding: var(--navbar-height, 76px) 0 12px;
   color: #ffffff;
   background:
     radial-gradient(
@@ -18,7 +18,7 @@
   justify-content: center;
   overflow: hidden;
   box-sizing: border-box;
-  scroll-margin-top: var(--navbar-height, 64px);
+  scroll-margin-top: 0;
   border-top: 1px solid rgba(236, 72, 153, 0.08);
 }
 
@@ -529,9 +529,9 @@
 
 @media (max-height: 850px) and (min-width: 1001px) {
   .person-section {
-    height: calc(100vh - var(--navbar-height, 64px));
-    min-height: 0;
-    padding-top: 10px;
+    min-height: 100svh;
+    height: 100svh;
+    padding-top: var(--navbar-height, 76px);
     padding-bottom: 10px;
   }
 
@@ -619,7 +619,7 @@
 
 @media (max-height: 780px) and (min-width: 1001px) {
   .person-section {
-    padding-top: 6px;
+    padding-top: var(--navbar-height, 76px);
     padding-bottom: 6px;
   }
 
@@ -698,7 +698,8 @@
     height: auto;
     min-height: auto;
     overflow: visible;
-    padding: 48px 0;
+    padding: calc(var(--navbar-height, 76px) + 24px) 0 48px;
+    scroll-margin-top: 0;
   }
 
   .person-main {

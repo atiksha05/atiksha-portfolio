@@ -67,9 +67,6 @@ export const sketchingCard = {
   ],
   takeawayLabel: "What sketching taught me",
   takeaway: "Observe carefully before creating.",
-  image: "/images/personal/creative-desk.png",
-  alt: "Atiksha focused on a detailed creative project at her desk",
-  objectPosition: "center 28%",
 };
 
 export const twinPeaksCard = {
@@ -81,9 +78,6 @@ export const twinPeaksCard = {
     "It reminds me that slowing down often gives me the space to think more clearly.",
   ],
   location: "Twin Peaks · San Francisco",
-  image: "/images/personal/sunset-street.jpg",
-  alt: "Golden-hour sunset over a San Francisco street, looking toward the horizon",
-  objectPosition: "center 35%",
 };
 
 export const alternatePathCard = {
@@ -96,9 +90,6 @@ export const alternatePathCard = {
   ],
   highlight:
     "I want to live freely, travel widely, and keep meeting people who change how I see the world.",
-  image: "/images/personal/city-portrait.jpg",
-  alt: "Atiksha exploring a San Francisco sidewalk in a trench coat",
-  objectPosition: "center 18%",
 };
 
 export const ritualsCard = {

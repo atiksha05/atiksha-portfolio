@@ -1,8 +1,19 @@
 import { NextResponse } from "next/server";
-import { createPublicReview, listPublicReviews } from "@/lib/reviews/store";
+import {
+  createPublicReview,
+  deletePublicReview,
+  listPublicReviews,
+} from "@/lib/reviews/store";
 import type { SubmittedReviewInput } from "@/lib/reviews/types";
 
 export const runtime = "nodejs";
+
+function isAuthorizedAdmin(request: Request) {
+  const expected = process.env.REVIEW_ADMIN_SECRET?.trim();
+  if (!expected) return false;
+  const provided = request.headers.get("x-admin-secret")?.trim();
+  return Boolean(provided && provided === expected);
+}
 
 export async function GET() {
   try {
@@ -58,6 +69,42 @@ export async function POST(request: Request) {
     console.error("[api/reviews] POST failed", error);
     return NextResponse.json(
       { error: "Failed to save review. Please try again." },
+      { status: 500 },
+    );
+  }
+}
+
+export async function DELETE(request: Request) {
+  try {
+    if (!isAuthorizedAdmin(request)) {
+      return NextResponse.json(
+        { error: "Unauthorized. Provide x-admin-secret." },
+        { status: 401 },
+      );
+    }
+
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id")?.trim();
+    if (!id) {
+      return NextResponse.json(
+        { error: "Missing review id." },
+        { status: 400 },
+      );
+    }
+
+    const deleted = await deletePublicReview(id);
+    if (!deleted) {
+      return NextResponse.json(
+        { error: "Review not found or could not be deleted." },
+        { status: 404 },
+      );
+    }
+
+    return NextResponse.json({ ok: true, id });
+  } catch (error) {
+    console.error("[api/reviews] DELETE failed", error);
+    return NextResponse.json(
+      { error: "Failed to delete review." },
       { status: 500 },
     );
   }

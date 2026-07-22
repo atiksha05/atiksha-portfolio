@@ -19,7 +19,7 @@ export function AboutSection() {
         <div className="section-container relative">
           <h3
             id="currently-building"
-            className="scroll-mt-32 font-serif-display text-3xl font-semibold tracking-tight text-pink-100/95 md:text-4xl lg:text-5xl"
+            className="scroll-mt-[120px] font-serif-display text-3xl font-semibold tracking-tight text-pink-100/95 md:text-4xl lg:text-5xl"
           >
             Currently Building
           </h3>

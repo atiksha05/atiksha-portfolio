@@ -26,7 +26,19 @@ export type StoredReview = {
   public: boolean;
 };
 
-/** Free constellation slots for live-submitted reviews (inside network bounds). */
+/** Placeholder constellation nodes that should be filled before new nodes are created. */
+export const PLACEHOLDER_SLOT_IDS = [
+  "mentor",
+  "product-lead",
+  "eng-manager",
+  "swe",
+  "community",
+  "professor",
+] as const;
+
+export type PlaceholderSlotId = (typeof PLACEHOLDER_SLOT_IDS)[number];
+
+/** Free constellation slots used only after all placeholders are filled. */
 export const LIVE_REVIEW_SLOTS: Array<{
   desktop: { x: number; y: number };
   tablet: { x: number; y: number };
