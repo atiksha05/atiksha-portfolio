@@ -37,6 +37,44 @@ body {
   min-width: 0;
 }
 
+.hero-role-description {
+  width: min(100%, 340px);
+  max-width: 340px;
+  margin-top: 20px;
+  margin-bottom: 0;
+  color: rgba(255, 190, 220, 0.82);
+  font-size: clamp(1rem, 1.15vw, 1.18rem);
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+  text-align: left;
+}
+
+.hero-role-product {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.hero-role-product .hero-role-description {
+  max-width: 340px;
+}
+
+@media (max-width: 1023px) {
+  .hero-role-product {
+    align-items: center;
+  }
+
+  .hero-role-description {
+    width: min(100%, 280px);
+    max-width: 280px;
+    margin-top: 14px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+}
+
 /* Shared section container â€” consistent max-width + horizontal padding */
 .section-container {
   @apply mx-auto w-full max-w-7xl px-5 sm:px-8 md:px-10 lg:px-10;

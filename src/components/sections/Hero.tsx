@@ -20,7 +20,7 @@ export function Hero() {
       <div className="relative z-10 flex min-h-0 flex-1 flex-col pt-[var(--navbar-height,76px)]">
         <div className="section-container flex w-full flex-1 min-h-0 flex-col items-center justify-center gap-3 py-4 pb-8 sm:gap-5 sm:py-6 sm:pb-10 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-center lg:gap-8 lg:py-3 lg:pb-12">
           {/* Left — name + Product Manager */}
-          <div className="flex w-full shrink-0 flex-col items-center lg:items-end lg:justify-center lg:text-right">
+          <div className="hero-role hero-role-product w-full shrink-0 lg:ml-auto lg:w-fit lg:justify-center">
             <p className="mb-2 text-[0.65rem] font-medium uppercase tracking-[0.28em] text-white/70 sm:mb-3 sm:text-xs sm:tracking-[0.35em] md:text-sm">
               {hero.name}
             </p>
@@ -32,7 +32,7 @@ export function Hero() {
                 {word}
               </h1>
             ))}
-            <p className="mt-3 max-w-[240px] text-center text-xs font-medium leading-snug text-pink-200/80 sm:mt-4 sm:text-sm sm:max-w-[220px] lg:text-left lg:text-base">
+            <p className="hero-role-description">
               {hero.pmSubtitle}
             </p>
           </div>
@@ -61,7 +61,7 @@ export function Hero() {
           </div>
 
           {/* Right — Software Engineer */}
-          <div className="flex w-full shrink-0 flex-col items-center lg:items-start lg:justify-center lg:text-left">
+          <div className="hero-role hero-role-engineering flex w-full shrink-0 flex-col items-center lg:items-start lg:justify-center lg:text-left">
             <span className="mb-0.5 font-sans text-2xl font-black text-pink-300 sm:text-3xl md:text-4xl">
               &
             </span>
@@ -73,7 +73,7 @@ export function Hero() {
                 {word}
               </h1>
             ))}
-            <p className="mt-3 max-w-[240px] text-center text-xs font-medium leading-snug text-pink-200/80 sm:mt-4 sm:text-sm sm:max-w-[220px] lg:text-left lg:text-base">
+            <p className="hero-role-description">
               {hero.sweSubtitle}
             </p>
           </div>

@@ -38,8 +38,8 @@ export const hero = {
   name: "Atiksha Antil",
   titleLeft: ["Product", "Manager"],
   titleRight: ["Software", "Engineer"],
-  pmSubtitle: "Vision to roadmap — I align teams and deliver impact.",
-  sweSubtitle: "Full-stack builder — I ship systems that scale.",
+  pmSubtitle: "Turning messy ideas into products people actually love.",
+  sweSubtitle: "Building the technology that brings those ideas to life.",
   image: "/images/atiksha-hero.png",
   imageAlt: "/images/atiksha-hero-alt.png",
 };
