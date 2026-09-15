@@ -129,10 +129,33 @@ svg {
   padding-bottom: 40px;
 }
 
-@media (min-width: 1024px) {
+/* Desktop/tablet: hero fills the first viewport (navbar overlay accounted for).
+   Content stays centered; social icons remain under CTAs. */
+@media (min-width: 901px) {
+  .hero-section {
+    min-height: 100svh;
+  }
+
+  .hero-inner {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100svh;
+    padding-top: var(--navbar-height, 76px);
+  }
+
   .hero-layout {
-    padding-top: clamp(36px, 5vh, 56px);
-    padding-bottom: clamp(48px, 7vh, 88px);
+    flex: 1 1 auto;
+    width: 100%;
+    padding-top: clamp(20px, 3vh, 40px);
+    padding-bottom: clamp(24px, 4vh, 48px);
+  }
+}
+
+@media (max-width: 900px) {
+  .hero-inner {
+    padding-top: var(--navbar-height, 68px);
   }
 }
 

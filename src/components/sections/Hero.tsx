@@ -23,7 +23,7 @@ export function Hero() {
   const roleWords = hero.role.split(" ");
 
   return (
-    <section id="home" className="relative overflow-x-clip bg-black">
+    <section id="home" className="hero-section relative overflow-x-clip bg-black">
       <div
         className="pointer-events-none absolute inset-x-0 bottom-0 h-56"
         aria-hidden
@@ -33,7 +33,7 @@ export function Hero() {
         <div className="absolute bottom-10 right-[8%] h-36 w-72 max-w-[80vw] rounded-full bg-pink-400/10 blur-[85px]" />
       </div>
 
-      <div className="relative z-10 pt-[var(--navbar-height,76px)]">
+      <div className="hero-inner relative z-10">
         <div className="hero-layout section-container grid w-full grid-cols-1 items-center justify-items-center gap-8 lg:grid-cols-[minmax(0,1.1fr)_auto] lg:justify-items-stretch lg:gap-12">
           {/* Left content: copy → CTAs → social (one block) */}
           <div className="hero-role flex w-full max-w-xl flex-col items-center text-center lg:items-start lg:text-left">
