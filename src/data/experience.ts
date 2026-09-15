@@ -81,6 +81,17 @@ export const experienceItems: ExperienceItem[] = [
     ],
   },
   {
+    id: "project-connect",
+    role: "Project Connect Intern",
+    organization: "Associated Students at San Francisco State University",
+    period: "September 2026 – Present",
+    category: "Campus Internship",
+    priority: "secondary",
+    bullets: [
+      "Selected for the Fall 2026 Project Connect Internship Program, focused on student engagement, campus connection, and professional development.",
+    ],
+  },
+  {
     id: "isa-vp",
     role: "Vice President",
     organization: "Indian Student Association · San Francisco State University",
