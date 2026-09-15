@@ -783,23 +783,25 @@ a:hover .project-page-title {
   }
 }
 
-/* â€”â€” Contact section viewport fit â€”â€” */
+/* —— Contact section (natural flow; no fixed viewport clip) —— */
 .contact-section {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  height: calc(100vh - var(--navbar-height, 64px));
-  min-height: 0;
+  align-items: stretch;
+  min-height: calc(100svh - var(--navbar-height, 76px));
+  height: auto;
   margin-top: 0;
   padding-top: 0;
-  overflow: hidden;
+  overflow: visible;
   box-sizing: border-box;
 }
 
 .contact-image-panel {
   position: relative;
   min-width: 0;
-  min-height: 0;
-  height: 100%;
+  min-height: 100%;
+  height: auto;
+  align-self: stretch;
   overflow: hidden;
   isolation: isolate;
   background:
@@ -847,15 +849,15 @@ a:hover .project-page-title {
 .contact-content-panel {
   min-width: 0;
   min-height: 0;
-  height: 100%;
+  height: auto;
   padding:
-    clamp(16px, 2.2vh, 28px)
+    clamp(28px, 4vh, 48px)
     clamp(28px, 4vw, 72px)
-    clamp(16px, 2vh, 24px);
+    clamp(28px, 3.5vh, 40px);
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  overflow: hidden;
+  justify-content: flex-start;
+  overflow: visible;
   box-sizing: border-box;
 }
 
@@ -914,7 +916,7 @@ a:hover .project-page-title {
 
 .contact-textarea {
   min-height: 110px;
-  max-height: 140px;
+  max-height: none;
   resize: vertical;
   padding: 16px 18px;
   box-sizing: border-box;
@@ -923,13 +925,17 @@ a:hover .project-page-title {
 
 .contact-submit {
   min-height: 52px;
-  margin-top: 4px;
+  margin-top: 18px;
   padding: 0 24px;
   box-sizing: border-box;
 }
 
 .contact-footer {
   flex-shrink: 0;
+  margin-top: 48px;
+  padding-top: 28px;
+  padding-bottom: 8px;
+  border-top: 1px solid rgba(255, 112, 194, 0.12);
 }
 
 .contact-quote,
@@ -956,8 +962,8 @@ a:hover .project-page-title {
 
 @media (max-height: 820px) and (min-width: 901px) {
   .contact-content-panel {
-    padding-top: 12px;
-    padding-bottom: 12px;
+    padding-top: 24px;
+    padding-bottom: 24px;
   }
 
   .contact-heading {
@@ -989,16 +995,16 @@ a:hover .project-page-title {
 
   .contact-textarea {
     min-height: 88px;
-    max-height: 105px;
   }
 
   .contact-submit {
     min-height: 46px;
+    margin-top: 16px;
   }
 
   .contact-footer {
-    margin-top: 10px;
-    padding-top: 8px;
+    margin-top: 40px;
+    padding-top: 24px;
   }
 }
 
@@ -1018,7 +1024,7 @@ a:hover .project-page-title {
 
   .contact-content-panel {
     height: auto;
-    padding: 28px 16px 48px;
+    padding: 28px 16px 32px;
     overflow: visible;
   }
 
@@ -1029,6 +1035,16 @@ a:hover .project-page-title {
   .contact-textarea {
     min-height: 140px;
     max-height: none;
+  }
+
+  .contact-submit {
+    margin-top: 18px;
+  }
+
+  .contact-footer {
+    margin-top: 48px;
+    padding-top: 28px;
+    padding-bottom: 12px;
   }
 
   .contact-heading {
@@ -1047,7 +1063,7 @@ a:hover .project-page-title {
   }
 
   .contact-content-panel {
-    padding: 24px 14px 40px;
+    padding: 24px 14px 28px;
   }
 
   .contact-links {
@@ -1057,6 +1073,11 @@ a:hover .project-page-title {
   .contact-form-card {
     padding: 16px;
     border-radius: 22px;
+  }
+
+  .contact-footer {
+    margin-top: 40px;
+    padding-top: 24px;
   }
 }
 

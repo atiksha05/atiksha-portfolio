@@ -325,14 +325,14 @@ export function FooterCTA() {
         </motion.div>
 
         <motion.div
-          className="contact-footer relative mt-4 border-t border-pink-400/10 pt-3"
+          className="contact-footer relative"
           initial={false}
           animate={animateState}
           custom={0.14}
           variants={fadeUp}
         >
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div className="space-y-0.5 text-[11px] leading-relaxed text-pink-300/40">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="space-y-1 text-[11px] leading-relaxed text-pink-300/45">
               <p>© 2026 {site.name}</p>
               <p>Built with Next.js · Made with ❤️ in San Francisco</p>
             </div>

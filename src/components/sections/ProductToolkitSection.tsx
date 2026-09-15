@@ -1,6 +1,14 @@
 import { productToolkit } from "@/data/productToolkit";
 import { cn } from "@/lib/utils";
 
+const cardInteractive =
+  "transition-[transform,border-color,background-color,box-shadow,color] duration-300 ease-out " +
+  "hover:-translate-y-[3px] hover:border-pink-400/40 hover:bg-pink-500/[0.09] " +
+  "hover:shadow-[0_8px_28px_rgba(244,114,182,0.12)] " +
+  "focus-visible:outline-none focus-visible:-translate-y-[3px] focus-visible:border-pink-400/40 " +
+  "focus-visible:bg-pink-500/[0.09] focus-visible:shadow-[0_8px_28px_rgba(244,114,182,0.12)] " +
+  "focus-visible:ring-2 focus-visible:ring-pink-400/35 focus-visible:ring-offset-2 focus-visible:ring-offset-black";
+
 export function ProductToolkitSection() {
   return (
     <section
@@ -17,32 +25,24 @@ export function ProductToolkitSection() {
         </header>
 
         <div className="mt-8 grid gap-5 md:mt-10 md:grid-cols-3 md:gap-6">
-          {productToolkit.groups.map((group, index) => (
+          {productToolkit.groups.map((group) => (
             <div
               key={group.id}
+              tabIndex={0}
+              aria-label={`${group.title} skills`}
               className={cn(
-                "min-w-0 rounded-[1.35rem] border border-pink-400/12 bg-pink-500/[0.03] p-4 sm:rounded-3xl sm:p-6",
-                index === 0 && "border-pink-400/25 bg-pink-500/[0.06]",
+                "group toolkit-card min-w-0 cursor-default rounded-[1.35rem] border border-pink-400/15 bg-pink-500/[0.04] p-4 sm:rounded-3xl sm:p-6",
+                cardInteractive,
               )}
             >
-              <h3
-                className={cn(
-                  "type-meta uppercase tracking-[0.18em]",
-                  index === 0 ? "text-pink-300/90" : "text-pink-300/55",
-                )}
-              >
+              <h3 className="type-meta uppercase tracking-[0.18em] text-pink-300/70 transition-colors duration-300 group-hover:text-pink-200 group-focus-visible:text-pink-200">
                 {group.title}
               </h3>
               <ul className="mt-4 flex flex-wrap gap-2">
                 {group.items.map((item) => (
                   <li
                     key={item}
-                    className={cn(
-                      "rounded-full border px-3 py-1.5 text-xs font-medium",
-                      index === 0
-                        ? "border-pink-400/25 bg-pink-500/10 text-pink-50"
-                        : "border-pink-400/15 bg-black/30 text-pink-100/65",
-                    )}
+                    className="rounded-full border border-pink-400/15 bg-black/30 px-3 py-1.5 text-xs font-medium text-pink-100/70 transition-[border-color,background-color,color] duration-300 group-hover:border-pink-400/30 group-hover:bg-pink-500/10 group-hover:text-pink-50 group-focus-visible:border-pink-400/30 group-focus-visible:bg-pink-500/10 group-focus-visible:text-pink-50"
                   >
                     {item}
                   </li>

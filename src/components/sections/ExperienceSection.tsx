@@ -1,6 +1,14 @@
 import { experienceItems, experienceSection } from "@/data/experience";
 import { cn } from "@/lib/utils";
 
+const cardInteractive =
+  "transition-[transform,border-color,background-color,box-shadow,color] duration-300 ease-out " +
+  "hover:-translate-y-[3px] hover:border-pink-400/40 hover:bg-pink-500/[0.09] " +
+  "hover:shadow-[0_8px_28px_rgba(244,114,182,0.12)] " +
+  "focus-visible:outline-none focus-visible:-translate-y-[3px] focus-visible:border-pink-400/40 " +
+  "focus-visible:bg-pink-500/[0.09] focus-visible:shadow-[0_8px_28px_rgba(244,114,182,0.12)] " +
+  "focus-visible:ring-2 focus-visible:ring-pink-400/35 focus-visible:ring-offset-2 focus-visible:ring-offset-black";
+
 export function ExperienceSection() {
   return (
     <section
@@ -28,16 +36,16 @@ export function ExperienceSection() {
             return (
               <article
                 key={item.id}
+                tabIndex={0}
+                aria-label={`${item.role} at ${item.organization}`}
                 className={cn(
-                  "min-w-0 rounded-[1.35rem] border p-4 sm:rounded-3xl sm:p-6",
-                  isPrimary
-                    ? "border-pink-400/22 bg-pink-500/[0.05]"
-                    : "border-pink-400/10 bg-pink-500/[0.025]",
+                  "group experience-card min-w-0 cursor-default rounded-[1.35rem] border border-pink-400/18 bg-pink-500/[0.04] p-4 sm:rounded-3xl sm:p-6",
+                  cardInteractive,
                 )}
               >
                 <div className="flex flex-col gap-1.5 sm:flex-row sm:items-start sm:justify-between sm:gap-2">
                   <div className="min-w-0">
-                    <p className="type-meta uppercase tracking-[0.16em] text-pink-400/60">
+                    <p className="type-meta uppercase tracking-[0.16em] text-pink-400/65 transition-colors duration-300 group-hover:text-pink-300/85 group-focus-visible:text-pink-300/85">
                       {item.category}
                     </p>
                     <h3
@@ -50,22 +58,22 @@ export function ExperienceSection() {
                     >
                       {item.role}
                     </h3>
-                    <p className="type-body mt-1 break-words text-[0.9375rem] text-pink-100/55 sm:text-sm">
+                    <p className="type-body mt-1 break-words text-[0.9375rem] text-pink-100/68 transition-colors duration-300 group-hover:text-pink-100/80 group-focus-visible:text-pink-100/80 sm:text-sm">
                       {item.organization}
                     </p>
                   </div>
                   {item.period ? (
-                    <p className="type-meta shrink-0 sm:pt-1 sm:text-right">
+                    <p className="type-meta shrink-0 text-pink-100/55 transition-colors duration-300 group-hover:text-pink-100/70 group-focus-visible:text-pink-100/70 sm:pt-1 sm:text-right">
                       {item.period}
                     </p>
                   ) : null}
                 </div>
 
-                <ul className="type-body mt-3.5 space-y-2 text-[0.9375rem] leading-relaxed text-pink-100/60 sm:mt-4 sm:text-sm">
+                <ul className="type-body mt-3.5 space-y-2 text-[0.9375rem] leading-relaxed text-pink-100/68 sm:mt-4 sm:text-sm">
                   {item.bullets.map((bullet) => (
                     <li key={bullet} className="flex gap-2">
                       <span
-                        className="mt-2 h-1 w-1 shrink-0 rounded-full bg-pink-400/50"
+                        className="mt-2 h-1 w-1 shrink-0 rounded-full bg-pink-400/60 transition-colors duration-300 group-hover:bg-pink-400/90 group-focus-visible:bg-pink-400/90"
                         aria-hidden
                       />
                       <span className="min-w-0">{bullet}</span>
@@ -78,7 +86,7 @@ export function ExperienceSection() {
                     {item.tags.slice(0, 4).map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full border border-pink-400/15 bg-black/25 px-2.5 py-1 text-[11px] font-medium text-pink-100/60"
+                        className="rounded-full border border-pink-400/18 bg-black/25 px-2.5 py-1 text-[11px] font-medium text-pink-100/68 transition-[border-color,background-color,color] duration-300 group-hover:border-pink-400/30 group-hover:bg-pink-500/10 group-hover:text-pink-100/85 group-focus-visible:border-pink-400/30 group-focus-visible:bg-pink-500/10 group-focus-visible:text-pink-100/85"
                       >
                         {tag}
                       </span>
