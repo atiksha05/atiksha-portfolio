@@ -227,13 +227,12 @@ export function FooterCTA() {
           <span className="contact-label text-xs font-medium uppercase tracking-[0.28em] text-pink-400/70">
             Contact
           </span>
-          <h2 className="contact-heading font-serif-display text-white">
-            Let&apos;s Build Something Meaningful.
+          <h2 className="contact-heading text-white">
+            Interested in building thoughtful products together?
           </h2>
           <p className="contact-description max-w-lg text-pink-100/55">
-            Whether it&apos;s software engineering, product management,
-            research, or simply exchanging ideas—I&apos;d love to hear from
-            you.
+            I&apos;m currently exploring Product Management, APM, Technical PM,
+            and AI Product opportunities.
           </p>
 
           <div className="contact-links">

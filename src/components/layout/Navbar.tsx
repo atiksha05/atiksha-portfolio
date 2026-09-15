@@ -22,7 +22,7 @@ import {
 import { cn } from "@/lib/utils";
 import "./navbar.css";
 
-const SPY_SECTIONS = ["about", "projects", "contact"] as const;
+const SPY_SECTIONS = ["work", "experience", "about", "contact"] as const;
 
 function getHeaderHeight() {
   const header = document.querySelector(".site-header");
@@ -30,9 +30,11 @@ function getHeaderHeight() {
 }
 
 function getScrollOffset(sectionId?: string) {
-  // Full-viewport sections already pad for the fixed navbar.
-  if (sectionId === "about" || sectionId === "home") return 0;
-  return Math.max(getHeaderHeight(), 120);
+  const header = getHeaderHeight();
+  // Home scrolls to top; about already pads for the fixed navbar.
+  if (sectionId === "home") return 0;
+  if (sectionId === "about") return header;
+  return Math.max(header, 88);
 }
 
 function scrollToSection(
@@ -40,6 +42,19 @@ function scrollToSection(
   smooth: boolean,
   pathPrefix?: string,
 ) {
+  if (sectionId === "home") {
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    window.scrollTo({
+      top: 0,
+      behavior: reduceMotion || !smooth ? "auto" : "smooth",
+    });
+    const path = pathPrefix ?? window.location.pathname;
+    window.history.replaceState(null, "", path);
+    return;
+  }
+
   const section = document.getElementById(sectionId);
   if (!section) return;
 
@@ -66,26 +81,17 @@ export function Navbar() {
   const reduceMotion = useReducedMotion() ?? false;
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState<string | null>(null);
-  const [pageHash, setPageHash] = useState("");
+  // Hero/top defaults to About — not Work.
+  const [activeSection, setActiveSection] = useState<string | null>("about");
   const menuId = useId();
   const toggleRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
 
-  const isMyStory = pathname === "/my-story";
   const isHome = pathname === "/";
 
   useEffect(() => {
     setMenuOpen(false);
-    setPageHash(typeof window !== "undefined" ? window.location.hash : "");
   }, [pathname]);
-
-  useEffect(() => {
-    const syncHash = () => setPageHash(window.location.hash);
-    syncHash();
-    window.addEventListener("hashchange", syncHash);
-    return () => window.removeEventListener("hashchange", syncHash);
-  }, []);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
@@ -107,34 +113,41 @@ export function Navbar() {
       return;
     }
 
-    const elements = SPY_SECTIONS.map((id) =>
-      document.getElementById(id),
-    ).filter((el): el is HTMLElement => Boolean(el));
+    const updateActiveFromScroll = () => {
+      const header = getHeaderHeight();
+      const probe = window.scrollY + header + 72;
+      const workEl = document.getElementById("work");
 
-    if (elements.length === 0) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort(
-            (a, b) =>
-              Math.abs(a.boundingClientRect.top) -
-              Math.abs(b.boundingClientRect.top),
-          );
-
-        if (visible[0]?.target.id) {
-          setActiveSection(visible[0].target.id);
+      // Still in the hero / above Featured Work → About
+      if (workEl) {
+        const workTop =
+          workEl.getBoundingClientRect().top + window.scrollY;
+        if (window.scrollY < workTop - header - 24) {
+          setActiveSection("about");
+          return;
         }
-      },
-      {
-        rootMargin: "-25% 0px -60% 0px",
-        threshold: [0, 0.15, 0.35],
-      },
-    );
+      }
 
-    for (const el of elements) observer.observe(el);
-    return () => observer.disconnect();
+      // Last section whose top has crossed the probe line
+      let current = "about";
+      for (const id of SPY_SECTIONS) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        const top = el.getBoundingClientRect().top + window.scrollY;
+        if (top <= probe) current = id;
+      }
+      setActiveSection(current);
+    };
+
+    updateActiveFromScroll();
+    window.addEventListener("scroll", updateActiveFromScroll, {
+      passive: true,
+    });
+    window.addEventListener("resize", updateActiveFromScroll);
+    return () => {
+      window.removeEventListener("scroll", updateActiveFromScroll);
+      window.removeEventListener("resize", updateActiveFromScroll);
+    };
   }, [isHome]);
 
   useEffect(() => {
@@ -152,17 +165,11 @@ export function Navbar() {
 
   const isLinkActive = useCallback(
     (link: NavLink) => {
-      if (link.href.startsWith("/my-story#")) {
-        const targetHash = `#${link.href.split("#")[1]}`;
-        return isMyStory && pageHash === targetHash;
-      }
-      if (link.href === "/my-story") {
-        return isMyStory && pageHash !== "#leadership-journey";
-      }
+      if (link.href.startsWith("mailto:")) return false;
       if (!isHome || !link.sectionId) return false;
       return activeSection === link.sectionId;
     },
-    [activeSection, isHome, isMyStory, pageHash],
+    [activeSection, isHome],
   );
 
   const handleNavClick = (
@@ -171,36 +178,14 @@ export function Navbar() {
   ) => {
     setMenuOpen(false);
 
-    if (link.href.startsWith("/my-story")) {
-      const hash = link.href.includes("#")
-        ? link.href.split("#")[1]
-        : null;
-
-      if (isMyStory) {
-        event.preventDefault();
-        if (hash) {
-          scrollToSection(hash, true, "/my-story");
-          setPageHash(`#${hash}`);
-        } else {
-          const reduceMotion = window.matchMedia(
-            "(prefers-reduced-motion: reduce)",
-          ).matches;
-          window.scrollTo({
-            top: 0,
-            behavior: reduceMotion ? "auto" : "smooth",
-          });
-          window.history.replaceState(null, "", "/my-story");
-          setPageHash("");
-        }
-        return;
-      }
-
-      // Navigating from another route — let Next.js route, HashScroll finishes.
+    if (link.href.startsWith("mailto:")) {
       return;
     }
 
     const sectionId = link.sectionId;
     if (!sectionId) return;
+
+    setActiveSection(sectionId);
 
     if (isHome) {
       event.preventDefault();
@@ -208,13 +193,13 @@ export function Navbar() {
       return;
     }
 
-    // From /my-story (or other routes): go home with hash; HashScroll finishes.
     event.preventDefault();
     router.push(`/#${sectionId}`);
   };
 
   const handleCtaClick = (event: MouseEvent<HTMLAnchorElement>) => {
     setMenuOpen(false);
+    setActiveSection("contact");
     if (isHome) {
       event.preventDefault();
       scrollToSection("contact", true);
@@ -231,10 +216,11 @@ export function Navbar() {
           <Link
             href="/#home"
             className="nav-brand"
-            aria-label="Atiksha — Product Manager and Software Engineer, home"
+            aria-label="Atiksha — Product Manager, home"
             onClick={(event) => {
               if (!isHome) return;
               event.preventDefault();
+              setActiveSection("about");
               scrollToSection("home", true);
             }}
           >
@@ -249,7 +235,7 @@ export function Navbar() {
             </span>
             <span className="nav-brand-copy">
               <span className="nav-name">Atiksha</span>
-              <span className="nav-role">PM × SWE</span>
+              <span className="nav-role">Product Manager</span>
             </span>
           </Link>
 
@@ -286,7 +272,7 @@ export function Navbar() {
             onClick={handleCtaClick}
           >
             <Sparkles className="h-3.5 w-3.5 shrink-0" aria-hidden />
-            Let&apos;s Connect
+            Let&apos;s Talk
           </Link>
 
           <button
@@ -321,7 +307,7 @@ export function Navbar() {
             <nav className="nav-mobile-nav" aria-label="Mobile navigation">
               <div className="nav-mobile-brand">
                 <span className="nav-name">Atiksha</span>
-                <span className="nav-role">PM × SWE</span>
+                <span className="nav-role">Product Manager</span>
               </div>
 
               <div
@@ -353,7 +339,7 @@ export function Navbar() {
                 onClick={handleCtaClick}
               >
                 <Sparkles className="h-3.5 w-3.5 shrink-0" aria-hidden />
-                Let&apos;s Connect
+                Let&apos;s Talk
               </Link>
             </nav>
           </motion.div>

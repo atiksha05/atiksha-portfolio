@@ -1,12 +1,13 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { AboutSection } from "@/components/sections/AboutSection";
-import { FAQSection } from "@/components/sections/FAQSection";
+import { ExperienceSection } from "@/components/sections/ExperienceSection";
+import { FeaturedWorkSection } from "@/components/sections/FeaturedWorkSection";
 import { FooterCTA } from "@/components/sections/FooterCTA";
 import { Hero } from "@/components/sections/Hero";
 import { ProcessSection } from "@/components/sections/ProcessSection";
-import { ProjectsStrip } from "@/components/sections/ProjectsStrip";
-import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
-import { WhatPeopleSaySection } from "@/components/sections/WhatPeopleSaySection";
+import { ProductToolkitSection } from "@/components/sections/ProductToolkitSection";
+import { Marquee } from "@/components/ui/Marquee";
+import { marqueeItems } from "@/lib/data";
 
 export default function Home() {
   return (
@@ -14,12 +15,12 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <ProjectsStrip />
-        <AboutSection />
-        <TestimonialsSection />
+        <FeaturedWorkSection />
+        <Marquee items={marqueeItems} />
+        <ProductToolkitSection />
+        <ExperienceSection />
         <ProcessSection />
-        <WhatPeopleSaySection />
-        <FAQSection />
+        <AboutSection />
         <FooterCTA />
       </main>
     </div>

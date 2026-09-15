@@ -231,28 +231,27 @@
 
 .person-title {
   margin: 0;
+  font-family: var(--font-display), system-ui, sans-serif;
   color: #f8f4f6;
-  font-size: clamp(2.5rem, 3.05vw, 3.95rem);
-  font-weight: 500;
-  line-height: 0.96;
-  letter-spacing: -0.035em;
+  font-size: clamp(2.35rem, 3.05vw, 3.6rem);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
   white-space: nowrap;
 }
 
 .person-title span {
   color: #ff6bb8;
-  text-shadow:
-    0 0 12px rgba(255, 83, 177, 0.28),
-    0 0 26px rgba(255, 83, 177, 0.11);
 }
 
 .person-tagline {
-  margin: 8px 0 12px;
-  color: #ff6bb8;
-  font-size: clamp(1rem, 1.18vw, 1.25rem);
+  margin: 10px 0 14px;
+  font-family: var(--font-body), system-ui, sans-serif;
+  color: rgba(255, 140, 190, 0.82);
+  font-size: clamp(0.95rem, 1.1vw, 1.1rem);
   font-style: italic;
-  line-height: 1.25;
-  text-shadow: 0 0 13px rgba(255, 80, 176, 0.21);
+  font-weight: 500;
+  line-height: 1.35;
 }
 
 .person-intro {
@@ -260,14 +259,53 @@
 }
 
 .person-intro p {
-  margin: 0 0 7px;
-  color: rgba(237, 223, 231, 0.76);
-  font-size: clamp(0.92rem, 0.95vw, 1.02rem);
-  line-height: 1.42;
+  margin: 0 0 14px;
+  font-family: var(--font-body), system-ui, sans-serif;
+  color: rgba(210, 195, 205, 0.72);
+  font-size: clamp(0.95rem, 1vw, 1.05rem);
+  line-height: 1.65;
+}
+
+.person-intro p:last-child {
+  margin-bottom: 0;
 }
 
 .person-intro span {
   color: #ff72ba;
+}
+
+.person-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.person-action-link {
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #ff72ba;
+  text-decoration: none;
+  transition: color 200ms ease, opacity 200ms ease;
+}
+
+.person-action-link:hover {
+  color: #ff9fd0;
+}
+
+.person-action-link:focus-visible {
+  outline: 2px solid rgba(255, 154, 211, 0.95);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.person-action-sep {
+  color: rgba(255, 140, 190, 0.45);
+  font-size: 0.95rem;
+  user-select: none;
 }
 
 .role-grid {
@@ -421,105 +459,6 @@
   border-radius: 4px;
 }
 
-.person-footer {
-  width: min(calc(100% - 48px), 1400px);
-  margin: 10px auto 0;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(240px, 0.34fr) auto;
-  gap: 16px;
-  align-items: center;
-}
-
-.drives-section {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  min-width: 0;
-}
-
-.drives-label {
-  color: #d98db7;
-  white-space: nowrap;
-}
-
-.drive-item {
-  min-height: 46px;
-  display: flex;
-  align-items: center;
-  gap: 11px;
-  padding: 8px 12px;
-  color: rgba(255, 245, 250, 0.91);
-  border: 1px solid rgba(255, 87, 177, 0.24);
-  border-radius: 15px;
-  background: rgba(19, 7, 14, 0.72);
-  font-size: 0.82rem;
-  line-height: 1.3;
-}
-
-.drive-item svg {
-  flex: 0 0 auto;
-  color: #ff6db9;
-}
-
-.story-copy {
-  margin: 0;
-  padding-left: 18px;
-  color: rgba(232, 204, 220, 0.7);
-  font-size: 0.82rem;
-  line-height: 1.35;
-  border-left: 1px solid rgba(255, 99, 185, 0.4);
-}
-
-.main-story-button {
-  min-width: 185px;
-  min-height: 48px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 13px;
-  padding: 10px 20px;
-  color: #fff6fa;
-  font-size: 1rem;
-  font-weight: 700;
-  text-decoration: none;
-  border: 1px solid rgba(255, 124, 197, 0.67);
-  border-radius: 999px;
-  background: linear-gradient(
-    135deg,
-    rgba(188, 28, 111, 0.86),
-    rgba(123, 14, 73, 0.92)
-  );
-  box-shadow:
-    0 0 24px rgba(255, 68, 164, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.13);
-  cursor: pointer;
-  transition:
-    transform 400ms cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 400ms ease;
-  font-family: inherit;
-}
-
-.main-story-button span {
-  display: inline-block;
-  transition: transform 300ms ease;
-}
-
-.main-story-button:hover {
-  transform: translateY(-4px);
-  box-shadow:
-    0 12px 34px rgba(255, 55, 158, 0.24),
-    0 0 34px rgba(255, 76, 171, 0.18);
-}
-
-.main-story-button:hover span {
-  transform: translateX(4px);
-}
-
-.main-story-button:focus-visible {
-  outline: 2px solid rgba(255, 154, 211, 0.95);
-  outline-offset: 3px;
-}
 
 @media (max-width: 1200px) {
   .person-title {
@@ -566,54 +505,13 @@
   }
 
   .person-intro p {
-    margin-bottom: 6px;
-    font-size: 0.9rem;
-    line-height: 1.38;
+    margin-bottom: 10px;
+    font-size: 0.92rem;
+    line-height: 1.5;
   }
 
-  .role-grid {
-    margin-top: 10px;
-    gap: 12px;
-  }
-
-  .role-card {
-    min-height: 198px;
-    padding: 13px 15px;
-  }
-
-  .role-icon {
-    width: 36px;
-  }
-
-  .role-category {
-    margin-top: 8px;
-  }
-
-  .role-description {
-    margin-top: 8px;
-    font-size: 0.8rem;
-    line-height: 1.32;
-  }
-
-  .role-skills {
-    margin-top: 8px;
-  }
-
-  .role-story-link {
-    padding-top: 7px;
-  }
-
-  .person-footer {
-    margin-top: 8px;
-  }
-
-  .drive-item {
-    min-height: 42px;
-    padding: 7px 10px;
-  }
-
-  .main-story-button {
-    min-height: 44px;
+  .person-actions {
+    margin-top: 20px;
   }
 }
 
@@ -636,37 +534,12 @@
   }
 
   .person-intro p {
-    font-size: 0.86rem;
-    line-height: 1.32;
+    font-size: 0.88rem;
+    line-height: 1.45;
   }
 
-  .role-card {
-    min-height: 182px;
-    padding: 12px 14px;
-  }
-
-  .role-heading-group h3 {
-    font-size: 1.08rem;
-  }
-
-  .role-description {
-    font-size: 0.76rem;
-  }
-
-  .role-skills span {
-    font-size: 0.62rem;
-  }
-
-  .person-footer {
-    margin-top: 6px;
-  }
-
-  .drive-item {
-    min-height: 38px;
-  }
-
-  .main-story-button {
-    min-height: 42px;
+  .person-actions {
+    margin-top: 16px;
   }
 }
 
@@ -677,19 +550,6 @@
 
   .person-main {
     grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  }
-
-  .person-footer {
-    grid-template-columns: 1fr;
-  }
-
-  .story-copy {
-    padding-left: 0;
-    border-left: 0;
-  }
-
-  .main-story-button {
-    width: fit-content;
   }
 }
 
@@ -715,23 +575,14 @@
     margin-top: 12px;
   }
 
-  .person-footer {
-    width: min(calc(100% - 32px), 760px);
+  .person-actions {
+    justify-content: flex-start;
   }
 }
 
 @media (max-width: 680px) {
-  .person-main,
-  .person-footer {
+  .person-main {
     width: min(calc(100% - 28px), 560px);
-  }
-
-  .role-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .role-card {
-    min-height: auto;
   }
 
   .person-label {
@@ -745,23 +596,15 @@
     display: none;
   }
 
-  .drives-section {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .drive-item,
-  .main-story-button {
-    width: 100%;
+  .person-actions {
+    margin-top: 22px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .person-avatar,
   .orbit-middle,
-  .orbit-inner,
-  .role-card,
-  .main-story-button {
+  .orbit-inner {
     animation: none !important;
     transition-duration: 0.01ms !important;
   }

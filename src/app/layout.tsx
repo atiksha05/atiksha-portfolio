@@ -1,26 +1,27 @@
 import type { Metadata } from "next";
-import { Geist, Instrument_Serif } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
 import { CursorDot } from "@/components/effects/CursorDot";
 import { HashScroll } from "@/components/layout/HashScroll";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-display",
   subsets: ["latin"],
+  weight: ["500", "600", "700"],
 });
 
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-instrument-serif",
+const inter = Inter({
+  variable: "--font-body",
   subsets: ["latin"],
-  weight: "400",
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "Atiksha Antil — Software Engineering & Product",
+  title: "Atiksha Antil — Product Manager",
   description:
-    "Portfolio of Atiksha Antil — CS @ SFSU, San Francisco. Software engineering and product management.",
+    "Portfolio of Atiksha Antil — Product Manager with a Computer Science background. Product strategy, AI products, and technical execution.",
 };
 
 export default function RootLayout({
@@ -31,7 +32,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${instrumentSerif.variable} h-full antialiased`}
+      className={`${spaceGrotesk.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-black text-white">
         <CursorDot />

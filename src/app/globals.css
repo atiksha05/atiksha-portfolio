@@ -8,6 +8,8 @@
   --border: rgba(255, 255, 255, 0.12);
   --glow: rgba(255, 255, 255, 0.08);
   --navbar-height: 76px;
+  --text-muted: rgba(236, 219, 229, 0.58);
+  --text-soft: rgba(246, 237, 242, 0.72);
 }
 
 @theme inline {
@@ -16,8 +18,7 @@
   --color-muted: var(--muted);
   --color-card: var(--card);
   --color-border: var(--border);
-  --font-sans: var(--font-geist-sans);
-  --font-serif: var(--font-instrument-serif);
+  --font-sans: var(--font-body);
 }
 
 * {
@@ -42,7 +43,7 @@ body {
   max-width: 100%;
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-family: var(--font-body), system-ui, sans-serif;
   overflow-x: hidden;
   min-width: 0;
 }
@@ -58,6 +59,165 @@ svg {
   :root {
     --navbar-height: 68px;
   }
+}
+
+/* —— Typography system —— */
+.font-display {
+  font-family: var(--font-display), system-ui, sans-serif;
+}
+
+.font-body {
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+.font-serif-display {
+  font-family: var(--font-display), system-ui, sans-serif;
+}
+
+.type-eyebrow {
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: clamp(0.75rem, 1.1vw, 0.875rem);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 120, 180, 0.72);
+}
+
+.type-section-title {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: clamp(2.25rem, 4.8vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+  color: #fff;
+}
+
+.type-section-desc {
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: clamp(0.95rem, 1.35vw, 1.125rem);
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--text-muted);
+}
+
+.type-body {
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: clamp(0.9375rem, 1.15vw, 1.0625rem);
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--text-soft);
+}
+
+.type-meta {
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: clamp(0.75rem, 1vw, 0.875rem);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: rgba(244, 220, 233, 0.5);
+}
+
+/* —— Hero typography —— */
+.hero-eyebrow {
+  font-family: var(--font-body), system-ui, sans-serif;
+  margin-bottom: 1rem;
+  font-size: clamp(0.72rem, 1.05vw, 0.84rem);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.hero-display {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: clamp(2.75rem, 7.2vw, 3.85rem);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.hero-display-period {
+  color: #ff79bd;
+}
+
+.hero-tag {
+  font-family: var(--font-body), system-ui, sans-serif;
+  margin-top: 0.85rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 180, 210, 0.7);
+}
+
+.hero-headline {
+  font-family: var(--font-display), system-ui, sans-serif;
+  margin-top: 1.75rem;
+  max-width: 34rem;
+  font-size: clamp(1.2rem, 2.1vw, 1.55rem);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  color: rgba(255, 245, 250, 0.94);
+}
+
+.hero-headline em {
+  font-style: italic;
+  font-weight: 600;
+  color: #ff8ec4;
+}
+
+.hero-body {
+  font-family: var(--font-body), system-ui, sans-serif;
+  margin-top: 1rem;
+  max-width: 33rem;
+  font-size: clamp(0.9rem, 1.2vw, 1rem);
+  font-weight: 400;
+  line-height: 1.7;
+  color: rgba(210, 195, 205, 0.68);
+}
+
+.hero-cta {
+  font-family: var(--font-body), system-ui, sans-serif;
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 0.7rem 1.35rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition:
+    border-color 280ms ease,
+    background-color 280ms ease,
+    color 280ms ease,
+    transform 280ms ease;
+}
+
+.hero-cta-primary {
+  border: 1px solid rgba(255, 112, 194, 0.42);
+  background: rgba(244, 114, 182, 0.12);
+  color: #fff4f9;
+}
+
+.hero-cta-primary:hover {
+  border-color: rgba(255, 145, 210, 0.62);
+  background: rgba(244, 114, 182, 0.2);
+  transform: translateY(-1px);
+}
+
+.hero-cta-secondary {
+  border: 1px solid rgba(255, 112, 194, 0.18);
+  background: transparent;
+  color: rgba(246, 216, 232, 0.82);
+}
+
+.hero-cta-secondary:hover {
+  border-color: rgba(255, 112, 194, 0.4);
+  color: #fff3f9;
+  transform: translateY(-1px);
 }
 
 .hero-role-description {
@@ -118,10 +278,6 @@ main > section[id],
   background: rgba(255, 255, 255, 0.2);
 }
 
-.font-serif-display {
-  font-family: var(--font-instrument-serif), Georgia, serif;
-}
-
 @keyframes marquee {
   from {
     transform: translateX(0);
@@ -155,7 +311,8 @@ main > section[id],
 }
 
 .animate-marquee {
-  animation: marquee 40s linear infinite;
+  animation: marquee 55s linear infinite;
+  will-change: transform;
 }
 
 .animate-projects-marquee {
@@ -164,6 +321,14 @@ main > section[id],
 
 .animate-projects-marquee.paused {
   animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-projects-marquee {
+    animation: none !important;
+    transform: none !important;
+  }
 }
 
 .animate-smoke-flow {
@@ -635,14 +800,18 @@ a:hover .project-page-title {
 
 .contact-heading {
   margin: 0 0 12px;
+  font-family: var(--font-display), system-ui, sans-serif;
   line-height: 1.05;
-  font-size: clamp(2.25rem, 3.3vw, 4rem);
+  letter-spacing: -0.035em;
+  font-weight: 700;
+  font-size: clamp(2.25rem, 3.3vw, 3.75rem);
 }
 
 .contact-description {
   margin: 0 0 18px;
-  line-height: 1.55;
-  font-size: clamp(0.95rem, 1.1vw, 1.15rem);
+  font-family: var(--font-body), system-ui, sans-serif;
+  line-height: 1.65;
+  font-size: clamp(0.95rem, 1.1vw, 1.125rem);
 }
 
 .contact-links {

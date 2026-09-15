@@ -9,8 +9,10 @@ function getHeaderHeight() {
 }
 
 function getScrollOffset(sectionId: string) {
-  if (sectionId === "about" || sectionId === "home") return 0;
-  return Math.max(getHeaderHeight(), 120);
+  const header = getHeaderHeight();
+  if (sectionId === "home") return 0;
+  if (sectionId === "about") return header;
+  return Math.max(header, 88);
 }
 
 export function HashScroll() {

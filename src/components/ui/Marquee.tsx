@@ -1,30 +1,46 @@
+"use client";
+
 import {
+  Atom,
   BarChart3,
   Box,
-  Cloud,
-  Database,
-  Kanban,
-  Layers,
-  Map,
-  Plug,
   ClipboardList,
+  Cloud,
+  Compass,
+  Database,
+  FileText,
+  Kanban,
+  ListOrdered,
+  Map,
+  MessageCircle,
+  PenTool,
+  Plug,
+  Sparkles,
+  TableProperties,
   Terminal,
   type LucideIcon,
-  Atom,
 } from "lucide-react";
+import { useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import type { MarqueeSkill } from "@/lib/data";
 
 const iconMap: Record<MarqueeSkill["icon"], LucideIcon> = {
-  react: Atom,
-  python: Terminal,
-  aws: Cloud,
-  nextjs: Layers,
-  agile: Kanban,
-  rest: Plug,
-  jira: ClipboardList,
-  postgresql: Database,
+  strategy: Compass,
+  research: MessageCircle,
+  prd: FileText,
   roadmaps: Map,
+  prioritize: ListOrdered,
+  analytics: BarChart3,
+  agile: Kanban,
+  jira: ClipboardList,
+  figma: PenTool,
+  sql: TableProperties,
+  ai: Sparkles,
+  python: Terminal,
+  react: Atom,
+  postgresql: Database,
+  rest: Plug,
+  aws: Cloud,
   docker: Box,
   tableau: BarChart3,
 };
@@ -35,11 +51,11 @@ function SkillItem({ skill }: { skill: MarqueeSkill }) {
   return (
     <span className="skill-item flex shrink-0 items-center gap-2.5">
       <Icon
-        className="h-[14px] w-[14px] text-pink-400/50"
+        className="h-[14px] w-[14px] text-pink-400/45"
         strokeWidth={1.5}
         aria-hidden
       />
-      <span className="text-[15px] font-medium tracking-wide text-pink-400/65">
+      <span className="text-[13px] font-medium tracking-wide text-pink-400/60 sm:text-[14px]">
         {skill.label}
       </span>
     </span>
@@ -53,20 +69,32 @@ export function Marquee({
   items: MarqueeSkill[];
   className?: string;
 }) {
+  const reducedMotion = useReducedMotion() ?? false;
   const doubled = [...items, ...items];
 
   return (
-    <div className={cn("relative overflow-hidden py-6 sm:py-8", className)}>
+    <div
+      className={cn(
+        "skills-ticker group relative w-full overflow-hidden border-y border-pink-500/[0.06] bg-black py-5 sm:py-6",
+        className,
+      )}
+      aria-hidden
+    >
       <div
-        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-black to-transparent sm:w-28"
+        className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-black to-transparent sm:w-20"
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-black to-transparent sm:w-28"
+        className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-black to-transparent sm:w-20"
         aria-hidden
       />
 
-      <div className="skills-track animate-marquee flex w-max items-center gap-16 whitespace-nowrap sm:gap-20 lg:gap-24">
+      <div
+        className={cn(
+          "skills-track flex w-max items-center gap-14 whitespace-nowrap sm:gap-16 lg:gap-20",
+          !reducedMotion && "animate-marquee group-hover:[animation-play-state:paused]",
+        )}
+      >
         {doubled.map((skill, i) => (
           <SkillItem key={`${skill.label}-${i}`} skill={skill} />
         ))}

@@ -1,6 +1,5 @@
 "use client";
 
-import { Cormorant_Garamond, Inter } from "next/font/google";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import {
@@ -9,15 +8,6 @@ import {
   type HowIThinkCard,
 } from "@/data/howIThink";
 import { cn } from "@/lib/utils";
-
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["500", "600"],
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-});
 
 const ease = [0.22, 1, 0.36, 1] as const;
 const SPRING = { type: "spring" as const, stiffness: 300, damping: 26 };
@@ -123,16 +113,14 @@ function ProcessFlashCard({
 
         <h3
           className={cn(
-            cormorant.className,
-            "mt-4 text-lg font-semibold leading-tight text-white sm:text-xl",
+            "font-display mt-4 text-lg font-semibold leading-tight tracking-[-0.02em] text-white sm:text-xl",
           )}
         >
           {card.title}
         </h3>
         <p
           className={cn(
-            inter.className,
-            "mt-2 flex-1 text-sm leading-relaxed",
+            "type-body mt-2 flex-1 text-sm leading-relaxed",
             isActive ? "text-pink-50/90" : "text-pink-100/55",
           )}
         >
@@ -172,31 +160,12 @@ export function ProcessSection() {
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.7, ease }}
         >
-          <span className="text-xs font-medium uppercase tracking-[0.28em] text-pink-400/70">
-            {howIThinkSection.label}
-          </span>
-          <h2
-            className={cn(
-              cormorant.className,
-              "mt-3 text-[34px] font-medium leading-[1.08] text-white md:text-[44px] lg:text-[52px]",
-            )}
-          >
-            {howIThinkSection.title}
-          </h2>
-          <p
-            className={cn(
-              inter.className,
-              "mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-pink-100/55 sm:text-base",
-            )}
-          >
+          <span className="type-eyebrow">{howIThinkSection.label}</span>
+          <h2 className="type-section-title mt-3">{howIThinkSection.title}</h2>
+          <p className="type-section-desc mx-auto mt-3 max-w-2xl">
             {howIThinkSection.subtitle}
           </p>
-          <p
-            className={cn(
-              inter.className,
-              "mx-auto mt-2 text-xs italic tracking-wide text-pink-300/45 sm:text-sm",
-            )}
-          >
+          <p className="type-meta mx-auto mt-2 italic tracking-wide text-pink-300/45">
             {howIThinkSection.cue}
           </p>
         </motion.header>

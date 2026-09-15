@@ -20,11 +20,14 @@ export const site = {
 };
 
 export const navLinks = [
+  { label: "Work", href: "/#work", sectionId: "work" },
+  { label: "Experience", href: "/#experience", sectionId: "experience" },
   { label: "About", href: "/#about", sectionId: "about" },
-  { label: "Projects", href: "/#projects", sectionId: "projects" },
-  { label: "Journey", href: "/my-story#leadership-journey", sectionId: null },
-  { label: "Beyond Resume", href: "/my-story", sectionId: null },
-  { label: "Contact", href: "/#contact", sectionId: "contact" },
+  {
+    label: "Resume",
+    href: "mailto:atikshasunilantil@gmail.com?subject=Resume%20Request",
+    sectionId: null,
+  },
 ] as const;
 
 export type NavLink = (typeof navLinks)[number];
@@ -36,9 +39,20 @@ export const availabilityBadge = {
 
 export const hero = {
   name: "Atiksha Antil",
+  role: "Product Manager",
+  headline: "Turning complex problems into products people actually want to use.",
+  supporting:
+    "Computer Science senior at San Francisco State University combining product strategy, user empathy, and technical execution to build thoughtful AI-powered products.",
+  label: "PRODUCT • AI • ENGINEERING",
+  primaryCta: { label: "View Product Work", href: "/#work" },
+  secondaryCta: {
+    label: "View Resume",
+    href: "mailto:atikshasunilantil@gmail.com?subject=Resume%20Request",
+  },
+  /** Legacy fields kept for any remaining references */
   titleLeft: ["Product", "Manager"],
   titleRight: ["Software", "Engineer"],
-  pmSubtitle: "Turning messy ideas into products people actually love.",
+  pmSubtitle: "Turning complex problems into products people actually want to use.",
   sweSubtitle: "Building the technology that brings those ideas to life.",
   image: "/images/atiksha-hero.png",
   imageAlt: "/images/atiksha-hero-alt.png",
@@ -47,30 +61,44 @@ export const hero = {
 export type MarqueeSkill = {
   label: string;
   icon:
-    | "react"
-    | "python"
-    | "aws"
-    | "nextjs"
-    | "agile"
-    | "rest"
-    | "jira"
-    | "postgresql"
+    | "strategy"
+    | "research"
+    | "prd"
     | "roadmaps"
+    | "prioritize"
+    | "analytics"
+    | "agile"
+    | "jira"
+    | "figma"
+    | "sql"
+    | "ai"
+    | "python"
+    | "react"
+    | "postgresql"
+    | "rest"
+    | "aws"
     | "docker"
     | "tableau";
 };
 
-/** SWE + PM skills from resume — hero logo-cloud marquee */
+/** Homepage skills ticker — product skills first, then technical. */
 export const marqueeItems: MarqueeSkill[] = [
-  { label: "React", icon: "react" },
-  { label: "Python", icon: "python" },
-  { label: "AWS", icon: "aws" },
-  { label: "Next.js", icon: "nextjs" },
+  { label: "Product Strategy", icon: "strategy" },
+  { label: "User Research", icon: "research" },
+  { label: "PRDs", icon: "prd" },
+  { label: "Roadmapping", icon: "roadmaps" },
+  { label: "Prioritization", icon: "prioritize" },
+  { label: "Product Analytics", icon: "analytics" },
   { label: "Agile", icon: "agile" },
-  { label: "REST APIs", icon: "rest" },
-  { label: "JIRA", icon: "jira" },
+  { label: "Jira", icon: "jira" },
+  { label: "Figma", icon: "figma" },
+  { label: "SQL", icon: "sql" },
+  { label: "AI / LLMs", icon: "ai" },
+  { label: "Python", icon: "python" },
+  { label: "React", icon: "react" },
   { label: "PostgreSQL", icon: "postgresql" },
-  { label: "Roadmaps", icon: "roadmaps" },
+  { label: "REST APIs", icon: "rest" },
+  { label: "AWS", icon: "aws" },
   { label: "Docker", icon: "docker" },
   { label: "Tableau", icon: "tableau" },
 ];
@@ -149,20 +177,18 @@ export const projectMarquee = [
 export const about = {
   title: "The Person Behind the Product",
   intro: [
-    "I'm Atiksha—a Computer Science student at San Francisco State University, software engineer, aspiring product manager, and community leader.",
-    "I enjoy thinking like a product manager and building like a software engineer—turning ideas into organized plans, meaningful digital experiences, and systems that help people collaborate and solve real problems.",
+    "I'm Atiksha, a Computer Science senior at San Francisco State University focused on product management at the intersection of technology, AI, and user experience.",
+    "My engineering background taught me how products get built. Product management is where I bring together user problems, business priorities, and technical constraints to decide what deserves to be built and why.",
   ],
   portrait: "/images/atiksha-about.png",
   avatar3d: "/images/atiksha-avatar-3d-cutout.png",
   skillPills: [
-    "React",
-    "Next.js",
-    "TypeScript",
-    "AI",
-    "Product Management",
+    "Product Strategy",
+    "User Research",
+    "AI Products",
+    "Roadmapping",
     "Leadership",
-    "Full Stack",
-    "UX Thinking",
+    "Technical Depth",
   ],
 };
 

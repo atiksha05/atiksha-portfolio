@@ -20,11 +20,11 @@ export type HowIThinkCard = {
 };
 
 export const howIThinkSection = {
-  label: "How I Think",
-  title: "Building Products From Insight to Impact",
+  label: "How I Build Products",
+  title: "From insight to impact",
   subtitle:
-    "I combine user research, product strategy, engineering collaboration, and continuous iteration to transform ideas into meaningful products.",
-  cue: "Tap a card to explore how I think.",
+    "A simple product process I use to move from ambiguity to shipped outcomes.",
+  cue: "Tap a card to explore a stage.",
 };
 
 export const howIThinkCards: HowIThinkCard[] = [
@@ -33,7 +33,7 @@ export const howIThinkCards: HowIThinkCard[] = [
     number: "01",
     title: "Problem Discovery",
     description:
-      "I frame the real problem — mapping stakeholder goals, user pain points, and constraints before anything gets built.",
+      "I frame the real problem before jumping to solutions — aligning users, stakeholders, and constraints.",
     icon: Compass,
     rotation: -3,
     zIndex: 1,
@@ -46,7 +46,7 @@ export const howIThinkCards: HowIThinkCard[] = [
     number: "02",
     title: "User Research",
     description:
-      "I validate assumptions through interviews and behavioral signals, grounding decisions in how people actually work.",
+      "I listen for patterns in feedback and behavior so decisions reflect how people actually work.",
     icon: MessageCircle,
     rotation: 2,
     zIndex: 2,
@@ -59,7 +59,7 @@ export const howIThinkCards: HowIThinkCard[] = [
     number: "03",
     title: "Product Strategy",
     description:
-      "I translate insights into a focused roadmap — prioritizing by impact, feasibility, and risk with crisp requirements.",
+      "I prioritize by impact and feasibility, then define a focused MVP with clear requirements.",
     icon: Target,
     rotation: -2,
     zIndex: 3,
@@ -72,7 +72,7 @@ export const howIThinkCards: HowIThinkCard[] = [
     number: "04",
     title: "Execution & Collaboration",
     description:
-      "I drive delivery through Agile rituals and cross-functional loops — bridging PM and engineering to keep momentum.",
+      "I partner closely with engineering and design to keep delivery aligned with product intent.",
     icon: Rocket,
     rotation: 3,
     zIndex: 4,
@@ -85,7 +85,7 @@ export const howIThinkCards: HowIThinkCard[] = [
     number: "05",
     title: "Iteration & Impact",
     description:
-      "I treat launch as the beginning — instrumenting flows, reviewing signals, and iterating toward measurable outcomes.",
+      "I treat launch as the start — reviewing signals and iterating toward better outcomes.",
     icon: LineChart,
     rotation: -2,
     zIndex: 5,
