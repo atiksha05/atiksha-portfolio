@@ -283,7 +283,7 @@ export function FooterCTA() {
                     required
                     autoComplete="name"
                     placeholder="Your name"
-                    className="contact-input w-full rounded-2xl border border-pink-400/15 bg-black/40 text-sm text-pink-50 placeholder:text-pink-200/25 outline-none transition-all focus:border-pink-400/40 focus:shadow-[0_0_20px_rgba(244,114,182,0.12)]"
+                    className="contact-input w-full rounded-2xl border border-pink-400/15 bg-black/40 text-base text-pink-50 placeholder:text-pink-200/25 outline-none transition-all focus:border-pink-400/40 focus:shadow-[0_0_20px_rgba(244,114,182,0.12)]"
                   />
                 </label>
                 <label className="block min-w-0">
@@ -296,7 +296,7 @@ export function FooterCTA() {
                     required
                     autoComplete="email"
                     placeholder="you@email.com"
-                    className="contact-input w-full rounded-2xl border border-pink-400/15 bg-black/40 text-sm text-pink-50 placeholder:text-pink-200/25 outline-none transition-all focus:border-pink-400/40 focus:shadow-[0_0_20px_rgba(244,114,182,0.12)]"
+                    className="contact-input w-full rounded-2xl border border-pink-400/15 bg-black/40 text-base text-pink-50 placeholder:text-pink-200/25 outline-none transition-all focus:border-pink-400/40 focus:shadow-[0_0_20px_rgba(244,114,182,0.12)]"
                   />
                 </label>
               </div>
@@ -309,7 +309,7 @@ export function FooterCTA() {
                   name="message"
                   required
                   placeholder="Tell me about your idea, role, or question..."
-                  className="contact-textarea w-full rounded-2xl border border-pink-400/15 bg-black/40 text-sm leading-relaxed text-pink-50 placeholder:text-pink-200/25 outline-none transition-all focus:border-pink-400/40 focus:shadow-[0_0_20px_rgba(244,114,182,0.12)]"
+                  className="contact-textarea w-full rounded-2xl border border-pink-400/15 bg-black/40 text-base leading-relaxed text-pink-50 placeholder:text-pink-200/25 outline-none transition-all focus:border-pink-400/40 focus:shadow-[0_0_20px_rgba(244,114,182,0.12)]"
                 />
               </label>
 

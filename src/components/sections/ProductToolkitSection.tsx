@@ -5,7 +5,7 @@ export function ProductToolkitSection() {
   return (
     <section
       id="toolkit"
-      className="relative scroll-mt-[calc(var(--navbar-height,76px)+16px)] overflow-x-hidden border-t border-pink-500/[0.08] bg-black py-14 md:py-16"
+      className="relative scroll-mt-[calc(var(--navbar-height,76px)+16px)] overflow-x-clip border-t border-pink-500/[0.08] bg-black py-12 sm:py-14 md:py-16"
     >
       <div className="section-container relative">
         <header className="mx-auto max-w-2xl text-center">
@@ -16,12 +16,12 @@ export function ProductToolkitSection() {
           </p>
         </header>
 
-        <div className="mt-10 grid gap-8 md:grid-cols-3 md:gap-6">
+        <div className="mt-8 grid gap-5 md:mt-10 md:grid-cols-3 md:gap-6">
           {productToolkit.groups.map((group, index) => (
             <div
               key={group.id}
               className={cn(
-                "rounded-3xl border border-pink-400/12 bg-pink-500/[0.03] p-6",
+                "min-w-0 rounded-[1.35rem] border border-pink-400/12 bg-pink-500/[0.03] p-4 sm:rounded-3xl sm:p-6",
                 index === 0 && "border-pink-400/25 bg-pink-500/[0.06]",
               )}
             >

@@ -10,10 +10,10 @@ type HeroPhotoFlipProps = {
 };
 
 const photoClass =
-  "object-cover max-w-full h-[clamp(190px,34vh,340px)] w-[clamp(142px,26vw,255px)] sm:max-h-[calc(100svh-15rem)] sm:h-[clamp(230px,38vh,380px)] sm:w-[clamp(172px,28vw,285px)] lg:max-h-[calc(100svh-14.5rem)] lg:h-[clamp(400px,59vh,620px)] lg:w-[clamp(300px,44.25vh,465px)]";
+  "object-cover max-w-full h-[clamp(200px,42vw,280px)] w-[clamp(150px,32vw,210px)] sm:max-h-[calc(100svh-15rem)] sm:h-[clamp(230px,38vh,380px)] sm:w-[clamp(172px,28vw,285px)] lg:max-h-[calc(100svh-14.5rem)] lg:h-[clamp(400px,59vh,620px)] lg:w-[clamp(300px,44.25vh,465px)]";
 
 const frameClass =
-  "overflow-hidden rounded-[1.5rem] border-[5px] border-pink-400 shadow-[0_0_0_4px_rgba(244,114,182,0.3),0_0_40px_rgba(244,114,182,0.2)] sm:rounded-[2rem]";
+  "overflow-hidden rounded-[1.25rem] border-[4px] border-pink-400 shadow-[0_0_0_3px_rgba(244,114,182,0.3),0_0_28px_rgba(244,114,182,0.2)] sm:rounded-[2rem] sm:border-[5px] sm:shadow-[0_0_0_4px_rgba(244,114,182,0.3),0_0_40px_rgba(244,114,182,0.2)]";
 
 export function HeroPhotoFlip({ frontSrc, backSrc, alt }: HeroPhotoFlipProps) {
   const [flipped, setFlipped] = useState(false);

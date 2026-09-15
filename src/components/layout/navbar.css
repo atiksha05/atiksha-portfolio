@@ -330,20 +330,38 @@
   outline-offset: 3px;
 }
 
+.nav-mobile-backdrop {
+  position: fixed;
+  inset: 0;
+  top: var(--navbar-height, 68px);
+  z-index: 998;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.55);
+}
+
 .nav-mobile-panel {
+  position: relative;
+  z-index: 999;
   overflow: hidden;
+  max-height: min(70vh, 520px);
+  overflow-y: auto;
   border-top: 1px solid rgba(255, 72, 170, 0.11);
-  background: rgba(3, 3, 3, 0.96);
+  background: rgba(3, 3, 3, 0.97);
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
 }
 
 .nav-mobile-nav {
-  width: min(calc(100% - 32px), 1400px);
+  width: min(calc(100% - 28px), 1400px);
   margin-inline: auto;
   display: flex;
   flex-direction: column;
   gap: 4px;
-  padding: 16px 0 20px;
+  padding: 14px 0 22px;
 }
 
 .nav-mobile-link {
@@ -399,6 +417,11 @@
   .nav-desktop-badge {
     display: inline-flex;
   }
+
+  .nav-mobile-backdrop,
+  .nav-mobile-panel {
+    display: none !important;
+  }
 }
 
 @media (max-width: 900px) {
@@ -409,11 +432,11 @@
   }
 
   .nav-left {
-    gap: 12px;
+    gap: 10px;
   }
 
   .nav-actions {
-    gap: 10px;
+    gap: 8px;
   }
 
   .nav-desktop-badge {
@@ -426,6 +449,20 @@
 
   .nav-desktop-cta::before {
     display: none;
+  }
+}
+
+@media (max-width: 380px) {
+  .nav-role {
+    display: none;
+  }
+
+  .nav-logo {
+    width: 40px;
+  }
+
+  .site-navbar {
+    width: min(calc(100% - 20px), 1560px);
   }
 }
 

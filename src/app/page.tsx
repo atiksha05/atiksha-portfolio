@@ -11,7 +11,7 @@ import { marqueeItems } from "@/lib/data";
 
 export default function Home() {
   return (
-    <div className="relative overflow-x-hidden bg-black">
+    <div className="relative overflow-x-clip bg-black">
       <Navbar />
       <main>
         <Hero />

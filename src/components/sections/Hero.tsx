@@ -25,7 +25,7 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative flex min-h-[100svh] flex-col overflow-x-hidden bg-black lg:max-h-[100svh]"
+      className="relative flex flex-col overflow-x-clip bg-black lg:min-h-[100svh] lg:max-h-[100svh]"
     >
       <div
         className="pointer-events-none absolute inset-x-0 bottom-0 h-72"
@@ -37,8 +37,9 @@ export function Hero() {
       </div>
 
       <div className="relative z-10 flex min-h-0 flex-1 flex-col pt-[var(--navbar-height,76px)]">
-        <div className="hero-layout section-container flex w-full flex-1 min-h-0 flex-col items-center justify-center gap-10 py-8 pb-12 lg:grid lg:grid-cols-[minmax(0,1.1fr)_auto] lg:items-center lg:gap-12 lg:py-6 lg:pb-14">
-          <div className="hero-role flex w-full max-w-xl flex-col items-center text-center lg:items-start lg:text-left">
+        <div className="hero-layout section-container grid w-full min-h-0 flex-1 grid-cols-1 items-center justify-items-center gap-8 py-6 pb-10 sm:gap-9 sm:py-8 sm:pb-12 lg:grid-cols-[minmax(0,1.1fr)_auto] lg:justify-items-stretch lg:gap-12 lg:py-6 lg:pb-14">
+          {/* Copy — first on mobile */}
+          <div className="hero-role order-1 flex w-full max-w-xl flex-col items-center text-center lg:items-start lg:text-left">
             <p className="hero-eyebrow">{hero.name}</p>
 
             <h1 className="hero-display">
@@ -61,45 +62,25 @@ export function Hero() {
 
             <p className="hero-body">{hero.supporting}</p>
 
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+            <div className="hero-cta-row mt-6 flex w-full max-w-sm flex-col items-stretch gap-3 sm:mt-8 sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:justify-center lg:justify-start">
               <Link
                 href={hero.primaryCta.href}
-                className="hero-cta hero-cta-primary"
+                className="hero-cta hero-cta-primary w-full sm:w-auto"
               >
                 {hero.primaryCta.label}
               </Link>
               <a
                 href={hero.secondaryCta.href}
-                className="hero-cta hero-cta-secondary"
+                className="hero-cta hero-cta-secondary w-full sm:w-auto"
               >
                 {hero.secondaryCta.label}
               </a>
             </div>
-
-            <div className="mt-5 flex items-center gap-3">
-              <a
-                href={site.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn"
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-pink-400/20 text-pink-200/70 transition-all hover:border-pink-400/40 hover:text-pink-50"
-              >
-                <LinkedInIcon className="h-4 w-4" />
-              </a>
-              <a
-                href={site.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub"
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-pink-400/20 text-pink-200/70 transition-all hover:border-pink-400/40 hover:text-pink-50"
-              >
-                <GitHubIcon className="h-4 w-4" />
-              </a>
-            </div>
           </div>
 
-          <div className="hero-image-wrap relative flex w-full max-w-full shrink-0 justify-center overflow-hidden px-1 sm:overflow-visible sm:px-0">
-            <div className="hero-image-frame overflow-hidden rounded-[1.75rem] bg-white p-2.5 shadow-[0_24px_80px_rgba(0,0,0,0.5)] sm:overflow-visible sm:rounded-[2rem] sm:p-3 md:rounded-[2.5rem] md:p-3.5">
+          {/* Portrait — after CTAs on mobile; right column on desktop */}
+          <div className="hero-image-wrap relative order-2 flex w-full max-w-full shrink-0 justify-center overflow-x-clip px-5 sm:overflow-visible sm:px-2 lg:row-span-2 lg:justify-self-end lg:px-0">
+            <div className="hero-image-frame overflow-hidden rounded-[1.75rem] bg-white p-2 shadow-[0_24px_80px_rgba(0,0,0,0.5)] sm:overflow-visible sm:rounded-[2rem] sm:p-3 md:rounded-[2.5rem] md:p-3.5">
               <HeroPhotoFlip
                 frontSrc={hero.image}
                 backSrc={hero.imageAlt}
@@ -109,18 +90,40 @@ export function Hero() {
 
             <div
               className={cn(
-                "hero-wave-badge animate-wave absolute -bottom-2 -left-2 z-20 flex h-14 w-14 items-center justify-center rounded-full bg-pink-300 shadow-lg",
-                "sm:-bottom-3 sm:-left-3 sm:h-16 sm:w-16 md:-bottom-4 md:-left-4 md:h-20 md:w-20",
+                "hero-wave-badge animate-wave absolute z-20 flex items-center justify-center rounded-full bg-pink-300 shadow-lg",
+                "bottom-0 left-3 h-12 w-12 sm:-bottom-3 sm:-left-1 sm:h-16 sm:w-16 md:-bottom-4 md:-left-4 md:h-20 md:w-20",
               )}
             >
               <span
-                className="text-2xl sm:text-3xl md:text-4xl"
+                className="text-xl sm:text-3xl md:text-4xl"
                 role="img"
                 aria-label="Waving hand"
               >
                 👋
               </span>
             </div>
+          </div>
+
+          {/* Social — after portrait on mobile; under CTAs on desktop */}
+          <div className="hero-social order-3 flex items-center justify-center gap-3 lg:justify-start">
+            <a
+              href={site.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-pink-400/20 text-pink-200/70 transition-all hover:border-pink-400/40 hover:text-pink-50"
+            >
+              <LinkedInIcon className="h-4 w-4" />
+            </a>
+            <a
+              href={site.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-pink-400/20 text-pink-200/70 transition-all hover:border-pink-400/40 hover:text-pink-50"
+            >
+              <GitHubIcon className="h-4 w-4" />
+            </a>
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useState } from "react";
 import {
   howIThinkCards,
   howIThinkSection,
@@ -37,14 +37,19 @@ function ProcessFlashCard({
   isActive,
   isAnyActive,
   onSelect,
+  compact,
+  reduceMotion,
 }: {
   card: HowIThinkCard;
   index: number;
   isActive: boolean;
   isAnyActive: boolean;
   onSelect: () => void;
+  compact: boolean;
+  reduceMotion: boolean;
 }) {
   const Icon = card.icon;
+  const quietMotion = compact || reduceMotion;
 
   return (
     <motion.article
@@ -59,35 +64,41 @@ function ProcessFlashCard({
         }
       }}
       className={cn(
-        "group relative flex w-full cursor-pointer flex-col rounded-3xl border p-5 backdrop-blur-xl outline-none",
+        "group relative flex w-full min-w-0 cursor-pointer flex-col rounded-3xl border p-4 backdrop-blur-xl outline-none sm:p-5",
         "focus-visible:ring-2 focus-visible:ring-pink-400/50",
         card.cardClass,
         isActive
           ? "z-20 border-pink-400/55 shadow-[0_0_48px_rgba(244,114,182,0.4)]"
           : "z-10 shadow-[0_12px_36px_rgba(0,0,0,0.35)] hover:border-pink-400/45 hover:shadow-[0_0_36px_rgba(244,114,182,0.25)]",
       )}
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={quietMotion ? false : { opacity: 0, y: 24 }}
+      whileInView={quietMotion ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={
-        isActive || isAnyActive
-          ? SPRING
-          : { duration: 0.55, ease, delay: index * 0.08 }
+        quietMotion
+          ? { duration: 0.01 }
+          : isActive || isAnyActive
+            ? SPRING
+            : { duration: 0.55, ease, delay: index * 0.08 }
       }
       animate={
-        isActive
-          ? { opacity: 1, scale: 1.06, rotate: 0, y: -8 }
-          : isAnyActive
-            ? { opacity: 0.7, scale: 0.97, rotate: card.rotation * 0.4, y: 0 }
-            : { opacity: 1, scale: 1, rotate: card.rotation, y: 0 }
+        quietMotion
+          ? { opacity: 1, scale: 1, rotate: 0, y: 0 }
+          : isActive
+            ? { opacity: 1, scale: 1.06, rotate: 0, y: -8 }
+            : isAnyActive
+              ? { opacity: 0.7, scale: 0.97, rotate: card.rotation * 0.4, y: 0 }
+              : { opacity: 1, scale: 1, rotate: card.rotation, y: 0 }
       }
       whileHover={
-        isActive
-          ? { scale: 1.08, rotate: 0, y: -10 }
-          : { scale: 1.03, rotate: 0, y: -6 }
+        quietMotion
+          ? undefined
+          : isActive
+            ? { scale: 1.08, rotate: 0, y: -10 }
+            : { scale: 1.03, rotate: 0, y: -6 }
       }
     >
-      {isActive && <ActiveGlow />}
+      {isActive && !quietMotion && <ActiveGlow />}
 
       <div className="relative z-10 flex h-full flex-col">
         <div className="flex items-start justify-between gap-3">
@@ -111,16 +122,12 @@ function ProcessFlashCard({
           </div>
         </div>
 
-        <h3
-          className={cn(
-            "font-display mt-4 text-lg font-semibold leading-tight tracking-[-0.02em] text-white sm:text-xl",
-          )}
-        >
+        <h3 className="font-display mt-3 text-lg font-semibold leading-tight tracking-[-0.02em] text-white sm:mt-4 sm:text-xl">
           {card.title}
         </h3>
         <p
           className={cn(
-            "type-body mt-2 flex-1 text-sm leading-relaxed",
+            "type-body mt-2 flex-1 text-[0.9375rem] leading-relaxed sm:text-sm",
             isActive ? "text-pink-50/90" : "text-pink-100/55",
           )}
         >
@@ -133,6 +140,16 @@ function ProcessFlashCard({
 
 export function ProcessSection() {
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [compact, setCompact] = useState(false);
+  const reduceMotion = useReducedMotion() ?? false;
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 1023px)");
+    const update = () => setCompact(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   const handleSelect = (id: string) => {
     setActiveId((prev) => (prev === id ? null : id));
@@ -141,7 +158,7 @@ export function ProcessSection() {
   return (
     <section
       id="process"
-      className="relative overflow-x-hidden border-t border-pink-500/[0.08] bg-black py-16 scroll-mt-[calc(var(--navbar-height,76px)+16px)] md:py-20"
+      className="relative scroll-mt-[calc(var(--navbar-height,76px)+16px)] overflow-x-clip border-t border-pink-500/[0.08] bg-black py-12 sm:py-16 md:py-20"
     >
       <div
         className="pointer-events-none absolute left-1/2 top-1/3 h-72 w-72 -translate-x-1/2 rounded-full bg-pink-500/[0.07] blur-[110px]"
@@ -155,8 +172,8 @@ export function ProcessSection() {
       <div className="section-container relative">
         <motion.header
           className="mx-auto max-w-3xl text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+          whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.7, ease }}
         >
@@ -170,7 +187,7 @@ export function ProcessSection() {
           </p>
         </motion.header>
 
-        <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 md:mt-12 lg:grid-cols-5 lg:gap-4 xl:gap-5">
+        <div className="mt-8 grid grid-cols-1 gap-3 sm:mt-10 sm:grid-cols-2 sm:gap-5 md:mt-12 lg:grid-cols-5 lg:gap-4 xl:gap-5">
           {howIThinkCards.map((card, index) => (
             <ProcessFlashCard
               key={card.id}
@@ -179,6 +196,8 @@ export function ProcessSection() {
               isActive={activeId === card.id}
               isAnyActive={activeId !== null}
               onSelect={() => handleSelect(card.id)}
+              compact={compact}
+              reduceMotion={reduceMotion}
             />
           ))}
         </div>

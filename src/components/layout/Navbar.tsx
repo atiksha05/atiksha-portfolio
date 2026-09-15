@@ -295,54 +295,74 @@ export function Navbar() {
 
       <AnimatePresence>
         {menuOpen ? (
-          <motion.div
-            ref={panelRef}
-            id={menuId}
-            className="nav-mobile-panel"
-            initial={reduceMotion ? false : { opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={reduceMotion ? undefined : { opacity: 0, height: 0 }}
-            transition={{ duration: reduceMotion ? 0.01 : 0.25, ease: "easeOut" }}
-          >
-            <nav className="nav-mobile-nav" aria-label="Mobile navigation">
-              <div className="nav-mobile-brand">
-                <span className="nav-name">Atiksha</span>
-                <span className="nav-role">Product Manager</span>
-              </div>
+          <>
+            <motion.button
+              key="nav-backdrop"
+              type="button"
+              className="nav-mobile-backdrop"
+              aria-label="Close menu"
+              initial={reduceMotion ? false : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={reduceMotion ? undefined : { opacity: 0 }}
+              transition={{ duration: reduceMotion ? 0.01 : 0.2 }}
+              onClick={() => {
+                setMenuOpen(false);
+                toggleRef.current?.focus();
+              }}
+            />
+            <motion.div
+              key="nav-panel"
+              ref={panelRef}
+              id={menuId}
+              className="nav-mobile-panel"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Site navigation"
+              initial={reduceMotion ? false : { opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={reduceMotion ? undefined : { opacity: 0, y: -8 }}
+              transition={{ duration: reduceMotion ? 0.01 : 0.22, ease: "easeOut" }}
+            >
+              <nav className="nav-mobile-nav" aria-label="Mobile navigation">
+                <div className="nav-mobile-brand">
+                  <span className="nav-name">Atiksha</span>
+                  <span className="nav-role">Product Manager</span>
+                </div>
 
-              <div
-                className="open-to-work-badge nav-mobile-badge"
-                aria-label={availabilityBadge.full}
-              >
-                <span className="open-to-work-dot" aria-hidden="true" />
-                <span>Open to Work</span>
-              </div>
+                <div
+                  className="open-to-work-badge nav-mobile-badge"
+                  aria-label={availabilityBadge.full}
+                >
+                  <span className="open-to-work-dot" aria-hidden="true" />
+                  <span>Open to Work</span>
+                </div>
 
-              {navLinks.map((link) => {
-                const active = isLinkActive(link);
-                return (
-                  <Link
-                    key={link.label}
-                    href={link.href}
-                    className={cn("nav-mobile-link", active && "is-active")}
-                    aria-current={active ? "page" : undefined}
-                    onClick={(event) => handleNavClick(event, link)}
-                  >
-                    {link.label}
-                  </Link>
-                );
-              })}
+                {navLinks.map((link) => {
+                  const active = isLinkActive(link);
+                  return (
+                    <Link
+                      key={link.label}
+                      href={link.href}
+                      className={cn("nav-mobile-link", active && "is-active")}
+                      aria-current={active ? "page" : undefined}
+                      onClick={(event) => handleNavClick(event, link)}
+                    >
+                      {link.label}
+                    </Link>
+                  );
+                })}
 
-              <Link
-                href="/#contact"
-                className="nav-cta nav-mobile-cta"
-                onClick={handleCtaClick}
-              >
-                <Sparkles className="h-3.5 w-3.5 shrink-0" aria-hidden />
-                Let&apos;s Talk
-              </Link>
-            </nav>
-          </motion.div>
+                <Link
+                  href="/#contact"
+                  className="nav-cta nav-mobile-cta"
+                  onClick={handleCtaClick}
+                >
+                  <Sparkles className="h-3.5 w-3.5 shrink-0" aria-hidden />
+                  Let&apos;s Talk
+                </Link>
+              </nav>
+            </motion.div>
+          </>
         ) : null}
       </AnimatePresence>
     </header>
