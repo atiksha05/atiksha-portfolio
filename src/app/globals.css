@@ -123,10 +123,22 @@ svg {
   color: rgba(244, 220, 233, 0.5);
 }
 
-/* —— Hero typography —— */
+/* —— Hero typography + spacing rhythm —— */
+.hero-layout {
+  padding-top: 28px;
+  padding-bottom: 40px;
+}
+
+@media (min-width: 1024px) {
+  .hero-layout {
+    padding-top: clamp(36px, 5vh, 56px);
+    padding-bottom: clamp(48px, 7vh, 88px);
+  }
+}
+
 .hero-eyebrow {
   font-family: var(--font-body), system-ui, sans-serif;
-  margin-bottom: 1rem;
+  margin: 0 0 16px;
   font-size: clamp(0.72rem, 1.05vw, 0.84rem);
   font-weight: 500;
   letter-spacing: 0.18em;
@@ -136,6 +148,7 @@ svg {
 
 .hero-display {
   font-family: var(--font-display), system-ui, sans-serif;
+  margin: 0;
   font-size: clamp(2.35rem, 11vw, 3.85rem);
   font-weight: 700;
   line-height: 0.9;
@@ -151,18 +164,6 @@ svg {
     font-size: clamp(2.75rem, 7.2vw, 3.85rem);
     overflow-wrap: normal;
   }
-
-  .hero-eyebrow {
-    margin-bottom: 1rem;
-  }
-
-  .hero-headline {
-    margin-top: 1.75rem;
-  }
-
-  .hero-body {
-    margin-top: 1rem;
-  }
 }
 
 .hero-display-period {
@@ -171,7 +172,7 @@ svg {
 
 .hero-tag {
   font-family: var(--font-body), system-ui, sans-serif;
-  margin-top: 0.85rem;
+  margin: 14px 0 0;
   font-size: 0.7rem;
   font-weight: 500;
   letter-spacing: 0.14em;
@@ -181,7 +182,7 @@ svg {
 
 .hero-headline {
   font-family: var(--font-display), system-ui, sans-serif;
-  margin-top: 1.25rem;
+  margin: 26px 0 0;
   max-width: 34rem;
   font-size: clamp(1.1rem, 2.1vw, 1.55rem);
   font-weight: 600;
@@ -198,12 +199,20 @@ svg {
 
 .hero-body {
   font-family: var(--font-body), system-ui, sans-serif;
-  margin-top: 0.85rem;
+  margin: 16px 0 0;
   max-width: 33rem;
   font-size: clamp(0.9375rem, 1.2vw, 1rem);
   font-weight: 400;
   line-height: 1.7;
   color: rgba(210, 195, 205, 0.68);
+}
+
+.hero-cta-row {
+  margin-top: 30px;
+}
+
+.hero-social {
+  margin-top: 20px;
 }
 
 .hero-cta {
@@ -1064,11 +1073,23 @@ a:hover .project-page-title {
   }
 
   .hero-eyebrow {
-    margin-bottom: 0.65rem;
+    margin-bottom: 12px;
   }
 
   .hero-headline {
-    margin-top: 1rem;
+    margin-top: 20px;
+  }
+
+  .hero-body {
+    margin-top: 14px;
+  }
+
+  .hero-cta-row {
+    margin-top: 24px;
+  }
+
+  .hero-social {
+    margin-top: 18px;
   }
 }
 
@@ -1077,7 +1098,7 @@ a:hover .project-page-title {
     gap: 24px;
     min-height: auto;
     padding-top: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 32px;
   }
 
   .hero-ampersand {
@@ -1090,7 +1111,7 @@ a:hover .project-page-title {
   .hero-layout {
     gap: 20px;
     padding-top: 12px;
-    padding-bottom: 16px;
+    padding-bottom: 28px;
   }
 
   .hero-display {
@@ -1100,20 +1121,28 @@ a:hover .project-page-title {
   }
 
   .hero-tag {
-    margin-top: 0.65rem;
+    margin-top: 12px;
     font-size: 0.65rem;
     letter-spacing: 0.12em;
   }
 
   .hero-headline {
-    margin-top: 0.9rem;
+    margin-top: 18px;
     font-size: clamp(1.05rem, 4.6vw, 1.25rem);
   }
 
   .hero-body {
-    margin-top: 0.7rem;
+    margin-top: 14px;
     font-size: 0.95rem;
     line-height: 1.65;
+  }
+
+  .hero-cta-row {
+    margin-top: 24px;
+  }
+
+  .hero-social {
+    margin-top: 18px;
   }
 
   .hero-cta {

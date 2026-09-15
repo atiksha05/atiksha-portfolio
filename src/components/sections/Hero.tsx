@@ -23,12 +23,9 @@ export function Hero() {
   const roleWords = hero.role.split(" ");
 
   return (
-    <section
-      id="home"
-      className="relative flex flex-col overflow-x-clip bg-black lg:min-h-[100svh] lg:max-h-[100svh]"
-    >
+    <section id="home" className="relative overflow-x-clip bg-black">
       <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-72"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-56"
         aria-hidden
       >
         <div className="absolute bottom-8 left-[10%] h-40 w-80 max-w-[90vw] rounded-full bg-pink-500/12 blur-[90px]" />
@@ -36,10 +33,10 @@ export function Hero() {
         <div className="absolute bottom-10 right-[8%] h-36 w-72 max-w-[80vw] rounded-full bg-pink-400/10 blur-[85px]" />
       </div>
 
-      <div className="relative z-10 flex min-h-0 flex-1 flex-col pt-[var(--navbar-height,76px)]">
-        <div className="hero-layout section-container grid w-full min-h-0 flex-1 grid-cols-1 items-center justify-items-center gap-8 py-6 pb-10 sm:gap-9 sm:py-8 sm:pb-12 lg:grid-cols-[minmax(0,1.1fr)_auto] lg:justify-items-stretch lg:gap-12 lg:py-6 lg:pb-14">
-          {/* Copy — first on mobile */}
-          <div className="hero-role order-1 flex w-full max-w-xl flex-col items-center text-center lg:items-start lg:text-left">
+      <div className="relative z-10 pt-[var(--navbar-height,76px)]">
+        <div className="hero-layout section-container grid w-full grid-cols-1 items-center justify-items-center gap-8 lg:grid-cols-[minmax(0,1.1fr)_auto] lg:justify-items-stretch lg:gap-12">
+          {/* Left content: copy → CTAs → social (one block) */}
+          <div className="hero-role flex w-full max-w-xl flex-col items-center text-center lg:items-start lg:text-left">
             <p className="hero-eyebrow">{hero.name}</p>
 
             <h1 className="hero-display">
@@ -62,7 +59,7 @@ export function Hero() {
 
             <p className="hero-body">{hero.supporting}</p>
 
-            <div className="hero-cta-row mt-6 flex w-full max-w-sm flex-col items-stretch gap-3 sm:mt-8 sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:justify-center lg:justify-start">
+            <div className="hero-cta-row flex w-full max-w-sm flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:justify-center lg:justify-start">
               <Link
                 href={hero.primaryCta.href}
                 className="hero-cta hero-cta-primary w-full sm:w-auto"
@@ -76,10 +73,31 @@ export function Hero() {
                 {hero.secondaryCta.label}
               </a>
             </div>
+
+            <div className="hero-social flex items-center justify-center gap-3 lg:justify-start">
+              <a
+                href={site.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-pink-400/20 text-pink-200/70 transition-all hover:border-pink-400/40 hover:text-pink-50"
+              >
+                <LinkedInIcon className="h-4 w-4" />
+              </a>
+              <a
+                href={site.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-pink-400/20 text-pink-200/70 transition-all hover:border-pink-400/40 hover:text-pink-50"
+              >
+                <GitHubIcon className="h-4 w-4" />
+              </a>
+            </div>
           </div>
 
-          {/* Portrait — after CTAs on mobile; right column on desktop */}
-          <div className="hero-image-wrap relative order-2 flex w-full max-w-full shrink-0 justify-center overflow-x-clip px-5 sm:overflow-visible sm:px-2 lg:row-span-2 lg:justify-self-end lg:px-0">
+          {/* Portrait */}
+          <div className="hero-image-wrap relative flex w-full max-w-full shrink-0 justify-center overflow-x-clip px-5 sm:overflow-visible sm:px-2 lg:justify-self-end lg:px-0">
             <div className="hero-image-frame overflow-hidden rounded-[1.75rem] bg-white p-2 shadow-[0_24px_80px_rgba(0,0,0,0.5)] sm:overflow-visible sm:rounded-[2rem] sm:p-3 md:rounded-[2.5rem] md:p-3.5">
               <HeroPhotoFlip
                 frontSrc={hero.image}
@@ -102,28 +120,6 @@ export function Hero() {
                 👋
               </span>
             </div>
-          </div>
-
-          {/* Social — after portrait on mobile; under CTAs on desktop */}
-          <div className="hero-social order-3 flex items-center justify-center gap-3 lg:justify-start">
-            <a
-              href={site.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-pink-400/20 text-pink-200/70 transition-all hover:border-pink-400/40 hover:text-pink-50"
-            >
-              <LinkedInIcon className="h-4 w-4" />
-            </a>
-            <a
-              href={site.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-pink-400/20 text-pink-200/70 transition-all hover:border-pink-400/40 hover:text-pink-50"
-            >
-              <GitHubIcon className="h-4 w-4" />
-            </a>
           </div>
         </div>
       </div>
