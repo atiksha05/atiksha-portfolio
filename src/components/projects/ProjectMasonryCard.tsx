@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Cormorant_Garamond } from "next/font/google";
 import { ArrowUpRight, Lock } from "lucide-react";
-import type { Project } from "@/data/projects";
+import type { Project, ProjectCover } from "@/data/projects";
 import type { ProjectCategory } from "@/data/recentWork";
 import { cn } from "@/lib/utils";
 
@@ -26,6 +26,71 @@ const categoryPillStyles: Record<ProjectCategory, string> = {
   Systems: "border-indigo-400/30 bg-indigo-500/10 text-indigo-200/90",
 };
 
+function ProjectCoverVisual({ cover }: { cover: ProjectCover }) {
+  return (
+    <div
+      className={cn(
+        "absolute inset-0 overflow-hidden transition-transform duration-500 group-hover:scale-[1.04]",
+        cover.gradientClass,
+      )}
+      aria-hidden
+    >
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,rgba(244,114,182,0.18),transparent_55%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_75%,rgba(167,139,250,0.14),transparent_50%)]" />
+
+      {cover.motif === "evaluation" ? (
+        <div className="absolute inset-x-8 bottom-10 top-14 flex items-end gap-2.5 opacity-50 sm:inset-x-10 sm:gap-3">
+          {[38, 62, 48, 78, 55, 88, 44, 70].map((h, i) => (
+            <span
+              key={i}
+              className="flex-1 rounded-t-sm bg-gradient-to-t from-violet-300/35 to-pink-200/20"
+              style={{ height: `${h}%` }}
+            />
+          ))}
+        </div>
+      ) : null}
+
+      {cover.motif === "experiment" ? (
+        <svg
+          className="absolute inset-6 opacity-45 sm:inset-8"
+          viewBox="0 0 320 180"
+          fill="none"
+          aria-hidden
+        >
+          <path
+            d="M12 140 C 50 130, 70 70, 110 78 C 150 86, 160 40, 200 48 C 240 56, 250 110, 308 28"
+            stroke="rgba(251,207,232,0.55)"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+          />
+          <path
+            d="M12 150 C 60 148, 90 120, 130 118 C 170 116, 190 90, 230 96 C 270 102, 285 70, 308 58"
+            stroke="rgba(244,114,182,0.35)"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeDasharray="5 6"
+          />
+          {[
+            [110, 78],
+            [200, 48],
+            [308, 28],
+            [130, 118],
+            [230, 96],
+          ].map(([x, y], i) => (
+            <circle
+              key={i}
+              cx={x}
+              cy={y}
+              r="4"
+              fill="rgba(251,207,232,0.7)"
+            />
+          ))}
+        </svg>
+      ) : null}
+    </div>
+  );
+}
+
 function ProjectCardContent({ project }: { project: Project }) {
   const isPublic = Boolean(project.githubUrl) && !project.isPrivate;
   const hasLink = Boolean(project.href) || isPublic;
@@ -44,13 +109,19 @@ function ProjectCardContent({ project }: { project: Project }) {
           heightMap[project.height],
         )}
       >
-        <Image
-          src={project.image}
-          alt={project.title}
-          fill
-          className="object-cover brightness-[0.8] saturate-[1.1] transition-all duration-500 group-hover:scale-[1.04] group-hover:brightness-[0.85] group-hover:saturate-[1.15]"
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        />
+        {project.cover ? (
+          <ProjectCoverVisual cover={project.cover} />
+        ) : project.image ? (
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            className="object-cover brightness-[0.8] saturate-[1.1] transition-all duration-500 group-hover:scale-[1.04] group-hover:brightness-[0.85] group-hover:saturate-[1.15]"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          />
+        ) : (
+          <div className="absolute inset-0 bg-zinc-950" aria-hidden />
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/10" />
 
         <div className="absolute left-4 top-4">

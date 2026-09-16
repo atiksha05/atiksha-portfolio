@@ -2,11 +2,21 @@ import type { ProjectCategory } from "@/data/recentWork";
 
 export type ProjectHeight = "sm" | "md" | "lg" | "xl";
 
+export type ProjectCover = {
+  /** Tailwind gradient classes for the cover plane */
+  gradientClass: string;
+  /** Optional decorative motif for CSS-only covers */
+  motif?: "evaluation" | "experiment";
+};
+
 export type Project = {
   id: string;
   title: string;
   description: string;
-  image: string;
+  /** Remote or local image URL. Optional when `cover` is provided. */
+  image?: string;
+  /** CSS gradient cover when no dedicated asset exists */
+  cover?: ProjectCover;
   category: ProjectCategory;
   /** Internal page — takes priority over githubUrl for card clicks */
   href?: string;
@@ -21,6 +31,36 @@ const GITHUB = "https://github.com/atiksha05";
 /** All projects — masonry grid on /projects */
 export const allProjects: Project[] = [
   {
+    id: "agentbench",
+    title: "AgentBench",
+    description:
+      "Evaluate and compare AI models across quality, reliability, hallucination risk, latency, and cost.",
+    cover: {
+      gradientClass:
+        "bg-gradient-to-br from-zinc-950 via-violet-950/90 to-fuchsia-950/70",
+      motif: "evaluation",
+    },
+    category: "AI",
+    githubUrl: `${GITHUB}/AgentBench`,
+    tags: ["React", "TypeScript", "LLM Evaluation", "AI"],
+    height: "lg",
+  },
+  {
+    id: "experimentos",
+    title: "ExperimentOS",
+    description:
+      "Turn product hypotheses into measurable A/B experiments and evidence-backed decisions.",
+    cover: {
+      gradientClass:
+        "bg-gradient-to-br from-zinc-950 via-rose-950/85 to-pink-950/65",
+      motif: "experiment",
+    },
+    category: "Full Stack",
+    githubUrl: `${GITHUB}/ExperimentOS`,
+    tags: ["React", "TypeScript", "A/B Testing", "Product Analytics"],
+    height: "xl",
+  },
+  {
     id: "studysync-ai",
     title: "StudySync-AI",
     description:
@@ -32,6 +72,18 @@ export const allProjects: Project[] = [
     githubUrl: `${GITHUB}/StudySync-AI`,
     tags: ["Python", "OpenAI", "React", "FastAPI"],
     height: "lg",
+  },
+  {
+    id: "learn-loop",
+    title: "LearnLoop",
+    description:
+      "Mentorship platform matching learners with skill-sharing sessions.",
+    image:
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=900&q=80",
+    category: "Full Stack",
+    githubUrl: `${GITHUB}/Learn-Loop`,
+    tags: ["Node.js", "PostgreSQL", "React", "JWT"],
+    height: "xl",
   },
   {
     id: "atiksha-portfolio",
@@ -56,18 +108,6 @@ export const allProjects: Project[] = [
     isPrivate: true,
     tags: ["Next.js", "Plaid", "OpenAI", "PostgreSQL"],
     height: "lg",
-  },
-  {
-    id: "learn-loop",
-    title: "LearnLoop",
-    description:
-      "Mentorship platform matching learners with skill-sharing sessions.",
-    image:
-      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=900&q=80",
-    category: "Full Stack",
-    githubUrl: `${GITHUB}/Learn-Loop`,
-    tags: ["Node.js", "PostgreSQL", "React", "JWT"],
-    height: "xl",
   },
   {
     id: "campus-event-planner",

@@ -82,6 +82,21 @@ function CaseStudyCard({ project }: { project: FeaturedCaseStudy }) {
   );
 
   if (project.href) {
+    const isExternal = project.href.startsWith("http");
+
+    if (isExternal) {
+      return (
+        <a
+          href={project.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={className}
+        >
+          {inner}
+        </a>
+      );
+    }
+
     return (
       <Link href={project.href} className={className}>
         {inner}

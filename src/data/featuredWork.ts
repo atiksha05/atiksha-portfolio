@@ -46,17 +46,18 @@ export const featuredCaseStudies: FeaturedCaseStudy[] = [
     ctaLabel: "View Case Study",
   },
   {
-    id: "personal-finance-tracker",
-    name: "Personal Finance Tracker",
-    tagline: "Connecting spending habits to savings goals",
+    id: "experimentos",
+    name: "ExperimentOS",
+    tagline: "Turning product hypotheses into measurable decisions.",
     problem:
-      "People track money in spreadsheets or bank apps that don’t connect daily spending to longer-term goals.",
+      "Product teams often ship changes without a structured way to measure whether they actually improve user outcomes.",
     solution:
-      "A budgeting product that links transactions to goals and surfaces clearer financial decisions.",
-    role: "Product owner · scoping and end-to-end delivery",
-    skills: ["Requirements", "User Empathy", "Iteration"],
-    stack: ["Next.js", "Plaid", "OpenAI", "PostgreSQL"],
-    ctaLabel: "Private Project",
+      "An experimentation workspace for defining hypotheses, comparing A/B test performance, measuring lift and statistical confidence, and supporting evidence-backed product decisions.",
+    role: "Product + full-stack builder",
+    skills: ["Experimentation", "Product Analytics", "A/B Testing"],
+    stack: ["React", "TypeScript", "Recharts"],
+    href: "https://github.com/atiksha05/ExperimentOS",
+    ctaLabel: "View Project",
   },
 ];
 
